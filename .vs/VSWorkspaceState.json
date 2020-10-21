@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ExpenseDistributor",
+    "\\ExpenseDistributor\\ExpenseDistributor.Repository",
+    "\\ExpenseDistributor\\ExpenseDistributor.Repository\\TotalExpensesPerRelationship"
+  ],
+  "SelectedNode": "\\ExpenseDistributor\\ExpenseDistributor.Repository\\TotalExpensesPerRelationship\\TotalExpensesPerRelationshipRepository.cs",
+  "PreviewInSolutionExplorer": false
+}
