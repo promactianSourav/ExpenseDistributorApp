@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "KsTNSw2ix6L/2PMkp1H9HUALRamw5ihGDe+ktO/lnSIM38u1FmRUVgbG2+cOvThl36kQvkrAZ9n+vI0P1ks49g==",
+  "success": true,
+  "projectFilePath": "F:\\promact\\WorkingONBoard\\SplitwiseTypeApp\\ExpenseDistributorApp\\ExpenseDistributor\\ExpenseDistributor.Repository.Test\\ExpenseDistributor.Repository.Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
