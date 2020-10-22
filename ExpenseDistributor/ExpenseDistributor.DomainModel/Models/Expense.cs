@@ -15,34 +15,37 @@ namespace ExpenseDistributor.DomainModel.Models
         [Required]
         public string ExpenseName { get; set; }
 
-        [Required]
         public long GroupId { get; set; }
         [ForeignKey("GroupId")]
-        [InverseProperty("GroupExpense")]
+        //[InverseProperty("GroupExpense")]
         public virtual Group Group { get; set; }
 
-        [Required]
         public long PayerUserId { get; set; }
         [ForeignKey("PayerUserId")]
-        [InverseProperty("PayerUserExpense")]
+        //[InverseProperty("PayerUserExpense")]
         public virtual User PayerUser { get; set; }
 
-        [Required]
+
         public long DebtUserId { get; set; }
         [ForeignKey("DebtUserId")]
-        [InverseProperty("DebtUserExpense")]
+        //[InverseProperty("DebtUserExpense")]
         public virtual User DebtUser { get; set; }
 
-        [Required]
+
         public long CreatorUserId { get; set; }
         [ForeignKey("CreatorUserId")]
-        [InverseProperty("CreatorUserExpense")]
+        //[InverseProperty("CreatorUserExpense")]
         public virtual User CreatorUser { get; set; }
 
-        [Required]
+
         public SplitType SplitType { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
+
+        //[InverseProperty("Expense")]
+        //public virtual ICollection<SettlementPerExpense> ExpenseSettlementPerExpense { get; set; }
+
     }
 }

@@ -7,10 +7,11 @@ namespace ExpenseDistributor.DomainModel.Models
 {
     public class GroupedUser
     {
-        [Required]
+        [Key]
+        public long GroupedUserId { get; set; }
+
         public Group Group { get; set; }
 
-        [Required]
         public User GroupsUser { get; set; }
     }
 }

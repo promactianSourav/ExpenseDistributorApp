@@ -1,9 +1,8 @@
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.csprojAssemblyReference.cache
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.AssemblyInfoInputs.cache
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.AssemblyInfo.cs
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.csproj.CoreCompileInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.Repository.deps.json
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.Repository.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.Repository.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.AssemblyInfoInputs.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.AssemblyInfo.cs
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.csproj.CoreCompileInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.pdb

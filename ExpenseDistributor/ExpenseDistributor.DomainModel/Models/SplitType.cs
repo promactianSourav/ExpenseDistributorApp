@@ -7,7 +7,7 @@ namespace ExpenseDistributor.DomainModel.Models
 {
     public class SplitType
     {
-        [Required]
+        [Key]
         public long SplitTypeId { get; set; }
 
         [Required]

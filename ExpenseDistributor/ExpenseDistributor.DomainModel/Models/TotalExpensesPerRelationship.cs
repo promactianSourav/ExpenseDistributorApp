@@ -9,22 +9,21 @@ namespace ExpenseDistributor.DomainModel.Models
     public class TotalExpensesPerRelationship
     {
         [Key]
-        [Required]
         public long TotalExpensesPerRelationshipId { get; set; }
 
-        [Required]
         public long PayerUserId { get; set; }
-        [ForeignKey("PayerUserId")]
-        [InverseProperty("PayerUserTotalExpensesPerRelationship")]
+        //[ForeignKey("PayerUserId")]
+        //[InverseProperty("PayerUserTotalExpensesPerRelationship")]
         public virtual User PayerUser { get; set; }
 
-        [Required]
+
         public long DebtUserId { get; set; }
         [ForeignKey("DebtUserId")]
-        [InverseProperty("DebtUserTotalExpensesPerRelationship")]
+        //[InverseProperty("DebtUserTotalExpensesPerRelationship")]
         public virtual User DebtUser { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
     }
 }
