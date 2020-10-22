@@ -1,0 +1,9 @@
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.deps.json
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.csprojAssemblyReference.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.AssemblyInfoInputs.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.AssemblyInfo.cs
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.csproj.CoreCompileInputs.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.Test.pdb

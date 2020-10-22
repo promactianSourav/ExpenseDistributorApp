@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseDistributor.DomainModel.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ExpenseDistributor
+namespace ExpenseDistributor.Web
 {
     public class Startup
     {
@@ -24,6 +26,8 @@ namespace ExpenseDistributor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddDbContextPool<DataContext>(options =>
+     options.UseSqlServer(Configuration.GetConnectionString("DBCS")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,8 +3,9 @@
     "",
     "\\ExpenseDistributor",
     "\\ExpenseDistributor\\ExpenseDistributor.Repository",
-    "\\ExpenseDistributor\\ExpenseDistributor.Repository\\TotalExpensesPerRelationship"
+    "\\ExpenseDistributor\\ExpenseDistributor.Repository\\TotalExpensesPerRelationship",
+    "\\ExpenseDistributor\\ExpenseDistributor.Web"
   ],
-  "SelectedNode": "\\ExpenseDistributor\\ExpenseDistributor.Repository\\TotalExpensesPerRelationship\\TotalExpensesPerRelationshipRepository.cs",
+  "SelectedNode": "\\ExpenseDistributor\\ExpenseDistributor.Repository",
   "PreviewInSolutionExplorer": false
 }

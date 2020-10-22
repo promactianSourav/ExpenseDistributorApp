@@ -3,38 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Web", "ExpenseDistributor\ExpenseDistributor.Web.csproj", "{D3E73A54-B2D2-4E8F-831E-BCEB476F0D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Core", "ExpenseDistributor.Core\ExpenseDistributor.Core.csproj", "{158BB677-EC74-4503-BFE7-7A7DF521CF9D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA} = {C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Core.Test", "ExpenseDistributor.Core.Test\ExpenseDistributor.Core.Test.csproj", "{0560D0B9-C894-4243-BA54-E4D5802A1342}"
+	ProjectSection(ProjectDependencies) = postProject
+		{158BB677-EC74-4503-BFE7-7A7DF521CF9D} = {158BB677-EC74-4503-BFE7-7A7DF521CF9D}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Repository", "ExpenseDistributor.Repository\ExpenseDistributor.Repository.csproj", "{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1415176-219C-4F81-A15D-51567C8490D2} = {A1415176-219C-4F81-A15D-51567C8490D2}
+		{5CF2ABFA-B8DB-4677-BA19-E4057E89F07E} = {5CF2ABFA-B8DB-4677-BA19-E4057E89F07E}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Repository.Test", "ExpenseDistributor.Repository.Test\ExpenseDistributor.Repository.Test.csproj", "{94562C5A-C642-45B6-B8AC-B3894B02D53D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA} = {C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Util", "ExpenseDistributor.Util\ExpenseDistributor.Util.csproj", "{5CF2ABFA-B8DB-4677-BA19-E4057E89F07E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.DomainModel", "ExpenseDistributor.DomainModel\ExpenseDistributor.DomainModel.csproj", "{A1415176-219C-4F81-A15D-51567C8490D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Web", "ExpenseDistributor.Web\ExpenseDistributor.Web.csproj", "{5A218574-D78A-43E5-A3CC-2307A02E12AA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A1415176-219C-4F81-A15D-51567C8490D2} = {A1415176-219C-4F81-A15D-51567C8490D2}
 		{158BB677-EC74-4503-BFE7-7A7DF521CF9D} = {158BB677-EC74-4503-BFE7-7A7DF521CF9D}
 		{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA} = {C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}
 		{5CF2ABFA-B8DB-4677-BA19-E4057E89F07E} = {5CF2ABFA-B8DB-4677-BA19-E4057E89F07E}
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Core", "ExpenseDistributor.Core\ExpenseDistributor.Core.csproj", "{158BB677-EC74-4503-BFE7-7A7DF521CF9D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA} = {C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Core.Test", "ExpenseDistributor.Core.Test\ExpenseDistributor.Core.Test.csproj", "{0560D0B9-C894-4243-BA54-E4D5802A1342}"
-	ProjectSection(ProjectDependencies) = postProject
-		{158BB677-EC74-4503-BFE7-7A7DF521CF9D} = {158BB677-EC74-4503-BFE7-7A7DF521CF9D}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Repository", "ExpenseDistributor.Repository\ExpenseDistributor.Repository.csproj", "{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A1415176-219C-4F81-A15D-51567C8490D2} = {A1415176-219C-4F81-A15D-51567C8490D2}
-		{5CF2ABFA-B8DB-4677-BA19-E4057E89F07E} = {5CF2ABFA-B8DB-4677-BA19-E4057E89F07E}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Repository.Test", "ExpenseDistributor.Repository.Test\ExpenseDistributor.Repository.Test.csproj", "{94562C5A-C642-45B6-B8AC-B3894B02D53D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA} = {C7AEA3BB-1EFF-4FB8-AD8D-A4F72F0B23FA}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Util", "ExpenseDistributor.Util\ExpenseDistributor.Util.csproj", "{5CF2ABFA-B8DB-4677-BA19-E4057E89F07E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.DomainModel", "ExpenseDistributor.DomainModel\ExpenseDistributor.DomainModel.csproj", "{A1415176-219C-4F81-A15D-51567C8490D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +42,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D3E73A54-B2D2-4E8F-831E-BCEB476F0D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3E73A54-B2D2-4E8F-831E-BCEB476F0D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3E73A54-B2D2-4E8F-831E-BCEB476F0D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3E73A54-B2D2-4E8F-831E-BCEB476F0D95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{158BB677-EC74-4503-BFE7-7A7DF521CF9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{158BB677-EC74-4503-BFE7-7A7DF521CF9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{158BB677-EC74-4503-BFE7-7A7DF521CF9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,6 +66,10 @@ Global
 		{A1415176-219C-4F81-A15D-51567C8490D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1415176-219C-4F81-A15D-51567C8490D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1415176-219C-4F81-A15D-51567C8490D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A218574-D78A-43E5-A3CC-2307A02E12AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A218574-D78A-43E5-A3CC-2307A02E12AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A218574-D78A-43E5-A3CC-2307A02E12AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A218574-D78A-43E5-A3CC-2307A02E12AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

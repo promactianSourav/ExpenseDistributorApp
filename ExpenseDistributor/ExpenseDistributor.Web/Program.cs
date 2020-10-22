@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace ExpenseDistributor
+namespace ExpenseDistributor.Web
 {
     public class Program
     {

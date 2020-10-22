@@ -1,0 +1,8 @@
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\bin\Debug\netstandard2.0\ExpenseDistributor.DomainModel.deps.json
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\bin\Debug\netstandard2.0\ExpenseDistributor.DomainModel.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\bin\Debug\netstandard2.0\ExpenseDistributor.DomainModel.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\obj\Debug\netstandard2.0\ExpenseDistributor.DomainModel.csprojAssemblyReference.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\obj\Debug\netstandard2.0\ExpenseDistributor.DomainModel.AssemblyInfoInputs.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\obj\Debug\netstandard2.0\ExpenseDistributor.DomainModel.AssemblyInfo.cs
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\obj\Debug\netstandard2.0\ExpenseDistributor.DomainModel.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.DomainModel\obj\Debug\netstandard2.0\ExpenseDistributor.DomainModel.pdb

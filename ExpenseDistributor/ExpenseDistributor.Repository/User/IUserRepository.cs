@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExpenseDistributor.Repository.User
 {
-    class UserRepository
+    class IUserRepository
     {
     }
 }
