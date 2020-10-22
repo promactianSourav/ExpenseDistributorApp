@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExpenseDistributor.DomainModel\ExpenseDistributor.DomainModel.csproj" />
+    <ProjectReference Include="..\ExpenseDistributor.Repository\ExpenseDistributor.Repository.csproj" />
   </ItemGroup>
 
 </Project>

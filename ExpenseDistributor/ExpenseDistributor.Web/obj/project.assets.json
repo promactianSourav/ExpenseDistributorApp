@@ -1497,6 +1497,30 @@
         "runtime": {
           "bin/placeholder/ExpenseDistributor.DomainModel.dll": {}
         }
+      },
+      "ExpenseDistributor.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "ExpenseDistributor.DomainModel": "1.0.0",
+          "ExpenseDistributor.Util": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ExpenseDistributor.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ExpenseDistributor.Repository.dll": {}
+        }
+      },
+      "ExpenseDistributor.Util/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/ExpenseDistributor.Util.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ExpenseDistributor.Util.dll": {}
+        }
       }
     }
   },
@@ -5694,11 +5718,22 @@
       "type": "project",
       "path": "../ExpenseDistributor.DomainModel/ExpenseDistributor.DomainModel.csproj",
       "msbuildProject": "../ExpenseDistributor.DomainModel/ExpenseDistributor.DomainModel.csproj"
+    },
+    "ExpenseDistributor.Repository/1.0.0": {
+      "type": "project",
+      "path": "../ExpenseDistributor.Repository/ExpenseDistributor.Repository.csproj",
+      "msbuildProject": "../ExpenseDistributor.Repository/ExpenseDistributor.Repository.csproj"
+    },
+    "ExpenseDistributor.Util/1.0.0": {
+      "type": "project",
+      "path": "../ExpenseDistributor.Util/ExpenseDistributor.Util.csproj",
+      "msbuildProject": "../ExpenseDistributor.Util/ExpenseDistributor.Util.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "ExpenseDistributor.DomainModel >= 1.0.0",
+      "ExpenseDistributor.Repository >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.9"
     ]
   },
@@ -5730,6 +5765,9 @@
           "projectReferences": {
             "F:\\promact\\WorkingONBoard\\SplitwiseTypeApp\\ExpenseDistributorApp\\ExpenseDistributor\\ExpenseDistributor.DomainModel\\ExpenseDistributor.DomainModel.csproj": {
               "projectPath": "F:\\promact\\WorkingONBoard\\SplitwiseTypeApp\\ExpenseDistributorApp\\ExpenseDistributor\\ExpenseDistributor.DomainModel\\ExpenseDistributor.DomainModel.csproj"
+            },
+            "F:\\promact\\WorkingONBoard\\SplitwiseTypeApp\\ExpenseDistributorApp\\ExpenseDistributor\\ExpenseDistributor.Repository\\ExpenseDistributor.Repository.csproj": {
+              "projectPath": "F:\\promact\\WorkingONBoard\\SplitwiseTypeApp\\ExpenseDistributorApp\\ExpenseDistributor\\ExpenseDistributor.Repository\\ExpenseDistributor.Repository.csproj"
             }
           }
         }

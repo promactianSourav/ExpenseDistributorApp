@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExpenseDistributor.DomainModel.Data;
+using ExpenseDistributor.Repository.Expenses;
+using ExpenseDistributor.Repository.Friends;
+using ExpenseDistributor.Repository.Groups;
+using ExpenseDistributor.Repository.Settlements;
+using ExpenseDistributor.Repository.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +32,13 @@ namespace ExpenseDistributor.Web
         {
             services.AddRazorPages();
             services.AddDbContextPool<DataContext>(options =>
-     options.UseSqlServer(Configuration.GetConnectionString("DBCS")));
+                    options.UseSqlServer(Configuration.GetConnectionString("DBCS")));
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IFriendRepository, FriendRepository>();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
+            services.AddScoped<ISettlementRepository, SettlementRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -77,3 +77,7 @@ F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistribu
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.csproj.CoreCompileInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.MvcApplicationPartsAssemblyInfo.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\ExpenseDistributor.Repository.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\ExpenseDistributor.Util.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\ExpenseDistributor.Repository.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\ExpenseDistributor.Util.pdb

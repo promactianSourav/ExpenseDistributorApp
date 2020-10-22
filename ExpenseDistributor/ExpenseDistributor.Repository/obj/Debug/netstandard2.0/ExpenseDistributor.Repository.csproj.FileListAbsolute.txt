@@ -6,3 +6,9 @@ F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistribu
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.csproj.CoreCompileInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.DomainModel.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.Util.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.DomainModel.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\bin\Debug\netstandard2.0\ExpenseDistributor.Util.pdb
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.csprojAssemblyReference.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository\obj\Debug\netstandard2.0\ExpenseDistributor.Repository.csproj.CopyComplete

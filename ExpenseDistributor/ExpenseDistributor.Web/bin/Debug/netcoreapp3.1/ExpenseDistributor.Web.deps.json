@@ -25,6 +25,7 @@
       "ExpenseDistributor.Web/1.0.0": {
         "dependencies": {
           "ExpenseDistributor.DomainModel": "1.0.0",
+          "ExpenseDistributor.Repository": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "3.1.9",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -1404,6 +1405,26 @@
         },
         "compile": {
           "ExpenseDistributor.DomainModel.dll": {}
+        }
+      },
+      "ExpenseDistributor.Repository/1.0.0": {
+        "dependencies": {
+          "ExpenseDistributor.DomainModel": "1.0.0",
+          "ExpenseDistributor.Util": "1.0.0"
+        },
+        "runtime": {
+          "ExpenseDistributor.Repository.dll": {}
+        },
+        "compile": {
+          "ExpenseDistributor.Repository.dll": {}
+        }
+      },
+      "ExpenseDistributor.Util/1.0.0": {
+        "runtime": {
+          "ExpenseDistributor.Util.dll": {}
+        },
+        "compile": {
+          "ExpenseDistributor.Util.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -3722,6 +3743,16 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "ExpenseDistributor.DomainModel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ExpenseDistributor.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ExpenseDistributor.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
