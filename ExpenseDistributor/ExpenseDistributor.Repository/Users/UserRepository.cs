@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExpenseDistributor.DomainModel.Data;
 using ExpenseDistributor.DomainModel.Models;
 
 namespace ExpenseDistributor.Repository.Users
 {
     public class UserRepository : IUserRepository
     {
-        public User DeleteUser(long userId)
+        private readonly DataContext dataContext;
+
+        public UserRepository(DataContext dataContext )
+        {
+            this.dataContext = dataContext;
+        }
+
+        public void DeleteUser(long userId)
         {
             throw new NotImplementedException();
         }
@@ -21,5 +29,7 @@ namespace ExpenseDistributor.Repository.Users
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

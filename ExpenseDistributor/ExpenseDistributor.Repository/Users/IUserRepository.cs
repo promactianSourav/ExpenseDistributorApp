@@ -9,6 +9,6 @@ namespace ExpenseDistributor.Repository.Users
     {
         User GetUser(long userId);
         User UpdateUser(long userId,User userChanges);
-        User DeleteUser(long userId);
+        void DeleteUser(long userId);
     }
 }

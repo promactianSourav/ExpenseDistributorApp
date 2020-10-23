@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExpenseDistributor.DomainModel.Data;
 using ExpenseDistributor.DomainModel.Models;
 
 namespace ExpenseDistributor.Repository.Expenses
 {
     public class ExpenseRepository : IExpenseRepository
     {
+        private readonly DataContext dataContext;
+
+        public ExpenseRepository(DataContext dataContext)
+        {
+            this.dataContext = dataContext;
+        }
         public Expense CreateExpense(long groupId)
         {
             throw new NotImplementedException();
@@ -27,7 +34,7 @@ namespace ExpenseDistributor.Repository.Expenses
             throw new NotImplementedException();
         }
 
-        public Expense UpdateExpense(long groupId, long expenseId, User expenseChange)
+        public Expense UpdateExpense(long groupId, long expenseId, Expense expenseChange)
         {
             throw new NotImplementedException();
         }

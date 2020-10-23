@@ -10,6 +10,6 @@ namespace ExpenseDistributor.Repository.Groups
         IEnumerable<Group> GetAllGroups(long userId);
         Group CreateGroup(long userId);
         Group UpdateGroup(long userId,long groupId, Group groupChange);
-        Group DeleteGroup(long userId,long groupId);
+        void DeleteGroup(long userId,long groupId);
     }
 }

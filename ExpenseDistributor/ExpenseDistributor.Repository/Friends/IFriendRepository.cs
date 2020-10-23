@@ -10,6 +10,6 @@ namespace ExpenseDistributor.Repository.Friends
         IEnumerable<User> GetAllFriends(long userId);
         User CreateFriend(long userId);
         User UpdateFriend(long userId, long friendId, User friendChange);
-        User DeleteFriend(long userId, long friendId);
+        void DeleteFriend(long userId, long friendId);
     }
 }

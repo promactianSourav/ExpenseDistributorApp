@@ -10,7 +10,7 @@ namespace ExpenseDistributor.Repository.Expenses
         IEnumerable<Expense> GetAllNonGroupTransactions(long userId);
         IEnumerable<Expense> GetAllExpenses(long groupId);
         Expense CreateExpense(long groupId);
-        Expense UpdateExpense(long groupId, long expenseId, User expenseChange);
+        Expense UpdateExpense(long groupId, long expenseId, Expense expenseChange);
         Expense DeleteExpense(long groupId, long expenseId);
     }
 }

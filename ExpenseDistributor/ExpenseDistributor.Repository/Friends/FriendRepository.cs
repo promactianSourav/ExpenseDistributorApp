@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExpenseDistributor.DomainModel.Data;
 using ExpenseDistributor.DomainModel.Models;
 
 namespace ExpenseDistributor.Repository.Friends
 {
     public class FriendRepository : IFriendRepository
     {
+        private readonly DataContext dataContext;
+
+        public FriendRepository(DataContext dataContext)
+        {
+            this.dataContext = dataContext;
+        }
         public User CreateFriend(long userId)
         {
             throw new NotImplementedException();
         }
 
-        public User DeleteFriend(long userId, long friendId)
+        public void DeleteFriend(long userId, long friendId)
         {
             throw new NotImplementedException();
         }
