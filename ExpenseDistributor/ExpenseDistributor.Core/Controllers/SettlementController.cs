@@ -27,14 +27,14 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("groups/{userId}/settlement")]
         //[Authorize]
-        public IActionResult CreateForUser(long userId)
+        public IActionResult CreateForUser(long userId, SettlementViewModel settlementViewModel)
         {
-            SettlementViewModel settlementViewModel = new SettlementViewModel()
+            SettlementViewModel _settlementViewModel = new SettlementViewModel()
             {
-                Settlement = settlementRepository.CreateSettlementForUser(userId)
+                Settlement = settlementRepository.CreateSettlementForUser(userId,settlementViewModel.Settlement)
             };
 
-            return Ok(settlementViewModel);
+            return Ok(_settlementViewModel);
         }
 
         [HttpGet("groups/{groupId}/{expenseId}/settlement")]
@@ -47,14 +47,14 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("groups/{groupId}/{expenseId}/settlement")]
         //[Authorize]
-        public IActionResult CreateForExpense(long groupId, long expenseId)
+        public IActionResult CreateForExpense(long groupId, long expenseId, SettlementPerExpenseViewModel settlementPerExpenseViewModel)
         {
-            SettlementViewModel settlementViewModel = new SettlementViewModel()
+            SettlementPerExpenseViewModel _settlementPerExpenseViewModel = new SettlementPerExpenseViewModel()
             {
-                Settlement = settlementRepository.CreateSettlementForExpense(groupId,expenseId)
+                SettlementPerExpense = settlementRepository.CreateSettlementForExpense(groupId,expenseId,settlementPerExpenseViewModel.SettlementPerExpense)
             };
 
-            return Ok(settlementViewModel);
+            return Ok(_settlementPerExpenseViewModel);
         }
     }
 }

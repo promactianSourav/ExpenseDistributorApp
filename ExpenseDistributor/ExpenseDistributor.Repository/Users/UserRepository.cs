@@ -17,17 +17,31 @@ namespace ExpenseDistributor.Repository.Users
 
         public void DeleteUser(long userId)
         {
-            throw new NotImplementedException();
+            var user = dataContext.Users.Find(userId);
+            dataContext.Users.Remove(user);
+            dataContext.SaveChanges();
+
+            //throw new NotImplementedException();
         }
 
         public User GetUser(long userId)
         {
-            throw new NotImplementedException();
+            var user = dataContext.Users.Find(userId);
+            return user;
+
+            //throw new NotImplementedException();
         }
 
         public User UpdateUser(long userId, User userChanges)
         {
-            throw new NotImplementedException();
+            var user = dataContext.Users.Find(userId);
+            user.UserName = userChanges.UserName;
+            user.Email = userChanges.Email;
+            user.Password = userChanges.Password;
+            user.PhoneNumber = userChanges.PhoneNumber;
+            dataContext.SaveChanges();
+            return user;
+            //throw new NotImplementedException();
         }
 
 

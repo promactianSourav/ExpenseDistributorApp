@@ -132,8 +132,12 @@ F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistribu
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.csprojAssemblyReference.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.AssemblyInfoInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.AssemblyInfo.cs
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.csproj.CoreCompileInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.csproj.CopyComplete
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.pdb
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.genruntimeconfig.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netcoreapp3.1\Castle.Core.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netcoreapp3.1\Moq.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netcoreapp3.1\Autofac.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\bin\Debug\netcoreapp3.1\Autofac.Extras.Moq.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Repository.Test\obj\Debug\netcoreapp3.1\ExpenseDistributor.Repository.Test.csproj.CoreCompileInputs.cache

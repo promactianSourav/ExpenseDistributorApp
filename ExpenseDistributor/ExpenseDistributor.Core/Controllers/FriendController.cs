@@ -27,11 +27,11 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("user/{userId}/friends")]
         //[Authorize]
-        public IActionResult Create(long userId)
+        public IActionResult Create(long userId,UserViewModel userViewModel)
         {
             UserViewModel friendViewModel = new UserViewModel()
             {
-                User = friendRepository.CreateFriend(userId)
+                User = friendRepository.CreateFriend(userId,userViewModel.User)
             };
 
             return Ok(friendViewModel);

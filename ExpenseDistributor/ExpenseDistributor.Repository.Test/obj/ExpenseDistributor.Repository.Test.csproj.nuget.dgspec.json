@@ -117,6 +117,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Autofac.Extras.Moq": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "MSTest.TestAdapter": {
               "target": "Package",
               "version": "[2.1.0, )"
@@ -128,6 +132,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.5.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.14.7, )"
             },
             "coverlet.collector": {
               "target": "Package",

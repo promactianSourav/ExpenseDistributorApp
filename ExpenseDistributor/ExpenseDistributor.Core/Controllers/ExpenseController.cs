@@ -36,14 +36,14 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("groups/{groupId}/expenses")]
         //[Authorize]
-        public IActionResult Create(long groupId)
+        public IActionResult Create(long groupId,ExpenseViewModel expenseViewModel)
         {
-            ExpenseViewModel expenseViewModel = new ExpenseViewModel()
+            ExpenseViewModel _expenseViewModel = new ExpenseViewModel()
             {
-                Expense = expenseRepository.CreateExpense(groupId)
+                Expense = expenseRepository.CreateExpense(groupId,expenseViewModel.Expense)
             };
 
-            return Ok(expenseViewModel);
+            return Ok(_expenseViewModel);
         }
 
         [HttpPut("groups/{groupId}/expenses/{expenseId}")]

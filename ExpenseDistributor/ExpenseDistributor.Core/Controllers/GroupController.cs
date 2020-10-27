@@ -27,14 +27,14 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("{userId}")]
         //[Authorize]
-        public IActionResult Create(long userId)
+        public IActionResult Create(long userId,GroupViewModel groupViewModel)
         {
-            GroupViewModel groupViewModel = new GroupViewModel()
+            GroupViewModel _groupViewModel = new GroupViewModel()
             {
-                Group = groupRepository.CreateGroup(userId)
+                Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
             };
 
-            return Ok(groupViewModel);
+            return Ok(_groupViewModel);
         }
 
         [HttpPut("{userId}/{groupId}")]

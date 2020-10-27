@@ -7,10 +7,10 @@ namespace ExpenseDistributor.Repository.Expenses
 {
     public interface IExpenseRepository
     {
-        IEnumerable<Expense> GetAllNonGroupTransactions(long userId);
+        IEnumerable<TotalExpensesPerRelationship> GetAllNonGroupTransactions(long userId);
         IEnumerable<Expense> GetAllExpenses(long groupId);
-        Expense CreateExpense(long groupId);
+        Expense CreateExpense(long groupId,Expense expenseNew);
         Expense UpdateExpense(long groupId, long expenseId, Expense expenseChange);
-        Expense DeleteExpense(long groupId, long expenseId);
+        void DeleteExpense(long groupId, long expenseId);
     }
 }

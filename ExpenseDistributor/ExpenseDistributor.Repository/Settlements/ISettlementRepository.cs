@@ -8,9 +8,9 @@ namespace ExpenseDistributor.Repository.Settlements
     public interface ISettlementRepository
     {
         IEnumerable<Settlement> GetAllSettlementsForUser(long userId);
-        Settlement CreateSettlementForUser(long userId);
+        Settlement CreateSettlementForUser(long userId,Settlement settlementNew);
 
-        IEnumerable<Settlement> GetAllSettlementsForExpense(long groupId, long expenseId);
-        Settlement CreateSettlementForExpense(long groupId, long expenseId);
+        IEnumerable<SettlementPerExpense> GetAllSettlementsForExpense(long groupId, long expenseId);
+        SettlementPerExpense CreateSettlementForExpense(long groupId, long expenseId, SettlementPerExpense settlementPerExpenseNew);
     }
 }

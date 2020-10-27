@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ExpenseDistributor.DomainModel.Data;
 using ExpenseDistributor.DomainModel.Models;
@@ -14,24 +15,36 @@ namespace ExpenseDistributor.Repository.Settlements
         {
             this.dataContext = dataContext;
         }
-        public Settlement CreateSettlementForExpense(long groupId, long expenseId)
+
+        public SettlementPerExpense CreateSettlementForExpense(long groupId, long expenseId, SettlementPerExpense settlementPerExpenseNew)
         {
-            throw new NotImplementedException();
+            dataContext.SettlementPerExpenses.Add(settlementPerExpenseNew);
+            dataContext.SaveChanges();
+            return settlementPerExpenseNew;
+            //throw new NotImplementedException();
         }
 
-        public Settlement CreateSettlementForUser(long userId)
+        public Settlement CreateSettlementForUser(long userId, Settlement settlementNew)
         {
-            throw new NotImplementedException();
+            dataContext.Settlements.Add(settlementNew);
+            dataContext.SaveChanges();
+
+            return settlementNew;
+            //throw new NotImplementedException();
         }
 
-        public IEnumerable<Settlement> GetAllSettlementsForExpense(long groupId, long expenseId)
+        public IEnumerable<SettlementPerExpense> GetAllSettlementsForExpense(long groupId, long expenseId)
         {
-            throw new NotImplementedException();
+            var settlementPerExpenseList = dataContext.SettlementPerExpenses.Where(s => s.ExpenseId == expenseId);
+            return settlementPerExpenseList;
+            //throw new NotImplementedException();
         }
 
         public IEnumerable<Settlement> GetAllSettlementsForUser(long userId)
         {
-            throw new NotImplementedException();
+            var settlementList = dataContext.Settlements.Where(s => s.PayerUserId == userId).ToList();
+            return settlementList;
+            //throw new NotImplementedException();
         }
     }
 }
