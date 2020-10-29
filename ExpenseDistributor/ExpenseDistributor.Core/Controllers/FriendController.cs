@@ -28,32 +28,39 @@ namespace ExpenseDistributor.Core.Controllers
         public IActionResult GetList(long userId)
         {
             var list = friendRepository.GetAllFriends(userId).ToList();
-            var listuserDto = mapper.Map<List<User>, List<UserReturnAC>>(list);
-            return Ok(listuserDto);
+            var listfriendDto = mapper.Map<List<Friend>, List<FriendAC>>(list);
+            return Ok(listfriendDto);
         }
 
         [HttpPost("user/{userId}/friends")]
         //[Authorize]
-        public IActionResult Create(long userId,UserViewModel userViewModel)
+        public IActionResult Create(long userId,FriendAC friendAC)
         {
-            UserViewModel friendViewModel = new UserViewModel()
-            {
-                User = friendRepository.CreateFriend(userId,userViewModel.User)
-            };
 
-            return Ok(friendViewModel);
+            var friend = mapper.Map<FriendAC, Friend>(friendAC);
+            var friend2 = friendRepository.CreateFriend(userId, friend);
+            var friendDto = mapper.Map<Friend, FriendAC>(friend2);
+            //UserViewModel friendViewModel = new UserViewModel()
+            //{
+            //    User = friendRepository.CreateFriend(userId,userViewModel.User)
+            //};
+
+            return Ok(friendDto);
         }
 
         [HttpPut("user/{userId}/friends/{friendId}")]
         //[Authorize]
-        public IActionResult Update(long userId, long friendId, UserViewModel userViewModel)
+        public IActionResult Update(long userId, long friendId, FriendAC friendAC)
         {
-            UserViewModel _friendViewModel = new UserViewModel()
-            {
-                User = friendRepository.UpdateFriend(userId, friendId,userViewModel.User)
-            };
+            var friend = mapper.Map<FriendAC, Friend>(friendAC);
+            var friend2 = friendRepository.UpdateFriend(userId, friendId, friend);
+            var friendDto = mapper.Map<Friend, FriendAC>(friend2);
+            //UserViewModel _friendViewModel = new UserViewModel()
+            //{
+            //    User = friendRepository.UpdateFriend(userId, friendId,userViewModel.User)
+            //};
 
-            return Ok(_friendViewModel);
+            return Ok(friendDto);
         }
 
         [HttpDelete("user/{userId}/friends/{friendId}")]

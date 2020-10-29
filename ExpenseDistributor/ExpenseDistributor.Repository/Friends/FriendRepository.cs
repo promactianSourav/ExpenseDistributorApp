@@ -16,33 +16,35 @@ namespace ExpenseDistributor.Repository.Friends
             this.dataContext = dataContext;
         }
 
-        public User CreateFriend(long userId, User userNew)
+        public Friend CreateFriend(long userId, Friend friendNew)
         {
-            dataContext.Users.Add(userNew);
+            friendNew.CreatorUserId = userId;
+            dataContext.Friends.Add(friendNew);
             dataContext.SaveChanges();
-            return userNew;
+            return friendNew;
             //throw new NotImplementedException();
         }
 
         public void DeleteFriend(long userId, long friendId)
         {
-            var friend = dataContext.Users.Find(friendId);
-            dataContext.Users.Remove(friend);
+            var friend = dataContext.Friends.Find(friendId);
+            dataContext.Friends.Remove(friend);
             dataContext.SaveChanges();
             //throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAllFriends(long userId)
+        public IEnumerable<Friend> GetAllFriends(long userId)
         {
-            var friendList = dataContext.Users.Where(u => u.UserId!=userId);
+            var friendList = dataContext.Friends.Where(u => u.CreatorUserId==userId);
             return friendList;
             //throw new NotImplementedException();
         }
 
-        public User UpdateFriend(long userId, long friendId, User friendChange)
+        public Friend UpdateFriend(long userId, long friendId, Friend friendChange)
         {
-            var friend = dataContext.Users.Find(friendId);
-            friend.UserName = friendChange.UserName;
+            //Acutally it is a friendRelationshipId
+            var friend = dataContext.Friends.Find(friendId);
+            friend.Name = friendChange.Name;
             friend.Email = friendChange.Email;
             friend.PhoneNumber = friendChange.PhoneNumber;
             dataContext.SaveChanges();

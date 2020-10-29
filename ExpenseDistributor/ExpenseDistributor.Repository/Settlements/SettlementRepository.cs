@@ -26,6 +26,8 @@ namespace ExpenseDistributor.Repository.Settlements
 
         public Settlement CreateSettlementForUser(long userId, Settlement settlementNew)
         {
+            var totalExpensePerRelationshipId = dataContext.TotalExpensesPerRelationships.FirstOrDefault(t => t.PayerUserId == userId).TotalExpensesPerRelationshipId;
+            settlementNew.TotalExpensePerRelationshipId = totalExpensePerRelationshipId;
             dataContext.Settlements.Add(settlementNew);
             dataContext.SaveChanges();
 

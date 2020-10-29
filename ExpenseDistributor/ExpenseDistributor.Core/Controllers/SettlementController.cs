@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using AutoMapper;
+using ExpenseDistributor.Core.ApplicationClasses;
+using ExpenseDistributor.DomainModel.Models;
 using ExpenseDistributor.DomainModel.ViewModels;
 using ExpenseDistributor.Repository.Settlements;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +15,12 @@ namespace ExpenseDistributor.Core.Controllers
     public class SettlementController:ControllerBase
     {
         private readonly ISettlementRepository settlementRepository;
+        private readonly IMapper mapper;
 
-        public SettlementController(ISettlementRepository settlementRepository)
+        public SettlementController(ISettlementRepository settlementRepository,IMapper mapper)
         {
             this.settlementRepository = settlementRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet("check")]
@@ -35,42 +41,52 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("groups/{userId}/settlement")]
         //[Authorize]
-        public IActionResult GetListForUser(long userId)
+        public IActionResult GetListForUser([FromRoute] long userId)
         {
-            var list = settlementRepository.GetAllSettlementsForUser(userId);
-            return Ok(list);
+            var list = settlementRepository.GetAllSettlementsForUser(userId).ToList();
+            var listsettlementDto = mapper.Map<List<Settlement>, List<SettlementAC>>(list);
+            return Ok(listsettlementDto);
         }
 
         [HttpPost("groups/{userId}/settlement")]
         //[Authorize]
-        public IActionResult CreateForUser(long userId, SettlementViewModel settlementViewModel)
+        public IActionResult CreateForUser([FromRoute] long userId,[FromBody] SettlementAC settlementAC)
         {
-            SettlementViewModel _settlementViewModel = new SettlementViewModel()
-            {
-                Settlement = settlementRepository.CreateSettlementForUser(userId,settlementViewModel.Settlement)
-            };
+            var settlement = mapper.Map<SettlementAC, Settlement>(settlementAC);
+            var settlement2 = settlementRepository.CreateSettlementForUser(userId, settlement);
+            var settlementDto = mapper.Map<Settlement, SettlementAC>(settlement2);
 
-            return Ok(_settlementViewModel);
+            //SettlementViewModel _settlementViewModel = new SettlementViewModel()
+            //{
+            //    Settlement = settlementRepository.CreateSettlementForUser(userId,settlementViewModel.Settlement)
+            //};
+
+            return Ok(settlementDto);
         }
 
         [HttpGet("groups/{groupId}/{expenseId}/settlement")]
         //[Authorize]
         public IActionResult GetListForExpense(long groupId, long expenseId)
         {
-            var list = settlementRepository.GetAllSettlementsForExpense(groupId, expenseId);
-            return Ok(list);
+            var list = settlementRepository.GetAllSettlementsForExpense(groupId, expenseId).ToList();
+            var listSettlementForExpense = mapper.Map<List<SettlementPerExpense>, List<SettlementPerExpenseAC>>(list);
+            return Ok(listSettlementForExpense);
         }
 
         [HttpPost("groups/{groupId}/{expenseId}/settlement")]
         //[Authorize]
-        public IActionResult CreateForExpense(long groupId, long expenseId, SettlementPerExpenseViewModel settlementPerExpenseViewModel)
+        public IActionResult CreateForExpense(long groupId, long expenseId, SettlementPerExpenseAC settlementPerExpenseAC)
         {
-            SettlementPerExpenseViewModel _settlementPerExpenseViewModel = new SettlementPerExpenseViewModel()
-            {
-                SettlementPerExpense = settlementRepository.CreateSettlementForExpense(groupId,expenseId,settlementPerExpenseViewModel.SettlementPerExpense)
-            };
 
-            return Ok(_settlementPerExpenseViewModel);
+            var settlementPerExpense = mapper.Map<SettlementPerExpenseAC, SettlementPerExpense>(settlementPerExpenseAC);
+            var settlementPerExpense2 = settlementRepository.CreateSettlementForExpense(groupId, expenseId, settlementPerExpense);
+            var settlementPerExpenseDto = mapper.Map<SettlementPerExpense, SettlementPerExpenseAC>(settlementPerExpense2);
+            //SettlementPerExpenseViewModel _settlementPerExpenseViewModel = new SettlementPerExpenseViewModel()
+            //{
+            //    SettlementPerExpense = settlementRepository.CreateSettlementForExpense(groupId,expenseId,settlementPerExpenseViewModel.SettlementPerExpense)
+            //};
+
+            return Ok(settlementPerExpenseDto);
         }
     }
 }

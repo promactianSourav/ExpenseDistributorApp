@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using AutoMapper;
+using ExpenseDistributor.Core.ApplicationClasses;
+using ExpenseDistributor.DomainModel.Models;
 using ExpenseDistributor.DomainModel.ViewModels;
 using ExpenseDistributor.Repository.Expenses;
 using Microsoft.AspNetCore.Mvc;
@@ -11,18 +15,21 @@ namespace ExpenseDistributor.Core.Controllers
     public class ExpenseController:ControllerBase
     {
         private readonly IExpenseRepository expenseRepository;
+        private readonly IMapper mapper;
 
-        public ExpenseController(IExpenseRepository expenseRepository)
+        public ExpenseController(IExpenseRepository expenseRepository,IMapper mapper)
         {
             this.expenseRepository = expenseRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet("groups/{groupId}/nongrouptransaction")]
         //[Authorize]
         public IActionResult GetListNonGroup(long groupId)
         {
-            var list = expenseRepository.GetAllNonGroupTransactions(groupId);
-            return Ok(list);
+            var list = expenseRepository.GetAllNonGroupTransactions(groupId).ToList();
+            var listTransactionDto = mapper.Map<List<TotalExpensesPerRelationship>, List<TotalExpensesPerRelationshipAC>>(list);
+            return Ok(listTransactionDto);
         }
 
 
@@ -30,32 +37,40 @@ namespace ExpenseDistributor.Core.Controllers
         //[Authorize]
         public IActionResult GetList(long groupId)
         {
-            var list = expenseRepository.GetAllExpenses(groupId);
-            return Ok(list);
+            var list = expenseRepository.GetAllExpenses(groupId).ToList();
+            var listExpensesDto = mapper.Map<List<Expense>, List<ExpenseAC>>(list);
+
+            return Ok(listExpensesDto);
         }
 
         [HttpPost("groups/{groupId}/expenses")]
         //[Authorize]
-        public IActionResult Create(long groupId,ExpenseViewModel expenseViewModel)
+        public IActionResult Create(long groupId,ExpenseAC expenseAC)
         {
-            ExpenseViewModel _expenseViewModel = new ExpenseViewModel()
-            {
-                Expense = expenseRepository.CreateExpense(groupId,expenseViewModel.Expense)
-            };
+            var expense = mapper.Map<ExpenseAC, Expense>(expenseAC);
+            var expense2 = expenseRepository.CreateExpense(groupId, expense);
+            var expenseDto = mapper.Map<Expense, ExpenseAC>(expense2);
+            //ExpenseViewModel _expenseViewModel = new ExpenseViewModel()
+            //{
+            //    Expense = expenseRepository.CreateExpense(groupId,expenseViewModel.Expense)
+            //};
 
-            return Ok(_expenseViewModel);
+            return Ok(expenseDto);
         }
 
         [HttpPut("groups/{groupId}/expenses/{expenseId}")]
         //[Authorize]
-        public IActionResult Update(long groupId, long expenseId, ExpenseViewModel expenseViewModel)
+        public IActionResult Update(long groupId, long expenseId, ExpenseAC expenseAC)
         {
-            ExpenseViewModel _expenseViewModel = new ExpenseViewModel()
-            {
-                Expense = expenseRepository.UpdateExpense(groupId,expenseId,expenseViewModel.Expense)
-            };
+            var expense = mapper.Map<ExpenseAC, Expense>(expenseAC);
+            var expense2 = expenseRepository.UpdateExpense(groupId, expenseId, expense);
+            var expenseDto = mapper.Map<Expense, ExpenseAC>(expense2);
+            //ExpenseViewModel _expenseViewModel = new ExpenseViewModel()
+            //{
+            //    Expense = expenseRepository.UpdateExpense(groupId,expenseId,expenseViewModel.Expense)
+            //};
 
-            return Ok(_expenseViewModel);
+            return Ok(expenseDto);
         }
 
         [HttpDelete("groups/{groupId}/expenses/{expenseId}")]
