@@ -44,6 +44,12 @@ namespace ExpenseDistributor.DomainModel.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
+        [Required]
+        public string Date { get; set; }
+
+        [Required]
+        public Currency Currency { get; set; }
+
         //[InverseProperty("Expense")]
         //public virtual ICollection<SettlementPerExpense> ExpenseSettlementPerExpense { get; set; }
 

@@ -14,6 +14,8 @@ namespace ExpenseDistributor.DomainModel.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Friend> Friends { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Settlement> Settlements { get; set; }
@@ -96,6 +98,20 @@ namespace ExpenseDistributor.DomainModel.Data
                  .HasOne(t => t.Group)
                  .WithMany(u => u.GroupGroup)
                  .HasForeignKey(t => t.GroupId)
+                 .IsRequired(true)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Friend>()
+                 .HasOne(t => t.FriendUser)
+                 .WithMany(u => u.FriendUserFriend)
+                 .HasForeignKey(t => t.FriendUserId)
+                 .IsRequired(true)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Friend>()
+                 .HasOne(t => t.CreatorUser)
+                 .WithMany(u => u.CreatorUserFriend)
+                 .HasForeignKey(t => t.CreatorUserId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 

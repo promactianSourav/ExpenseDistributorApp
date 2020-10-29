@@ -53,5 +53,11 @@ namespace ExpenseDistributor.DomainModel.Models
         [InverseProperty("CreatorUser")]
         public virtual ICollection<Expense> CreatorUserExpense { get; set; }
 
+
+        [InverseProperty("FriendUser")]
+        public virtual ICollection<Friend> FriendUserFriend { get; set; }
+
+        [InverseProperty("CreatorUser")]
+        public virtual ICollection<Friend> CreatorUserFriend { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using ExpenseDistributor.DomainModel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseDistributor.DomainModel.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201029102215_SecondMigrations")]
+    partial class SecondMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +37,7 @@ namespace ExpenseDistributor.DomainModel.Migrations
 
                     b.HasKey("CurrencyId");
 
-                    b.ToTable("Currencies");
+                    b.ToTable("Currency");
                 });
 
             modelBuilder.Entity("ExpenseDistributor.DomainModel.Models.Expense", b =>
@@ -126,7 +128,7 @@ namespace ExpenseDistributor.DomainModel.Migrations
 
                     b.HasIndex("FriendUserId");
 
-                    b.ToTable("Friends");
+                    b.ToTable("Friend");
                 });
 
             modelBuilder.Entity("ExpenseDistributor.DomainModel.Models.Group", b =>

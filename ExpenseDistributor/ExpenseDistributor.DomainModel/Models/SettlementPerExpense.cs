@@ -31,5 +31,8 @@ namespace ExpenseDistributor.DomainModel.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
+
+        public string Date { get; set; }
+        public Currency Currency { get; set; }
     }
 }
