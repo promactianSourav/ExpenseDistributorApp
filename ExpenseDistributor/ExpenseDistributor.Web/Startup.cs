@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using AutoMapper;
+using ExpenseDistributor.Core.Controllers;
 using ExpenseDistributor.DomainModel.Data;
 using ExpenseDistributor.Repository.Expenses;
 using ExpenseDistributor.Repository.Friends;
 using ExpenseDistributor.Repository.Groups;
 using ExpenseDistributor.Repository.Settlements;
 using ExpenseDistributor.Repository.Users;
+using ExpenseDistributor.Web.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +34,17 @@ namespace ExpenseDistributor.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder =>
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin());
+            });
+            //services.AddAutoMapper(typeof(MappingProfile));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddRazorPages();
             services.AddDbContextPool<DataContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DBCS")));
 
@@ -39,6 +53,10 @@ namespace ExpenseDistributor.Web
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<ISettlementRepository, SettlementRepository>();
+            //var a = Assembly.Load(typeof(ExpenseDistributor.Core));
+            //var a = Assembly.GetAssembly(typeof(UserController));
+            services.AddMvc();
+                //.AddApplicationPart(a);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,12 +66,14 @@ namespace ExpenseDistributor.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            //else
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -61,10 +81,15 @@ namespace ExpenseDistributor.Web
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+                //endpoints.MapControllerRoute(
+                //    name:"/User",
+                //    pattern: "{controller=User}/{action=check}/{Id?}"
+                //    );
+                //endpoints.MapRazorPages();
             });
         }
     }

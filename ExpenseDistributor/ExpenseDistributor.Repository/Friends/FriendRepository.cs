@@ -44,7 +44,6 @@ namespace ExpenseDistributor.Repository.Friends
             var friend = dataContext.Users.Find(friendId);
             friend.UserName = friendChange.UserName;
             friend.Email = friendChange.Email;
-            friend.Password = friendChange.Password;
             friend.PhoneNumber = friendChange.PhoneNumber;
             dataContext.SaveChanges();
             return friend;

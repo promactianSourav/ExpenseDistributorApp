@@ -26,9 +26,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Web", "E
 		{5CF2ABFA-B8DB-4677-BA19-E4057E89F07E} = {5CF2ABFA-B8DB-4677-BA19-E4057E89F07E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Repository.Test", "ExpenseDistributor.Repository.Test\ExpenseDistributor.Repository.Test.csproj", "{2286B5E3-49A7-4CF7-9E09-107FD353F8B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Repository.Test", "ExpenseDistributor.Repository.Test\ExpenseDistributor.Repository.Test.csproj", "{2286B5E3-49A7-4CF7-9E09-107FD353F8B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseDistributor.Core.Test", "ExpenseDistributor.Core.Test\ExpenseDistributor.Core.Test.csproj", "{B8610914-295A-4A35-A85E-9EAC018A9B03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseDistributor.Core.Test", "ExpenseDistributor.Core.Test\ExpenseDistributor.Core.Test.csproj", "{B8610914-295A-4A35-A85E-9EAC018A9B03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{158BB677-EC74-4503-BFE7-7A7DF521CF9D} = {158BB677-EC74-4503-BFE7-7A7DF521CF9D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

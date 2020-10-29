@@ -17,6 +17,22 @@ namespace ExpenseDistributor.Core.Controllers
             this.settlementRepository = settlementRepository;
         }
 
+        [HttpGet("check")]
+        //[Authorize]
+        public IActionResult Check()
+        {
+            var result = false;
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Ok(new { Message = "Unauthorized user! Either password or username is wrong." });
+            }
+
+        }
+
         [HttpGet("groups/{userId}/settlement")]
         //[Authorize]
         public IActionResult GetListForUser(long userId)
