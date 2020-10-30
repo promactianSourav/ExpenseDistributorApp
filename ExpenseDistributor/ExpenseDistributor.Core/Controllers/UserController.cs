@@ -83,12 +83,15 @@ namespace ExpenseDistributor.Core.Controllers
             var user = mapper.Map<UserAC, User>(userAC);
             var user2 = userRepository.CreateNewUser(user);
             var userDto = mapper.Map<User, UserReturnAC>(user2);
+            var friend = mapper.Map<User, Friend>(user2);
+            var friend2 = userRepository.CreateFriend(user2.UserId, friend);
+            var friendDto = mapper.Map<Friend, FriendAC>(friend2);
             //UserViewModel _userViewModel = new UserViewModel()
             //{
             //    User = userRepository.CreateNewUser(userViewModel.User)
             //};
 
-            return Ok(userDto);
+            return Ok(new { User=userDto,Friend=friendDto});
         }
 
         [HttpGet("{userId}")]

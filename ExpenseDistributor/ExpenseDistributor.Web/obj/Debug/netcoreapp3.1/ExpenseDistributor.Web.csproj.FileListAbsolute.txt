@@ -71,9 +71,6 @@ F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistribu
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.csprojAssemblyReference.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.AssemblyInfoInputs.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.AssemblyInfo.cs
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.csproj.CoreCompileInputs.cache
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.MvcApplicationPartsAssemblyInfo.cs
-F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.MvcApplicationPartsAssemblyInfo.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.RazorAssemblyInfo.cache
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.RazorAssemblyInfo.cs
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.TagHelpers.input.cache
@@ -95,3 +92,7 @@ F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistribu
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.pdb
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.genruntimeconfig.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.csproj.CoreCompileInputs.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.MvcApplicationPartsAssemblyInfo.cs
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.MvcApplicationPartsAssemblyInfo.cache

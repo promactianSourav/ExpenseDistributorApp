@@ -24,7 +24,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("groups/{groupId}/nongrouptransaction")]
         //[Authorize]
-        public IActionResult GetListNonGroup(long groupId)
+        public IActionResult GetListNonGroup([FromRoute] long groupId)
         {
             var list = expenseRepository.GetAllNonGroupTransactions(groupId).ToList();
             var listTransactionDto = mapper.Map<List<TotalExpensesPerRelationship>, List<TotalExpensesPerRelationshipAC>>(list);
@@ -34,7 +34,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("groups/{groupId}/expenses")]
         //[Authorize]
-        public IActionResult GetList(long groupId)
+        public IActionResult GetList([FromRoute] long groupId)
         {
             var list = expenseRepository.GetAllExpenses(groupId).ToList();
             var listExpensesDto = mapper.Map<List<Expense>, List<ExpenseAC>>(list);
@@ -44,7 +44,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("groups/{groupId}/expenses")]
         //[Authorize]
-        public IActionResult Create(long groupId,ExpenseAC expenseAC)
+        public IActionResult Create([FromRoute] long groupId,[FromBody] ExpenseAC expenseAC)
         {
             var expense = mapper.Map<ExpenseAC, Expense>(expenseAC);
             var expense2 = expenseRepository.CreateExpense(groupId, expense);
@@ -59,7 +59,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPut("groups/{groupId}/expenses/{expenseId}")]
         //[Authorize]
-        public IActionResult Update(long groupId, long expenseId, ExpenseAC expenseAC)
+        public IActionResult Update([FromRoute] long groupId, [FromRoute] long expenseId,[FromBody] ExpenseAC expenseAC)
         {
             var expense = mapper.Map<ExpenseAC, Expense>(expenseAC);
             var expense2 = expenseRepository.UpdateExpense(groupId, expenseId, expense);
@@ -74,7 +74,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpDelete("groups/{groupId}/expenses/{expenseId}")]
         //[Authorize]
-        public IActionResult Delete(long groupId, long expenseId)
+        public IActionResult Delete([FromRoute] long groupId, [FromRoute] long expenseId)
         {
             expenseRepository.DeleteExpense(groupId, expenseId);
             return Ok();

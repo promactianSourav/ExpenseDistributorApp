@@ -24,7 +24,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("{userId}")]
         //[Authorize]
-        public IActionResult GetList(long userId)
+        public IActionResult GetList([FromRoute] long userId)
         {
             var list = groupRepository.GetAllGroups(userId).ToList();
             var listGroupDto = mapper.Map<List<Group>, List<GroupAC>>(list);
@@ -33,7 +33,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("{userId}")]
         //[Authorize]
-        public IActionResult Create(long userId,GroupAC groupAC)
+        public IActionResult Create([FromRoute] long userId, [FromBody] GroupAC groupAC)
         {
             var group = mapper.Map<GroupAC, Group>(groupAC);
             var group2 = groupRepository.CreateGroup(userId, group);
@@ -48,7 +48,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPut("{userId}/{groupId}")]
         //[Authorize]
-        public IActionResult Update(long userId,long groupId, GroupAC groupAC)
+        public IActionResult Update([FromRoute] long userId, [FromRoute] long groupId,[FromBody] GroupAC groupAC)
         {
             var group = mapper.Map<GroupAC, Group>(groupAC);
             var group2 = groupRepository.UpdateGroup(userId, groupId, group);
@@ -63,7 +63,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpDelete("{userId}/{groupId}")]
         //[Authorize]
-        public IActionResult Delete(long userId,long groupId)
+        public IActionResult Delete([FromRoute] long userId, [FromRoute] long groupId)
         {
             groupRepository.DeleteGroup(userId, groupId);
             return Ok();

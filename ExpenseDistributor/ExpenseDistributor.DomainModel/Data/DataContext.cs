@@ -101,12 +101,14 @@ namespace ExpenseDistributor.DomainModel.Data
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Friend>()
-                 .HasOne(t => t.FriendUser)
-                 .WithMany(u => u.FriendUserFriend)
-                 .HasForeignKey(t => t.FriendUserId)
-                 .IsRequired(true)
-                 .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<Friend>()
+            //     .HasOne(t => t.FriendUser)
+            //     .WithMany(u => u.FriendUserFriend)
+            //     .HasForeignKey(t => t.FriendUserId)
+            //     .IsRequired(true)
+            //     .OnDelete(DeleteBehavior.NoAction);
+            
+                
 
             builder.Entity<Friend>()
                  .HasOne(t => t.CreatorUser)

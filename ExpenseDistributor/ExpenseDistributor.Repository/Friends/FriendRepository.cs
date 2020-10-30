@@ -19,6 +19,7 @@ namespace ExpenseDistributor.Repository.Friends
         public Friend CreateFriend(long userId, Friend friendNew)
         {
             friendNew.CreatorUserId = userId;
+            friendNew.Date = DateTime.Now.ToString("dd/MM/yyyy");
             dataContext.Friends.Add(friendNew);
             dataContext.SaveChanges();
             return friendNew;
@@ -35,7 +36,8 @@ namespace ExpenseDistributor.Repository.Friends
 
         public IEnumerable<Friend> GetAllFriends(long userId)
         {
-            var friendList = dataContext.Friends.Where(u => u.CreatorUserId==userId);
+            var friendList = dataContext.Friends.Where(u => u.CreatorUserId==userId).ToList();
+            Console.WriteLine(friendList.Count+"Repo");
             return friendList;
             //throw new NotImplementedException();
         }

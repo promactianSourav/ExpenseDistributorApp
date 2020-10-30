@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseDistributor.Core.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user/{userId}/[controller]")]
     public class FriendController:ControllerBase
     {
         private readonly IFriendRepository friendRepository;
@@ -22,18 +22,23 @@ namespace ExpenseDistributor.Core.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("user/{userId}/friends")]
+        [HttpGet]
         //[Authorize]
-        public IActionResult GetList(long userId)
+        public IActionResult GetList([FromRoute] long userId)
         {
             var list = friendRepository.GetAllFriends(userId).ToList();
             var listfriendDto = mapper.Map<List<Friend>, List<FriendAC>>(list);
+            Console.WriteLine(listfriendDto.Count);
+            if(listfriendDto.Count == 0)
+            {
+                return Ok(new { Message = "Your list is empty." });
+            }
             return Ok(listfriendDto);
         }
 
-        [HttpPost("user/{userId}/friends")]
+        [HttpPost]
         //[Authorize]
-        public IActionResult Create(long userId,FriendAC friendAC)
+        public IActionResult Create([FromRoute] long userId,[FromBody] FriendAC friendAC)
         {
 
             var friend = mapper.Map<FriendAC, Friend>(friendAC);
@@ -47,9 +52,9 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(friendDto);
         }
 
-        [HttpPut("user/{userId}/friends/{friendId}")]
+        [HttpPut("{friendId}")]
         //[Authorize]
-        public IActionResult Update(long userId, long friendId, FriendAC friendAC)
+        public IActionResult Update([FromRoute] long userId, [FromRoute] long friendId, [FromBody] FriendAC friendAC)
         {
             var friend = mapper.Map<FriendAC, Friend>(friendAC);
             var friend2 = friendRepository.UpdateFriend(userId, friendId, friend);
@@ -62,9 +67,9 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(friendDto);
         }
 
-        [HttpDelete("user/{userId}/friends/{friendId}")]
+        [HttpDelete("{friendId}")]
         //[Authorize]
-        public IActionResult Delete(long userId, long friendId)
+        public IActionResult Delete([FromRoute] long userId, [FromRoute] long friendId)
         {
             friendRepository.DeleteFriend(userId, friendId);
             return Ok();

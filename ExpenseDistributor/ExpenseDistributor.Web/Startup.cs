@@ -20,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+
 namespace ExpenseDistributor.Web
 {
     public class Startup
@@ -42,6 +43,8 @@ namespace ExpenseDistributor.Web
                     .AllowAnyHeader()
                     .AllowAnyOrigin());
             });
+            services.AddControllers().AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             //services.AddAutoMapper(typeof(MappingProfile));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddRazorPages();
@@ -56,6 +59,7 @@ namespace ExpenseDistributor.Web
             //var a = Assembly.Load(typeof(ExpenseDistributor.Core));
             //var a = Assembly.GetAssembly(typeof(UserController));
             services.AddMvc();
+           
                 //.AddApplicationPart(a);
         }
 

@@ -28,6 +28,7 @@ namespace ExpenseDistributor.Repository.Users
         public bool Login(string email,string password)
         {
             var result = dataContext.Users.FirstOrDefault(u => u.Email == email && u.Password==password);
+        
             if (result!=null)
             {
                 return true;
@@ -42,20 +43,35 @@ namespace ExpenseDistributor.Repository.Users
         public User CreateNewUser(User user)
         {
             dataContext.Users.Add(user);
-            Friend friendSelf = new Friend();
-            friendSelf.Name = user.Name;
-            friendSelf.Email = user.Email;
-            friendSelf.PhoneNumber = user.PhoneNumber;
-            dataContext.Friends.Add(friendSelf);
             dataContext.SaveChanges();
+            //Friend friendSelf = new Friend();
+            //friendSelf.Name = user.Name;
+            //friendSelf.Email = user.Email;
+            //friendSelf.PhoneNumber = user.PhoneNumber;
+            //friendSelf.CreatorUserId = user.UserId;
+            //friendSelf.Date = DateTime.Now.ToString("dd/MM/yyyy");
+            //dataContext.Friends.Add(friendSelf);
+            //dataContext.SaveChanges();
             return user;
+            //throw new NotImplementedException();
+        }
+        public Friend CreateFriend(long userId, Friend friendNew)
+        {
+            friendNew.CreatorUserId = userId;
+            friendNew.Date = DateTime.Now.ToString("dd/MM/yyyy");
+            dataContext.Friends.Add(friendNew);
+            dataContext.SaveChanges();
+            return friendNew;
             //throw new NotImplementedException();
         }
 
         public void DeleteUser(long userId)
         {
             var user = dataContext.Users.Find(userId);
+            var listFriendToBeRemoved = dataContext.Friends.Where(f => f.CreatorUserId == userId).ToList();
+            dataContext.Friends.RemoveRange(listFriendToBeRemoved);
             dataContext.Users.Remove(user);
+
             dataContext.SaveChanges();
 
             //throw new NotImplementedException();
@@ -81,5 +97,6 @@ namespace ExpenseDistributor.Repository.Users
             //throw new NotImplementedException();
         }
 
+        
     }
 }

@@ -4,14 +4,16 @@ using ExpenseDistributor.DomainModel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseDistributor.DomainModel.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201030055540_FifthMigrationsNullForFriendUserId")]
+    partial class FifthMigrationsNullForFriendUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,6 +112,7 @@ namespace ExpenseDistributor.DomainModel.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("FriendUserId")
+                        .IsRequired()
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
@@ -394,7 +397,9 @@ namespace ExpenseDistributor.DomainModel.Migrations
 
                     b.HasOne("ExpenseDistributor.DomainModel.Models.User", "FriendUser")
                         .WithMany("FriendUserFriend")
-                        .HasForeignKey("FriendUserId");
+                        .HasForeignKey("FriendUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ExpenseDistributor.DomainModel.Models.Group", b =>

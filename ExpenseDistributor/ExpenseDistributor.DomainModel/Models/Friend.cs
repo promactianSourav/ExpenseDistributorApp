@@ -22,7 +22,7 @@ namespace ExpenseDistributor.DomainModel.Models
         public string PhoneNumber { get; set; }
 
 
-        public long FriendUserId { get; set; }
+        public long? FriendUserId { get; set; }
         [ForeignKey("FriendUserId")]
         //[InverseProperty("PayerUserExpense")]
         public virtual User FriendUser { get; set; }

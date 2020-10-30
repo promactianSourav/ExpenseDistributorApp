@@ -65,7 +65,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("groups/{groupId}/{expenseId}/settlement")]
         //[Authorize]
-        public IActionResult GetListForExpense(long groupId, long expenseId)
+        public IActionResult GetListForExpense([FromRoute] long groupId, [FromRoute] long expenseId)
         {
             var list = settlementRepository.GetAllSettlementsForExpense(groupId, expenseId).ToList();
             var listSettlementForExpense = mapper.Map<List<SettlementPerExpense>, List<SettlementPerExpenseAC>>(list);
@@ -74,7 +74,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("groups/{groupId}/{expenseId}/settlement")]
         //[Authorize]
-        public IActionResult CreateForExpense(long groupId, long expenseId, SettlementPerExpenseAC settlementPerExpenseAC)
+        public IActionResult CreateForExpense([FromRoute] long groupId, [FromRoute] long expenseId, [FromBody] SettlementPerExpenseAC settlementPerExpenseAC)
         {
 
             var settlementPerExpense = mapper.Map<SettlementPerExpenseAC, SettlementPerExpense>(settlementPerExpenseAC);

@@ -10,6 +10,7 @@ namespace ExpenseDistributor.Repository.Users
         IEnumerable<User> GetListOfUsers();
         bool Login(string email,string password);
         User CreateNewUser(User user);
+        Friend CreateFriend(long userId, Friend friendNew);
         User GetUser(long userId);
         User UpdateUser(long userId,User userChanges);
         void DeleteUser(long userId);
