@@ -15,11 +15,15 @@ namespace ExpenseDistributor.DomainModel.Models
         [Required]
         public string GroupName { get; set; }
 
+        public long? GroupTypeId { get; set; }
+        [ForeignKey("GroupTypeId")]
+        public virtual GroupType GroupType { get; set; }
 
-        public GroupType GroupType { get; set; }
+        public long? CreatorId { get; set; }
+        [ForeignKey("CreatorId")]
+        public virtual User User { get; set; }
 
 
-        public User Creator { get; set; }
 
         [InverseProperty("Group")]
         public virtual ICollection<Expense> GroupGroup { get; set; }

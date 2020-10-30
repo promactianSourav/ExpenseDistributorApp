@@ -11,13 +11,13 @@ namespace ExpenseDistributor.DomainModel.Models
         [Key]
         public long TotalExpensesPerRelationshipId { get; set; }
 
-        public long PayerFriendId { get; set; }
+        public long? PayerFriendId { get; set; }
         //[ForeignKey("PayerUserId")]
         //[InverseProperty("PayerUserTotalExpensesPerRelationship")]
         public virtual Friend PayerFriend { get; set; }
 
 
-        public long DebtFriendId { get; set; }
+        public long? DebtFriendId { get; set; }
         [ForeignKey("DebtFriendId")]
         //[InverseProperty("DebtUserTotalExpensesPerRelationship")]
         public virtual Friend DebtFriend { get; set; }
@@ -25,6 +25,9 @@ namespace ExpenseDistributor.DomainModel.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
-        public Currency Currency { get; set; }
+        public long? CurrencyId { get; set; }
+        [ForeignKey("CurrencyId")]
+        public virtual Currency Currency { get; set; }
+
     }
 }

@@ -18,7 +18,7 @@ namespace ExpenseDistributor.Repository.Groups
 
         public Group CreateGroup(long userId, Group groupNew)
         {
-            groupNew.Creator = dataContext.Users.FirstOrDefault(u => u.UserId == userId);
+            groupNew.CreatorId = userId ;
             dataContext.Groups.Add(groupNew);
             dataContext.SaveChanges();
             return groupNew;
@@ -35,7 +35,7 @@ namespace ExpenseDistributor.Repository.Groups
 
         public IEnumerable<Group> GetAllGroups(long userId)
         {
-            var groupsList = dataContext.Groups.Where(g => g.Creator.UserId == userId);
+            var groupsList = dataContext.Groups.Where(g => g.CreatorId == userId);
             return groupsList;
             //throw new NotImplementedException();
         }

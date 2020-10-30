@@ -12,19 +12,19 @@ namespace ExpenseDistributor.DomainModel.Models
         public long SettlementId { get; set; }
 
 
-        public long TotalExpensePerRelationshipId { get; set; }
+        public long? TotalExpensePerRelationshipId { get; set; }
         [ForeignKey("TotalExpensePerRelationshipId")]
         //[InverseProperty("TotalExpensePerRelationshipSettlement")]
         public virtual TotalExpensesPerRelationship TotalExpensePerRelationship { get; set; }
 
 
-        public long PayerFriendId { get; set; }
+        public long? PayerFriendId { get; set; }
         [ForeignKey("PayerFriendId")]
         //[InverseProperty("PayerUserSettlement")]
         public virtual Friend PayerFriend { get; set; }
 
 
-        public long DebtFriendId { get; set; }
+        public long? DebtFriendId { get; set; }
         [ForeignKey("DebtFriendId")]
         //[InverseProperty("DebtUserSettlement")]
         public virtual Friend DebtFriend { get; set; }
@@ -34,6 +34,8 @@ namespace ExpenseDistributor.DomainModel.Models
         public decimal Amount { get; set; }
 
         public string Date { get; set; }
-        public Currency Currency { get; set; }
+        public long? CurrencyId { get; set; }
+        [ForeignKey("CurrencyId")]
+        public virtual Currency Currency { get; set; }
     }
 }

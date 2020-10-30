@@ -7,8 +7,8 @@ namespace ExpenseDistributor.Core.ApplicationClasses
 {
     public class GroupedUserAC
     {
-        public Group Group { get; set; }
+        public long GroupId { get; set; }
 
-        public User GroupsUser { get; set; }
+        public long GroupsUserId { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using ExpenseDistributor.DomainModel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseDistributor.DomainModel.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201030085656_seventhMigrationForeignKeyNull")]
+    partial class seventhMigrationForeignKeyNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace ExpenseDistributor.DomainModel.Migrations
                     b.Property<long?>("CreatorFriendId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CurrencyId")
+                    b.Property<long>("CurrencyId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Date")
@@ -136,7 +138,7 @@ namespace ExpenseDistributor.DomainModel.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CreatorId")
+                    b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("GroupName")
@@ -148,7 +150,7 @@ namespace ExpenseDistributor.DomainModel.Migrations
 
                     b.HasKey("GroupId");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("CreatorUserId");
 
                     b.HasIndex("GroupTypeId");
 
@@ -181,14 +183,14 @@ namespace ExpenseDistributor.DomainModel.Migrations
                     b.Property<long?>("GroupId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("GroupsUserId")
+                    b.Property<long?>("GroupsUserUserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("GroupedUserId");
 
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("GroupsUserId");
+                    b.HasIndex("GroupsUserUserId");
 
                     b.ToTable("GroupedUsers");
                 });
@@ -355,7 +357,9 @@ namespace ExpenseDistributor.DomainModel.Migrations
 
                     b.HasOne("ExpenseDistributor.DomainModel.Models.Currency", "Currency")
                         .WithMany()
-                        .HasForeignKey("CurrencyId");
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ExpenseDistributor.DomainModel.Models.Friend", "DebtFriend")
                         .WithMany("DebtFriendExpense")
@@ -387,9 +391,9 @@ namespace ExpenseDistributor.DomainModel.Migrations
 
             modelBuilder.Entity("ExpenseDistributor.DomainModel.Models.Group", b =>
                 {
-                    b.HasOne("ExpenseDistributor.DomainModel.Models.User", "User")
+                    b.HasOne("ExpenseDistributor.DomainModel.Models.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorUserId");
 
                     b.HasOne("ExpenseDistributor.DomainModel.Models.GroupType", "GroupType")
                         .WithMany()
@@ -402,9 +406,9 @@ namespace ExpenseDistributor.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("GroupId");
 
-                    b.HasOne("ExpenseDistributor.DomainModel.Models.User", "User")
+                    b.HasOne("ExpenseDistributor.DomainModel.Models.User", "GroupsUser")
                         .WithMany()
-                        .HasForeignKey("GroupsUserId");
+                        .HasForeignKey("GroupsUserUserId");
                 });
 
             modelBuilder.Entity("ExpenseDistributor.DomainModel.Models.Settlement", b =>

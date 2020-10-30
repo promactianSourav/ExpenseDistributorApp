@@ -67,9 +67,9 @@ namespace ExpenseDistributor.Repository.Users
 
         public void DeleteUser(long userId)
         {
-            var user = dataContext.Users.Find(userId);
-            var listFriendToBeRemoved = dataContext.Friends.Where(f => f.CreatorUserId == userId).ToList();
-            dataContext.Friends.RemoveRange(listFriendToBeRemoved);
+            var user = dataContext.Users.FirstOrDefault(u => u.UserId == userId);
+            //var listFriendToBeRemoved = dataContext.Friends.Where(f => f.CreatorUserId == userId).ToList();
+            //dataContext.Friends.RemoveRange(listFriendToBeRemoved);
             dataContext.Users.Remove(user);
 
             dataContext.SaveChanges();
@@ -88,7 +88,7 @@ namespace ExpenseDistributor.Repository.Users
 
         public User UpdateUser(long userId, User userChanges)
         {
-            var user = dataContext.Users.Find(userId);
+            var user = dataContext.Users.FirstOrDefault(u => u.UserId == userId);
             user.Name = userChanges.Name;
             user.Email = userChanges.Email;
             user.PhoneNumber = userChanges.PhoneNumber;

@@ -28,7 +28,7 @@ namespace ExpenseDistributor.DomainModel.Models
         public virtual User FriendUser { get; set; }
 
 
-        public long CreatorUserId { get; set; }
+        public long? CreatorUserId { get; set; }
         [ForeignKey("CreatorUserId")]
         //[InverseProperty("DebtUserExpense")]
         public virtual User CreatorUser { get; set; }

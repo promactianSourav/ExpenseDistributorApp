@@ -12,9 +12,9 @@ namespace ExpenseDistributor.Core.ApplicationClasses
         public long PayerUserId { get; set; }
         public long DebtUserId { get; set; }
         public long CreatorUserId { get; set; }
-        public SplitType SplitType { get; set; }
+        public long SplitTypeId { get; set; }
         public decimal Amount { get; set; }
         public string Date { get; set; }
-        public Currency Currency { get; set; }
+        public long CurrencyId { get; set; }
     }
 }

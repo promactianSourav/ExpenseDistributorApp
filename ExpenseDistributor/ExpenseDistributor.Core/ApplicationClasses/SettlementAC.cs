@@ -11,6 +11,6 @@ namespace ExpenseDistributor.Core.ApplicationClasses
         public long DebtUserId { get; set; }
         public decimal Amount { get; set; }
         public string Date { get; set; }
-        public Currency Currency { get; set; }
+        public long CurrencyId { get; set; }
     }
 }

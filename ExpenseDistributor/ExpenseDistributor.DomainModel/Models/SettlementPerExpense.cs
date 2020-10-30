@@ -12,18 +12,18 @@ namespace ExpenseDistributor.DomainModel.Models
         [Key]
         public long SettlementPerExpenseId { get; set; }
 
-        public long ExpenseId { get; set; }
+        public long? ExpenseId { get; set; }
         [ForeignKey("ExpenseId")]
         //[InverseProperty("ExpenseSettlementPerExpense")]
         public virtual Expense Expense { get; set; }
 
-        public long PayerFriendId { get; set; }
+        public long? PayerFriendId { get; set; }
         [ForeignKey("PayerFriendId")]
         //[InverseProperty("PayerUserSettlementPerExpense")]
         public virtual Friend PayerFriend { get; set; }
 
 
-        public long DebtFriendId { get; set; }
+        public long? DebtFriendId { get; set; }
         [ForeignKey("DebtFriendId")]
         //[InverseProperty("DebtUserSettlementPerExpense")]
         public virtual Friend DebtFriend { get; set; }
