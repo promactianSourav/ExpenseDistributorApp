@@ -27,6 +27,63 @@ namespace ExpenseDistributor.DomainModel.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
+            builder.Entity<GroupType>().HasData(
+                    new GroupType
+                    {
+                        GroupTypeId = 1,
+                        GroupTypeName = "Apartment"
+                    },
+                    new GroupType
+                    {
+                        GroupTypeId = 2,
+                        GroupTypeName = "House"
+                    },
+                    new GroupType
+                    {
+                        GroupTypeId = 3,
+                        GroupTypeName = "Trip"
+                    },
+                    new GroupType
+                    {
+                        GroupTypeId = 4,
+                        GroupTypeName = "Other"
+                    }
+                );
+
+            builder.Entity<SplitType>().HasData(
+                    new SplitType
+                    {
+                        SplitTypeId = 1,
+                        SplitTypeName = "Split by Amount",
+                        Value = 0
+                    },
+                    new SplitType
+                    {
+                        SplitTypeId = 2,
+                        SplitTypeName = "Split equally",
+                        Value = 0
+                    },
+                    new SplitType
+                    {
+                        SplitTypeId = 3,
+                        SplitTypeName = "Split by %",
+                        Value = 0
+                    }
+                );
+            builder.Entity<Currency>().HasData(
+                    new Currency
+                    {
+                        CurrencyId = 1,
+                        CurrencyName = "Rupees",
+                        CurrencyValue = 1
+                    },
+                    new Currency
+                    {
+                        CurrencyId = 2,
+                        CurrencyName = "Dollar",
+                        CurrencyValue = 75
+                    }
+                );
             //builder.Entity<TotalExpensesPerRelationship>()
             //       .HasOne(t => t.PayerFriend)
             //       .WithMany(u => u.PayerFriendTotalExpensesPerRelationship)

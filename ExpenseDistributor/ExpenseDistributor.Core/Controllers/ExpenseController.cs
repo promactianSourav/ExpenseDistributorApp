@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseDistributor.Core.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/group/{groupId}/[controller]")]
     public class ExpenseController:ControllerBase
     {
         private readonly IExpenseRepository expenseRepository;
@@ -22,17 +22,10 @@ namespace ExpenseDistributor.Core.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("groups/{groupId}/nongrouptransaction")]
-        //[Authorize]
-        public IActionResult GetListNonGroup([FromRoute] long groupId)
-        {
-            var list = expenseRepository.GetAllNonGroupTransactions(groupId).ToList();
-            var listTransactionDto = mapper.Map<List<TotalExpensesPerRelationship>, List<TotalExpensesPerRelationshipAC>>(list);
-            return Ok(listTransactionDto);
-        }
+       
 
 
-        [HttpGet("groups/{groupId}/expenses")]
+        [HttpGet]
         //[Authorize]
         public IActionResult GetList([FromRoute] long groupId)
         {
@@ -42,7 +35,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listExpensesDto);
         }
 
-        [HttpPost("groups/{groupId}/expenses")]
+        [HttpPost]
         //[Authorize]
         public IActionResult Create([FromRoute] long groupId,[FromBody] ExpenseAC expenseAC)
         {
@@ -57,7 +50,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(expenseDto);
         }
 
-        [HttpPut("groups/{groupId}/expenses/{expenseId}")]
+        [HttpPut("{expenseId}")]
         //[Authorize]
         public IActionResult Update([FromRoute] long groupId, [FromRoute] long expenseId,[FromBody] ExpenseAC expenseAC)
         {
@@ -72,7 +65,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(expenseDto);
         }
 
-        [HttpDelete("groups/{groupId}/expenses/{expenseId}")]
+        [HttpDelete("{expenseId}")]
         //[Authorize]
         public IActionResult Delete([FromRoute] long groupId, [FromRoute] long expenseId)
         {

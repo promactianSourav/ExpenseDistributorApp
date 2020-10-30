@@ -11,5 +11,6 @@ namespace ExpenseDistributor.Repository.Friends
         Friend CreateFriend(long userId,Friend friendNew);
         Friend UpdateFriend(long userId, long friendId, Friend friendChange);
         void DeleteFriend(long userId, long friendId);
+        IEnumerable<TotalExpensesPerRelationship> GetAllNonGroupTransactions(long userId);
     }
 }

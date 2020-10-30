@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseDistributor.Core.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/group/[controller]")]
     public class SettlementController:ControllerBase
     {
         private readonly ISettlementRepository settlementRepository;
@@ -38,21 +38,21 @@ namespace ExpenseDistributor.Core.Controllers
 
         }
 
-        [HttpGet("groups/{userId}/settlement")]
+        [HttpGet("{friendId}")]
         //[Authorize]
-        public IActionResult GetListForUser([FromRoute] long userId)
+        public IActionResult GetListForUser([FromRoute] long friendId)
         {
-            var list = settlementRepository.GetAllSettlementsForUser(userId).ToList();
+            var list = settlementRepository.GetAllSettlementsForUser(friendId).ToList();
             var listsettlementDto = mapper.Map<List<Settlement>, List<SettlementAC>>(list);
             return Ok(listsettlementDto);
         }
 
-        [HttpPost("groups/{userId}/settlement")]
+        [HttpPost("{friendId}")]
         //[Authorize]
-        public IActionResult CreateForUser([FromRoute] long userId,[FromBody] SettlementAC settlementAC)
+        public IActionResult CreateForUser([FromRoute] long friendId,[FromBody] SettlementAC settlementAC)
         {
             var settlement = mapper.Map<SettlementAC, Settlement>(settlementAC);
-            var settlement2 = settlementRepository.CreateSettlementForUser(userId, settlement);
+            var settlement2 = settlementRepository.CreateSettlementForUser(friendId, settlement);
             var settlementDto = mapper.Map<Settlement, SettlementAC>(settlement2);
 
             //SettlementViewModel _settlementViewModel = new SettlementViewModel()
@@ -63,7 +63,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(settlementDto);
         }
 
-        [HttpGet("groups/{groupId}/{expenseId}/settlement")]
+        [HttpGet("{groupId}/{expenseId}")]
         //[Authorize]
         public IActionResult GetListForExpense([FromRoute] long groupId, [FromRoute] long expenseId)
         {
@@ -72,7 +72,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listSettlementForExpense);
         }
 
-        [HttpPost("groups/{groupId}/{expenseId}/settlement")]
+        [HttpPost("{groupId}/{expenseId}")]
         //[Authorize]
         public IActionResult CreateForExpense([FromRoute] long groupId, [FromRoute] long expenseId, [FromBody] SettlementPerExpenseAC settlementPerExpenseAC)
         {

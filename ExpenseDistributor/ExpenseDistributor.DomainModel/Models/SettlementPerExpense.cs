@@ -33,6 +33,8 @@ namespace ExpenseDistributor.DomainModel.Models
         public decimal Amount { get; set; }
 
         public string Date { get; set; }
-        public Currency Currency { get; set; }
+        public long? CurrencyId { get; set; }
+        [ForeignKey("CurrencyId")]
+        public virtual Currency Currency { get; set; }
     }
 }

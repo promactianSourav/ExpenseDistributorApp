@@ -53,5 +53,12 @@ namespace ExpenseDistributor.Repository.Friends
             return friend;
             //throw new NotImplementedException();
         }
+
+        public IEnumerable<TotalExpensesPerRelationship> GetAllNonGroupTransactions(long friendId)
+        {
+            var expenseNonGroup = dataContext.TotalExpensesPerRelationships.Where(t => t.PayerFriendId == friendId).ToList();
+            return expenseNonGroup;
+            //throw new NotImplementedException();
+        }
     }
 }

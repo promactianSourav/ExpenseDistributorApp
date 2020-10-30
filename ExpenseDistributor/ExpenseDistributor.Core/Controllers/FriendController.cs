@@ -36,6 +36,8 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listfriendDto);
         }
 
+        
+
         [HttpPost]
         //[Authorize]
         public IActionResult Create([FromRoute] long userId,[FromBody] FriendAC friendAC)
@@ -74,5 +76,15 @@ namespace ExpenseDistributor.Core.Controllers
             friendRepository.DeleteFriend(userId, friendId);
             return Ok();
         }
+
+        [HttpGet("{friendId}/nongrouptransaction")]
+        //[Authorize]
+        public IActionResult GetListNonGroup([FromRoute] long friendId)
+        {
+            var list = friendRepository.GetAllNonGroupTransactions(friendId).ToList();
+            var listTransactionDto = mapper.Map<List<TotalExpensesPerRelationship>, List<TotalExpensesPerRelationshipAC>>(list);
+            return Ok(listTransactionDto);
+        }
+
     }
 }

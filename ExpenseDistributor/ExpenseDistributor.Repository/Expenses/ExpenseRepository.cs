@@ -18,7 +18,23 @@ namespace ExpenseDistributor.Repository.Expenses
 
         public Expense CreateExpense(long groupId, Expense expenseNew)
         {
-            dataContext.Add(expenseNew);
+            var totalExpensesPerRelationshipResult = dataContext.TotalExpensesPerRelationships.FirstOrDefault(t => t.PayerFriendId == expenseNew.PayerFriendId && t.DebtFriendId == expenseNew.DebtFriendId);
+            if(totalExpensesPerRelationshipResult != null)
+            {
+                totalExpensesPerRelationshipResult.Amount += expenseNew.Amount;
+            }
+            else
+            {
+                TotalExpensesPerRelationship totalExpensesPerRelationship = new TotalExpensesPerRelationship();
+                totalExpensesPerRelationship.PayerFriendId = expenseNew.PayerFriendId;
+                totalExpensesPerRelationship.DebtFriendId = expenseNew.DebtFriendId;
+                totalExpensesPerRelationship.CurrencyId = expenseNew.CurrencyId;
+                totalExpensesPerRelationship.Amount = expenseNew.Amount;
+                dataContext.TotalExpensesPerRelationships.Add(totalExpensesPerRelationship);
+                dataContext.SaveChanges();
+            }
+
+            dataContext.Expenses.Add(expenseNew);
             dataContext.SaveChanges();
             //throw new NotImplementedException();
 
@@ -40,12 +56,7 @@ namespace ExpenseDistributor.Repository.Expenses
             //throw new NotImplementedException();
         }
 
-        public IEnumerable<TotalExpensesPerRelationship> GetAllNonGroupTransactions(long userId)
-        {
-            var expenseNonGroup = dataContext.TotalExpensesPerRelationships.Where(t => t.PayerFriendId == userId).ToList();
-            return expenseNonGroup;
-            //throw new NotImplementedException();
-        }
+       
 
         public Expense UpdateExpense(long groupId, long expenseId, Expense expenseChange)
         {

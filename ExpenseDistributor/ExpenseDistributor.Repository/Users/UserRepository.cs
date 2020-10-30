@@ -25,6 +25,8 @@ namespace ExpenseDistributor.Repository.Users
         }
 
 
+
+
         public bool Login(string email,string password)
         {
             var result = dataContext.Users.FirstOrDefault(u => u.Email == email && u.Password==password);
@@ -58,6 +60,7 @@ namespace ExpenseDistributor.Repository.Users
         public Friend CreateFriend(long userId, Friend friendNew)
         {
             friendNew.CreatorUserId = userId;
+            friendNew.FriendUserId = userId;
             friendNew.Date = DateTime.Now.ToString("dd/MM/yyyy");
             dataContext.Friends.Add(friendNew);
             dataContext.SaveChanges();

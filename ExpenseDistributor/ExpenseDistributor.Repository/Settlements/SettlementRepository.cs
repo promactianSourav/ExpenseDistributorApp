@@ -18,16 +18,21 @@ namespace ExpenseDistributor.Repository.Settlements
 
         public SettlementPerExpense CreateSettlementForExpense(long groupId, long expenseId, SettlementPerExpense settlementPerExpenseNew)
         {
+            settlementPerExpenseNew.ExpenseId = expenseId;
             dataContext.SettlementPerExpenses.Add(settlementPerExpenseNew);
             dataContext.SaveChanges();
             return settlementPerExpenseNew;
             //throw new NotImplementedException();
         }
 
-        public Settlement CreateSettlementForUser(long userId, Settlement settlementNew)
+        public Settlement CreateSettlementForUser(long friendId, Settlement settlementNew)
         {
-            var totalExpensePerRelationshipId = dataContext.TotalExpensesPerRelationships.FirstOrDefault(t => t.PayerFriendId == userId).TotalExpensesPerRelationshipId;
-            settlementNew.TotalExpensePerRelationshipId = totalExpensePerRelationshipId;
+            var totalExpensePerRelationship = dataContext.TotalExpensesPerRelationships.FirstOrDefault(t => t.PayerFriendId == settlementNew.PayerFriendId);
+            if(totalExpensePerRelationship != null)
+            {
+                settlementNew.TotalExpensePerRelationshipId = totalExpensePerRelationship.TotalExpensesPerRelationshipId;
+            }
+            
             dataContext.Settlements.Add(settlementNew);
             dataContext.SaveChanges();
 
@@ -42,9 +47,9 @@ namespace ExpenseDistributor.Repository.Settlements
             //throw new NotImplementedException();
         }
 
-        public IEnumerable<Settlement> GetAllSettlementsForUser(long userId)
+        public IEnumerable<Settlement> GetAllSettlementsForUser(long friendId)
         {
-            var settlementList = dataContext.Settlements.Where(s => s.PayerFriendId == userId).ToList();
+            var settlementList = dataContext.Settlements.Where(s => s.PayerFriendId == friendId).ToList();
             return settlementList;
             //throw new NotImplementedException();
         }
