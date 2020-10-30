@@ -4,7 +4,9 @@ using System.Text;
 
 namespace ExpenseDistributor.Core.ApplicationClasses
 {
-    class LoginAC
+    public class LoginAC
     {
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

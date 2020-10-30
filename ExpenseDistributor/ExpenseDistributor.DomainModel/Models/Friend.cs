@@ -35,5 +35,37 @@ namespace ExpenseDistributor.DomainModel.Models
 
         [Required]
         public string Date { get; set; }
+
+        [InverseProperty("DebtFriend")]
+        public virtual ICollection<Expense> DebtFriendExpense { get; set; }
+
+        [InverseProperty("PayerFriend")]
+        public virtual ICollection<Expense> PayerFriendExpense { get; set; }
+
+        [InverseProperty("CreatorFriend")]
+        public virtual ICollection<Expense> CreatorFriendExpense { get; set; }
+
+
+        [InverseProperty("PayerFriend")]
+        public virtual ICollection<Settlement> PayerFriendSettlement { get; set; }
+
+        [InverseProperty("DebtFriend")]
+        public virtual ICollection<Settlement> DebtFriendSettlement { get; set; }
+
+
+        [InverseProperty("PayerFriend")]
+        public virtual ICollection<SettlementPerExpense> PayerFriendSettlementPerExpense { get; set; }
+
+        [InverseProperty("DebtFriend")]
+        public virtual ICollection<SettlementPerExpense> DebtFriendSettlementPerExpense { get; set; }
+
+
+
+        [InverseProperty("PayerFriend")]
+        public virtual ICollection<TotalExpensesPerRelationship> PayerFriendTotalExpensesPerRelationship { get; set; }
+
+        [InverseProperty("DebtFriend")]
+        public virtual ICollection<TotalExpensesPerRelationship> DebtFriendTotalExpensesPerRelationship { get; set; }
+
     }
 }

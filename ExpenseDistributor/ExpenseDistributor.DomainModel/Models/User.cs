@@ -12,7 +12,7 @@ namespace ExpenseDistributor.DomainModel.Models
         public long UserId { get; set; }
 
         [Required]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -27,31 +27,10 @@ namespace ExpenseDistributor.DomainModel.Models
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Not a valid Phone number")]
         public string PhoneNumber { get; set; }
 
-        [InverseProperty("PayerUser")]
-        public virtual ICollection<TotalExpensesPerRelationship> PayerUserTotalExpensesPerRelationship { get; set; }
-
-        [InverseProperty("DebtUser")]
-        public virtual ICollection<TotalExpensesPerRelationship> DebtUserTotalExpensesPerRelationship { get; set; }
-
-        [InverseProperty("PayerUser")]
-        public virtual ICollection<SettlementPerExpense> PayerUserSettlementPerExpense { get; set; }
-
-        [InverseProperty("DebtUser")]
-        public virtual ICollection<SettlementPerExpense> DebtUserSettlementPerExpense { get; set; }
-
-        [InverseProperty("PayerUser")]
-        public virtual ICollection<Settlement> PayerUserSettlement { get; set; }
-
-        [InverseProperty("DebtUser")]
-        public virtual ICollection<Settlement> DebtUserSettlement { get; set; }
-        [InverseProperty("DebtUser")]
-        public virtual ICollection<Expense> DebtUserExpense { get; set; }
-
-        [InverseProperty("PayerUser")]
-        public virtual ICollection<Expense> PayerUserExpense { get; set; }
-
-        [InverseProperty("CreatorUser")]
-        public virtual ICollection<Expense> CreatorUserExpense { get; set; }
+        
+        
+        
+        
 
 
         [InverseProperty("FriendUser")]

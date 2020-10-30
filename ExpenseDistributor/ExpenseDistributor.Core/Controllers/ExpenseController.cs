@@ -5,7 +5,6 @@ using System.Text;
 using AutoMapper;
 using ExpenseDistributor.Core.ApplicationClasses;
 using ExpenseDistributor.DomainModel.Models;
-using ExpenseDistributor.DomainModel.ViewModels;
 using ExpenseDistributor.Repository.Expenses;
 using Microsoft.AspNetCore.Mvc;
 

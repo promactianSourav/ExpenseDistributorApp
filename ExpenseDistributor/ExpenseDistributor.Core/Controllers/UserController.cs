@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using ExpenseDistributor.Core.ApplicationClasses;
 using ExpenseDistributor.DomainModel.Models;
-using ExpenseDistributor.DomainModel.ViewModels;
 using ExpenseDistributor.Repository.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,9 +61,9 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("login")]
         //[Authorize]
-        public IActionResult PostLogin([FromBody] LoginViewModel loginViewModel)
+        public IActionResult PostLogin([FromBody] LoginAC loginAC)
         {
-            var result = userRepository.Login(loginViewModel);
+            var result = userRepository.Login(loginAC.Email,loginAC.Password);
             if (result)
             {
                 return Ok(new { Message = "Logged in Successfully." });

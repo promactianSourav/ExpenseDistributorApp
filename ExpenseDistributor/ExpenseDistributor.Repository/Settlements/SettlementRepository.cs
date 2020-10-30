@@ -26,7 +26,7 @@ namespace ExpenseDistributor.Repository.Settlements
 
         public Settlement CreateSettlementForUser(long userId, Settlement settlementNew)
         {
-            var totalExpensePerRelationshipId = dataContext.TotalExpensesPerRelationships.FirstOrDefault(t => t.PayerUserId == userId).TotalExpensesPerRelationshipId;
+            var totalExpensePerRelationshipId = dataContext.TotalExpensesPerRelationships.FirstOrDefault(t => t.PayerFriendId == userId).TotalExpensesPerRelationshipId;
             settlementNew.TotalExpensePerRelationshipId = totalExpensePerRelationshipId;
             dataContext.Settlements.Add(settlementNew);
             dataContext.SaveChanges();
@@ -44,7 +44,7 @@ namespace ExpenseDistributor.Repository.Settlements
 
         public IEnumerable<Settlement> GetAllSettlementsForUser(long userId)
         {
-            var settlementList = dataContext.Settlements.Where(s => s.PayerUserId == userId).ToList();
+            var settlementList = dataContext.Settlements.Where(s => s.PayerFriendId == userId).ToList();
             return settlementList;
             //throw new NotImplementedException();
         }

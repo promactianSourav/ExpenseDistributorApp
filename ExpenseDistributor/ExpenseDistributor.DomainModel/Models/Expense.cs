@@ -20,22 +20,22 @@ namespace ExpenseDistributor.DomainModel.Models
         //[InverseProperty("GroupExpense")]
         public virtual Group Group { get; set; }
 
-        public long PayerUserId { get; set; }
-        [ForeignKey("PayerUserId")]
+        public long PayerFriendId { get; set; }
+        [ForeignKey("PayerFriendId")]
         //[InverseProperty("PayerUserExpense")]
-        public virtual User PayerUser { get; set; }
+        public virtual Friend PayerFriend { get; set; }
 
 
-        public long DebtUserId { get; set; }
-        [ForeignKey("DebtUserId")]
+        public long DebtFriendId { get; set; }
+        [ForeignKey("DebtFriendId")]
         //[InverseProperty("DebtUserExpense")]
-        public virtual User DebtUser { get; set; }
+        public virtual Friend DebtFriend { get; set; }
 
 
-        public long CreatorUserId { get; set; }
-        [ForeignKey("CreatorUserId")]
+        public long CreatorFriendId { get; set; }
+        [ForeignKey("CreatorFriendId")]
         //[InverseProperty("CreatorUserExpense")]
-        public virtual User CreatorUser { get; set; }
+        public virtual Friend CreatorFriend { get; set; }
 
 
         public SplitType SplitType { get; set; }

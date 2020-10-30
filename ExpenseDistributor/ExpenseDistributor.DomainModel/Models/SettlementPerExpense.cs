@@ -17,16 +17,16 @@ namespace ExpenseDistributor.DomainModel.Models
         //[InverseProperty("ExpenseSettlementPerExpense")]
         public virtual Expense Expense { get; set; }
 
-        public long PayerUserId { get; set; }
-        [ForeignKey("PayerUserId")]
+        public long PayerFriendId { get; set; }
+        [ForeignKey("PayerFriendId")]
         //[InverseProperty("PayerUserSettlementPerExpense")]
-        public virtual User PayerUser { get; set; }
+        public virtual Friend PayerFriend { get; set; }
 
 
-        public long DebtUserId { get; set; }
-        [ForeignKey("DebtUserId")]
+        public long DebtFriendId { get; set; }
+        [ForeignKey("DebtFriendId")]
         //[InverseProperty("DebtUserSettlementPerExpense")]
-        public virtual User DebtUser { get; set; }
+        public virtual Friend DebtFriend { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]

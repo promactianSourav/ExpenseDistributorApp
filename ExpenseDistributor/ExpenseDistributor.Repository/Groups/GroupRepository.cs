@@ -18,6 +18,7 @@ namespace ExpenseDistributor.Repository.Groups
 
         public Group CreateGroup(long userId, Group groupNew)
         {
+            groupNew.Creator = dataContext.Users.FirstOrDefault(u => u.UserId == userId);
             dataContext.Groups.Add(groupNew);
             dataContext.SaveChanges();
             return groupNew;
@@ -44,7 +45,8 @@ namespace ExpenseDistributor.Repository.Groups
             var group = dataContext.Groups.Find(groupId);
             group.GroupName = groupChange.GroupName;
             group.GroupType = groupChange.GroupType;
-            group.Creator = groupChange.Creator;
+            //There should be option to change the creator
+            //group.Creator = groupChange.Creator;
 
             dataContext.SaveChanges();
             return group;

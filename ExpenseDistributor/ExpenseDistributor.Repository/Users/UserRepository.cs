@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using ExpenseDistributor.DomainModel.Data;
 using ExpenseDistributor.DomainModel.Models;
-using ExpenseDistributor.DomainModel.ViewModels;
 
 namespace ExpenseDistributor.Repository.Users
 {
@@ -26,9 +25,9 @@ namespace ExpenseDistributor.Repository.Users
         }
 
 
-        public bool Login(LoginViewModel loginViewModel)
+        public bool Login(string email,string password)
         {
-            var result = dataContext.Users.FirstOrDefault(u => u.UserName == loginViewModel.UserName && u.Password==loginViewModel.Password);
+            var result = dataContext.Users.FirstOrDefault(u => u.Email == email && u.Password==password);
             if (result!=null)
             {
                 return true;
@@ -43,6 +42,11 @@ namespace ExpenseDistributor.Repository.Users
         public User CreateNewUser(User user)
         {
             dataContext.Users.Add(user);
+            Friend friendSelf = new Friend();
+            friendSelf.Name = user.Name;
+            friendSelf.Email = user.Email;
+            friendSelf.PhoneNumber = user.PhoneNumber;
+            dataContext.Friends.Add(friendSelf);
             dataContext.SaveChanges();
             return user;
             //throw new NotImplementedException();
@@ -69,7 +73,7 @@ namespace ExpenseDistributor.Repository.Users
         public User UpdateUser(long userId, User userChanges)
         {
             var user = dataContext.Users.Find(userId);
-            user.UserName = userChanges.UserName;
+            user.Name = userChanges.Name;
             user.Email = userChanges.Email;
             user.PhoneNumber = userChanges.PhoneNumber;
             dataContext.SaveChanges();

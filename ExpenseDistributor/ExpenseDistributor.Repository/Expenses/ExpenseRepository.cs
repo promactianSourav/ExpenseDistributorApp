@@ -42,7 +42,7 @@ namespace ExpenseDistributor.Repository.Expenses
 
         public IEnumerable<TotalExpensesPerRelationship> GetAllNonGroupTransactions(long userId)
         {
-            var expenseNonGroup = dataContext.TotalExpensesPerRelationships.Where(t => t.PayerUserId == userId).ToList();
+            var expenseNonGroup = dataContext.TotalExpensesPerRelationships.Where(t => t.PayerFriendId == userId).ToList();
             return expenseNonGroup;
             //throw new NotImplementedException();
         }
@@ -51,11 +51,11 @@ namespace ExpenseDistributor.Repository.Expenses
         {
             var ex = dataContext.Expenses.FirstOrDefault(e => e.ExpenseId == expenseId);
             ex.ExpenseName = expenseChange.ExpenseName;
-            ex.PayerUserId = expenseChange.PayerUserId;
-            ex.DebtUserId = expenseChange.DebtUserId;
+            ex.PayerFriendId = expenseChange.PayerFriendId;
+            ex.DebtFriendId = expenseChange.DebtFriendId;
             ex.GroupId = expenseChange.GroupId;
             ex.SplitType = expenseChange.SplitType;
-            ex.CreatorUserId = expenseChange.CreatorUserId;
+            ex.CreatorFriendId = expenseChange.CreatorFriendId;
             ex.Amount = expenseChange.Amount;
             
             dataContext.SaveChanges();

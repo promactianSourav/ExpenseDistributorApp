@@ -28,62 +28,62 @@ namespace ExpenseDistributor.DomainModel.Data
         {
 
             builder.Entity<TotalExpensesPerRelationship>()
-                   .HasOne(t => t.PayerUser)
-                   .WithMany(u => u.PayerUserTotalExpensesPerRelationship)
-                   .HasForeignKey(t => t.PayerUserId)
+                   .HasOne(t => t.PayerFriend)
+                   .WithMany(u => u.PayerFriendTotalExpensesPerRelationship)
+                   .HasForeignKey(t => t.PayerFriendId)
                    .IsRequired(true)
                    .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<TotalExpensesPerRelationship>()
-                 .HasOne(t => t.DebtUser)
-                 .WithMany(u => u.DebtUserTotalExpensesPerRelationship)
-                 .HasForeignKey(t => t.DebtUserId)
+                 .HasOne(t => t.DebtFriend)
+                 .WithMany(u => u.DebtFriendTotalExpensesPerRelationship)
+                 .HasForeignKey(t => t.DebtFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
 
 
             builder.Entity<SettlementPerExpense>()
-                 .HasOne(t => t.DebtUser)
-                 .WithMany(u => u.DebtUserSettlementPerExpense)
-                 .HasForeignKey(t => t.DebtUserId)
+                 .HasOne(t => t.DebtFriend)
+                 .WithMany(u => u.DebtFriendSettlementPerExpense)
+                 .HasForeignKey(t => t.DebtFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<SettlementPerExpense>()
-                 .HasOne(t => t.PayerUser)
-                 .WithMany(u => u.PayerUserSettlementPerExpense)
-                 .HasForeignKey(t => t.PayerUserId)
+                 .HasOne(t => t.PayerFriend)
+                 .WithMany(u => u.PayerFriendSettlementPerExpense)
+                 .HasForeignKey(t => t.PayerFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
 
 
             builder.Entity<Settlement>()
-                 .HasOne(t => t.DebtUser)
-                 .WithMany(u => u.DebtUserSettlement)
-                 .HasForeignKey(t => t.DebtUserId)
+                 .HasOne(t => t.DebtFriend)
+                 .WithMany(u => u.DebtFriendSettlement)
+                 .HasForeignKey(t => t.DebtFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Settlement>()
-                 .HasOne(t => t.PayerUser)
-                 .WithMany(u => u.PayerUserSettlement)
-                 .HasForeignKey(t => t.PayerUserId)
+                 .HasOne(t => t.PayerFriend)
+                 .WithMany(u => u.PayerFriendSettlement)
+                 .HasForeignKey(t => t.PayerFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
 
             builder.Entity<Expense>()
-                 .HasOne(t => t.DebtUser)
-                 .WithMany(u => u.DebtUserExpense)
-                 .HasForeignKey(t => t.DebtUserId)
+                 .HasOne(t => t.DebtFriend)
+                 .WithMany(u => u.DebtFriendExpense)
+                 .HasForeignKey(t => t.DebtFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Expense>()
-                 .HasOne(t => t.PayerUser)
-                 .WithMany(u => u.PayerUserExpense)
-                 .HasForeignKey(t => t.PayerUserId)
+                 .HasOne(t => t.PayerFriend)
+                 .WithMany(u => u.PayerFriendExpense)
+                 .HasForeignKey(t => t.PayerFriendId)
                  .IsRequired(true)
                  .OnDelete(DeleteBehavior.NoAction);
 
