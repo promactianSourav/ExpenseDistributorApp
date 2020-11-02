@@ -61,13 +61,13 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(groupDto);
         }
 
-        [HttpDelete("{userId}/{groupId}")]
-        //[Authorize]
-        public IActionResult Delete([FromRoute] long userId, [FromRoute] long groupId)
-        {
-            groupRepository.DeleteGroup(userId, groupId);
-            return Ok();
-        }
+        //[HttpDelete("{userId}/{groupId}")]
+        ////[Authorize]
+        //public IActionResult Delete([FromRoute] long userId, [FromRoute] long groupId)
+        //{
+        //    groupRepository.DeleteGroup(userId, groupId);
+        //    return Ok();
+        //}
 
     }
 }

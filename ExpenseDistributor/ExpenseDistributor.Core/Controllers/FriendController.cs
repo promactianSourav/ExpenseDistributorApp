@@ -69,13 +69,13 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(friendDto);
         }
 
-        [HttpDelete("{friendId}")]
-        //[Authorize]
-        public IActionResult Delete([FromRoute] long userId, [FromRoute] long friendId)
-        {
-            friendRepository.DeleteFriend(userId, friendId);
-            return Ok();
-        }
+        //[HttpDelete("{friendId}")]
+        ////[Authorize]
+        //public IActionResult Delete([FromRoute] long userId, [FromRoute] long friendId)
+        //{
+        //    friendRepository.DeleteFriend(userId, friendId);
+        //    return Ok();
+        //}
 
         [HttpGet("{friendId}/nongrouptransaction")]
         //[Authorize]

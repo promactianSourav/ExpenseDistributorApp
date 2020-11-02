@@ -65,12 +65,12 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(expenseDto);
         }
 
-        [HttpDelete("{expenseId}")]
-        //[Authorize]
-        public IActionResult Delete([FromRoute] long groupId, [FromRoute] long expenseId)
-        {
-            expenseRepository.DeleteExpense(groupId, expenseId);
-            return Ok();
-        }
+        //[HttpDelete("{expenseId}")]
+        ////[Authorize]
+        //public IActionResult Delete([FromRoute] long groupId, [FromRoute] long expenseId)
+        //{
+        //    expenseRepository.DeleteExpense(groupId, expenseId);
+        //    return Ok();
+        //}
     }
 }

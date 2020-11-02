@@ -125,13 +125,13 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(userReturnDto);
         }
 
-        [HttpDelete("{userId}")]
-        //[Authorize]
-        public IActionResult Delete([FromRoute] long userId)
-        {
-            userRepository.DeleteUser(userId);
-            return Ok();
-        }
+        //[HttpDelete("{userId}")]
+        ////[Authorize]
+        //public IActionResult Delete([FromRoute] long userId)
+        //{
+        //    userRepository.DeleteUser(userId);
+        //    return Ok();
+        //}
 
     }
 }
