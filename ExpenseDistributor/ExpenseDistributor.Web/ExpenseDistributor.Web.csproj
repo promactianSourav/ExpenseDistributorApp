@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="%2a%2a\**" />
+    <Compile Remove="App\SPA\**" />
     <Content Remove="%2a%2a\**" />
+    <Content Remove="App\SPA\**" />
     <EmbeddedResource Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="App\SPA\**" />
     <None Remove="%2a%2a\**" />
+    <None Remove="App\SPA\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +46,18 @@
   <ItemGroup>
     <Content Include="appsettings.Development.json" />
     <Content Include="appsettings.json" />
+    <Content Include="App\SPA\angular.json" />
+    <Content Include="App\SPA\package-lock.json" />
+    <Content Include="App\SPA\package.json" />
+    <Content Include="App\SPA\src\app\app.component.css" />
+    <Content Include="App\SPA\src\app\app.component.html" />
+    <Content Include="App\SPA\src\favicon.ico" />
+    <Content Include="App\SPA\src\index.html" />
+    <Content Include="App\SPA\src\styles.css" />
+    <Content Include="App\SPA\tsconfig.app.json" />
+    <Content Include="App\SPA\tsconfig.json" />
+    <Content Include="App\SPA\tsconfig.spec.json" />
+    <Content Include="App\SPA\tslint.json" />
     <Content Include="Properties\launchSettings.json" />
     <Content Include="Views\Error.cshtml" />
     <Content Include="Views\Index.cshtml" />
@@ -68,6 +84,27 @@
     <ProjectReference Include="..\ExpenseDistributor.DomainModel\ExpenseDistributor.DomainModel.csproj" />
     <ProjectReference Include="..\ExpenseDistributor.Repository\ExpenseDistributor.Repository.csproj" />
     <ProjectReference Include="..\ExpenseDistributor.Util\ExpenseDistributor.Util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="App\SPA\.browserslistrc" />
+    <None Include="App\SPA\.editorconfig" />
+    <None Include="App\SPA\.gitignore" />
+    <None Include="App\SPA\karma.conf.js" />
+    <None Include="App\SPA\README.md" />
+    <None Include="App\SPA\src\assets\.gitkeep" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="App\SPA\src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="App\SPA\src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="App\SPA\src\app\app.component.ts" />
+    <TypeScriptCompile Include="App\SPA\src\app\app.module.ts" />
+    <TypeScriptCompile Include="App\SPA\src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="App\SPA\src\environments\environment.ts" />
+    <TypeScriptCompile Include="App\SPA\src\main.ts" />
+    <TypeScriptCompile Include="App\SPA\src\polyfills.ts" />
+    <TypeScriptCompile Include="App\SPA\src\test.ts" />
   </ItemGroup>
 
 </Project>
