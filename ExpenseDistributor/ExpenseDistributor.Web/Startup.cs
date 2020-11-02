@@ -58,6 +58,7 @@ namespace ExpenseDistributor.Web
             services.AddScoped<ISettlementRepository, SettlementRepository>();
             //var a = Assembly.Load(typeof(ExpenseDistributor.Core));
             //var a = Assembly.GetAssembly(typeof(UserController));
+            services.AddSwaggerDocument();
             services.AddMvc();
            
                 //.AddApplicationPart(a);
@@ -81,6 +82,9 @@ namespace ExpenseDistributor.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
