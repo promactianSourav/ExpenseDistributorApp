@@ -100,3 +100,6 @@ F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistribu
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.dll
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.pdb
 F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\obj\Debug\netcoreapp3.1\ExpenseDistributor.Web.genruntimeconfig.cache
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\appsettings.Development.json
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\appsettings.json
+F:\promact\WorkingONBoard\SplitwiseTypeApp\ExpenseDistributorApp\ExpenseDistributor\ExpenseDistributor.Web\bin\Debug\netcoreapp3.1\Properties\launchSettings.json

@@ -35,17 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="MappingProfiles\MappingProfile.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="Views\Error.cshtml.cs" />
-    <Compile Include="Views\Index.cshtml.cs" />
-    <Compile Include="Views\Privacy.cshtml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="appsettings.Development.json" />
-    <Content Include="appsettings.json" />
     <Content Include="App\SPA\angular.json" />
     <Content Include="App\SPA\package-lock.json" />
     <Content Include="App\SPA\package.json" />
@@ -58,14 +47,6 @@
     <Content Include="App\SPA\tsconfig.json" />
     <Content Include="App\SPA\tsconfig.spec.json" />
     <Content Include="App\SPA\tslint.json" />
-    <Content Include="Properties\launchSettings.json" />
-    <Content Include="Views\Error.cshtml" />
-    <Content Include="Views\Index.cshtml" />
-    <Content Include="Views\Privacy.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <Content Include="Views\_ViewImports.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,6 +74,39 @@
     <None Include="App\SPA\karma.conf.js" />
     <None Include="App\SPA\README.md" />
     <None Include="App\SPA\src\assets\.gitkeep" />
+    <None Include="Views\Error.cshtml" />
+    <None Include="Views\Index.cshtml" />
+    <None Include="Views\Privacy.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,6 +114,7 @@
     <TypeScriptCompile Include="App\SPA\src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="App\SPA\src\app\app.component.ts" />
     <TypeScriptCompile Include="App\SPA\src\app\app.module.ts" />
+    <TypeScriptCompile Include="App\SPA\src\app\Services\ApiClientGenerated.service.ts" />
     <TypeScriptCompile Include="App\SPA\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="App\SPA\src\environments\environment.ts" />
     <TypeScriptCompile Include="App\SPA\src\main.ts" />

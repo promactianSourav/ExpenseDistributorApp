@@ -29,7 +29,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("check")]
         //[Authorize]
-        public IActionResult get()
+        public IActionResult Check()
         {
             var result = false;
             if (result)
