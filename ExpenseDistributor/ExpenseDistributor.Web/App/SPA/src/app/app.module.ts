@@ -1,4 +1,4 @@
-import { UserService, ExpenseService } from './Services/ApiClientGenerated.service';
+import { UserService, ExpenseService, SettlementService } from './Services/ApiClientGenerated.service';
 import { ExpenseModule } from './expense/expense.module';
 import { ExpenseRoutingModule } from './expense/expense-routing.module';
 import { FriendModule } from './friend/friend.module';
@@ -43,7 +43,7 @@ import { FormsModule } from '@angular/forms';
     ExpenseModule,
     AppRoutingModule
   ],
-  providers: [UserService,ExpenseService],
+  providers: [UserService,ExpenseService,SettlementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

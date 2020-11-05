@@ -29,8 +29,11 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("check")]
         //[Authorize]
-        public IActionResult Check()
+        public ActionResult<MessageAC> Check()
         {
+            MessageAC m = new MessageAC();
+            m.Message = "Unauthorized user! Either password or username is wrong.";
+            
             var result = false;
             if (result)
             {
@@ -38,22 +41,23 @@ namespace ExpenseDistributor.Core.Controllers
             }
             else
             {
-                return Ok(new { Message = "Unauthorized user! Either password or username is wrong." });
+                return Ok(m);
             }
 
         }
         [HttpGet("getusers")]
         //[Authorize]
-        public IActionResult getlist()
+        public ActionResult<List<UserAC>> getlist()
         {
             
             var list = userRepository.GetListOfUsers().ToList();
             var listuserDto = mapper.Map<List<User>, List<UserAC>>(list);
-            if (listuserDto.Count == 0)
-            {
-                return Ok(new { Message = "List is empty." });
-            }
-            return Ok(new { Message="You got the list.",Userlist= listuserDto });
+            //if (listuserDto.Count == 0)
+            //{
+            //    return Ok(new { Message = "List is empty." });
+            //}
+            //return Ok(new { Message="You got the list.",Userlist= listuserDto });
+            return Ok(listuserDto );
 
         }
 
@@ -62,23 +66,29 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("login")]
         //[Authorize]
-        public IActionResult PostLogin([FromBody] LoginAC loginAC)
+        public ActionResult PostLogin([FromBody] LoginAC loginAC)
         {
             var result = userRepository.Login(loginAC.Email,loginAC.Password);
+            MessageAC m = new MessageAC();
+            
             if (result)
             {
-                return Ok(new { Message = "Logged in Successfully." });
+                m.Message = "Logged in Successfully.";
+                return Ok(m);
+                //return Ok(new { Message = "Logged in Successfully." });
             }
             else
             {
-                return Ok(new { Message= "Unauthorized user! Either password or username is wrong." }) ;
+                m.Message = "Unauthorized user! Either password or username is wrong.";
+                return Ok(m);
+                //return Ok(new { Message= "Unauthorized user! Either password or username is wrong." }) ;
             }
 
         }
 
         [HttpPost("register")]
         //[Authorize]
-        public IActionResult PostRegister([FromBody] UserAC userAC)
+        public ActionResult<UserReturnAC> PostRegister([FromBody] UserAC userAC)
         {
             
             var user = mapper.Map<UserAC, User>(userAC);
@@ -91,13 +101,13 @@ namespace ExpenseDistributor.Core.Controllers
             //{
             //    User = userRepository.CreateNewUser(userViewModel.User)
             //};
-
-            return Ok(new { User=userDto,Friend=friendDto});
+            return Ok(userDto);
+            //return Ok(new { User=userDto,Friend=friendDto});
         }
 
         [HttpGet("{userId}")]
         //[Authorize]
-        public IActionResult Get([FromRoute] long userId)
+        public ActionResult<UserReturnAC> Get([FromRoute] long userId)
         {
             
             var user = userRepository.GetUser(userId);
@@ -112,7 +122,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPut("{userId}")]
         //[Authorize]
-        public IActionResult Update([FromRoute] long userId, [FromBody] UserReturnAC userReturnAC)
+        public ActionResult<UserReturnAC> Update([FromRoute] long userId, [FromBody] UserReturnAC userReturnAC)
         {
             var user = mapper.Map<UserReturnAC, User>(userReturnAC);
             var user2 = userRepository.UpdateUser(userId, user);

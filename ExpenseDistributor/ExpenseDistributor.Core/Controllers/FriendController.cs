@@ -24,15 +24,15 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet]
         //[Authorize]
-        public IActionResult GetList([FromRoute] long userId)
+        public ActionResult<List<FriendAC>> GetList([FromRoute] long userId)
         {
             var list = friendRepository.GetAllFriends(userId).ToList();
             var listfriendDto = mapper.Map<List<Friend>, List<FriendAC>>(list);
-            Console.WriteLine(listfriendDto.Count);
-            if(listfriendDto.Count == 0)
-            {
-                return Ok(new { Message = "Your list is empty." });
-            }
+            //Console.WriteLine(listfriendDto.Count);
+            //if(listfriendDto.Count == 0)
+            //{
+            //    return Ok(new { Message = "Your list is empty." });
+            //}
             return Ok(listfriendDto);
         }
 
@@ -40,7 +40,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost]
         //[Authorize]
-        public IActionResult Create([FromRoute] long userId,[FromBody] FriendAC friendAC)
+        public ActionResult<FriendAC> Create([FromRoute] long userId,[FromBody] FriendAC friendAC)
         {
 
             var friend = mapper.Map<FriendAC, Friend>(friendAC);
@@ -56,7 +56,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPut("{friendId}")]
         //[Authorize]
-        public IActionResult Update([FromRoute] long userId, [FromRoute] long friendId, [FromBody] FriendAC friendAC)
+        public ActionResult<FriendAC> Update([FromRoute] long userId, [FromRoute] long friendId, [FromBody] FriendAC friendAC)
         {
             var friend = mapper.Map<FriendAC, Friend>(friendAC);
             var friend2 = friendRepository.UpdateFriend(userId, friendId, friend);
@@ -79,7 +79,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("{friendId}/nongrouptransaction")]
         //[Authorize]
-        public IActionResult GetListNonGroup([FromRoute] long friendId)
+        public ActionResult<List<TotalExpensesPerRelationshipAC>> GetListNonGroup([FromRoute] long friendId)
         {
             var list = friendRepository.GetAllNonGroupTransactions(friendId).ToList();
             var listTransactionDto = mapper.Map<List<TotalExpensesPerRelationship>, List<TotalExpensesPerRelationshipAC>>(list);

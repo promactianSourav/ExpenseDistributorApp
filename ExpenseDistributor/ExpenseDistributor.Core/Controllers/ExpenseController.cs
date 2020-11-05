@@ -27,7 +27,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet]
         //[Authorize]
-        public IActionResult GetList([FromRoute] long groupId)
+        public ActionResult<List<ExpenseAC>> GetList([FromRoute] long groupId)
         {
             var list = expenseRepository.GetAllExpenses(groupId).ToList();
             var listExpensesDto = mapper.Map<List<Expense>, List<ExpenseAC>>(list);
@@ -37,7 +37,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost]
         //[Authorize]
-        public IActionResult Create([FromRoute] long groupId,[FromBody] ExpenseAC expenseAC)
+        public ActionResult<ExpenseAC> Create([FromRoute] long groupId,[FromBody] ExpenseAC expenseAC)
         {
             var expense = mapper.Map<ExpenseAC, Expense>(expenseAC);
             var expense2 = expenseRepository.CreateExpense(groupId, expense);
@@ -52,7 +52,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPut("{expenseId}")]
         //[Authorize]
-        public IActionResult Update([FromRoute] long groupId, [FromRoute] long expenseId,[FromBody] ExpenseAC expenseAC)
+        public ActionResult<ExpenseAC> Update([FromRoute] long groupId, [FromRoute] long expenseId,[FromBody] ExpenseAC expenseAC)
         {
             var expense = mapper.Map<ExpenseAC, Expense>(expenseAC);
             var expense2 = expenseRepository.UpdateExpense(groupId, expenseId, expense);

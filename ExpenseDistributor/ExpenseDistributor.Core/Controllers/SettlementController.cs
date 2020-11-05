@@ -24,8 +24,10 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("check")]
         //[Authorize]
-        public IActionResult Check()
+        public ActionResult<MessageAC> Check()
         {
+            MessageAC m = new MessageAC();
+            m.Message = "Unauthorized user! Either password or username is wrong.";
             var result = false;
             if (result)
             {
@@ -33,14 +35,14 @@ namespace ExpenseDistributor.Core.Controllers
             }
             else
             {
-                return Ok(new { Message = "Unauthorized user! Either password or username is wrong." });
+                return Ok(m);
             }
 
         }
 
         [HttpGet("{friendId}")]
         //[Authorize]
-        public IActionResult GetListForUser([FromRoute] long friendId)
+        public ActionResult<List<SettlementAC>> GetListForUser([FromRoute] long friendId)
         {
             var list = settlementRepository.GetAllSettlementsForUser(friendId).ToList();
             var listsettlementDto = mapper.Map<List<Settlement>, List<SettlementAC>>(list);
@@ -49,7 +51,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("{friendId}")]
         //[Authorize]
-        public IActionResult CreateForUser([FromRoute] long friendId,[FromBody] SettlementAC settlementAC)
+        public ActionResult<SettlementAC> CreateForUser([FromRoute] long friendId,[FromBody] SettlementAC settlementAC)
         {
             var settlement = mapper.Map<SettlementAC, Settlement>(settlementAC);
             var settlement2 = settlementRepository.CreateSettlementForUser(friendId, settlement);
@@ -65,7 +67,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpGet("{groupId}/{expenseId}")]
         //[Authorize]
-        public IActionResult GetListForExpense([FromRoute] long groupId, [FromRoute] long expenseId)
+        public ActionResult<List<SettlementPerExpenseAC>> GetListForExpense([FromRoute] long groupId, [FromRoute] long expenseId)
         {
             var list = settlementRepository.GetAllSettlementsForExpense(groupId, expenseId).ToList();
             var listSettlementForExpense = mapper.Map<List<SettlementPerExpense>, List<SettlementPerExpenseAC>>(list);
@@ -74,7 +76,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("{groupId}/{expenseId}")]
         //[Authorize]
-        public IActionResult CreateForExpense([FromRoute] long groupId, [FromRoute] long expenseId, [FromBody] SettlementPerExpenseAC settlementPerExpenseAC)
+        public ActionResult<SettlementPerExpenseAC> CreateForExpense([FromRoute] long groupId, [FromRoute] long expenseId, [FromBody] SettlementPerExpenseAC settlementPerExpenseAC)
         {
 
             var settlementPerExpense = mapper.Map<SettlementPerExpenseAC, SettlementPerExpense>(settlementPerExpenseAC);

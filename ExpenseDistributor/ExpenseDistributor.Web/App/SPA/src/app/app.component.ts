@@ -1,4 +1,4 @@
-import { UserService, ExpenseService, UserAC } from './Services/ApiClientGenerated.service';
+import { UserService, ExpenseService, UserAC, SettlementService } from './Services/ApiClientGenerated.service';
 import { Component } from '@angular/core';
 
 
@@ -10,13 +10,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ExpenseDistributorSPA';
   userList:any[] = [];
-  constructor( private userService:UserService, private expenseService:ExpenseService){
+  constructor( private userService:UserService, private expenseService:ExpenseService, private settlementService:SettlementService){
+    this.userService.get(13).subscribe(response =>{
+      console.log(response);
+      }
+    );
     this.userService.getlist().subscribe(response =>{
       console.log(response);
       }
     );
-
-    this.userService.check().subscribe(response => console.log(response)
+    this.settlementService.getListForUser(7).subscribe(response => console.log(response)
     );
   }
 }
