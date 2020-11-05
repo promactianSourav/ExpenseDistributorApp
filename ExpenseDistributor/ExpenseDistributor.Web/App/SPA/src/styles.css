@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+/* html,
+body {
+    height: 100vh;
+}
+
+.Site-content {
+    flex: 1;
+}
+
+.form-control.ng-touched.ng-invalid {
+    border-color: red;
+    border-style: outset;
+    border-width: 4px;
+} */

@@ -22,4 +22,11 @@ export class AppComponent {
     this.settlementService.getListForUser(7).subscribe(response => console.log(response)
     );
   }
+
+
+  get signin() {
+    // this.username = localStorage.getItem('username');
+    return localStorage.getItem('token') != null ? true : false;
+  }
+ 
 }
