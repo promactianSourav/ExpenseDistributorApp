@@ -3,3 +3,13 @@
     min-height: 100vh;
     flex-direction: column;
 } */
+
+.nav-item:hover {
+    background-color: rgb(172, 164, 209);
+    border-radius: 5px;
+}
+
+.navbar-nav>li>a:focus {
+    background-color: rgb(62, 58, 80);
+    border-radius: 5px;
+}
