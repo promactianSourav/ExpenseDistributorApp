@@ -37,7 +37,8 @@ export class AppComponent {
     return localStorage.getItem('Id') != null ? true : false;
   }
   logout() {
-    
+    localStorage.removeItem('Id');
+    localStorage.removeItem('friendId');
     localStorage.clear();
     this.router.navigate(['user/login']);
   }

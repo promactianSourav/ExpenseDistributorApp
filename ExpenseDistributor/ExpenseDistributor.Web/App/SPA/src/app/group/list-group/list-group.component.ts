@@ -1,4 +1,4 @@
-import { GroupService, GroupAC, ExpenseService, ExpenseAC } from './../../Services/ApiClientGenerated.service';
+import { GroupService, GroupAC, ExpenseService, ExpenseAC, LentBorrowAC } from './../../Services/ApiClientGenerated.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,17 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListGroupComponent implements OnInit {
 
+  gr:LentBorrowAC;
   groupList:GroupAC[] = [];
   expenseList:ExpenseAC[] = [];
+  groupRecordList:LentBorrowAC[] = [];
   userId:number = Number(localStorage.getItem('Id'));
+  friendId:number = Number(localStorage.getItem('friendId'));
   constructor( private groupService:GroupService,private expenseService:ExpenseService) {
     this.groupService.getList(this.userId).subscribe( response =>{
         this.groupList = response;
-        console.log(response);
     });
 
 
-    // this.expenseService.getList()
+    this.groupService.getExpensesRecordForGroups(this.friendId,this.userId).subscribe(response =>{
+        this.groupRecordList = response;
+    });
 
    }
 

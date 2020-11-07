@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
 
         localStorage.setItem('Id',response.userId.toString());
+        localStorage.setItem('friendId',response.friendUserId.toString());
     });
     
     // this.authservice.login(this.loginview).subscribe(

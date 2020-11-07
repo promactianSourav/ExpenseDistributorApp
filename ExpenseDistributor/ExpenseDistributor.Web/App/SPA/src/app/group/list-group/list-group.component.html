@@ -10,23 +10,32 @@
             <div class="row mb-3 mr-5 justify-content-start" style="font-size: 32px;">
                 Group Transactions
             </div>
-
-            <div class="row" *ngFor='let grp of groupList; let i = index'>
+            <div class="row">
                 <div class="col">
-                    <!-- Each group -->
-                    <div class="row row-cols-2 border border-darken-4 rounded">
-                        <div class="col">
-                            {{grp.groupName}}
+                    <div class="row" *ngFor='let grp of groupRecordList; let i = index'>
+                        <div class="col" [routerLink]="['/user','groups',grp.groupId]">
+                            <!-- Each group -->
+                            <div class="row row-cols-2 border border-darken-4 rounded">
+                                <div class="col">
+                                    <b>
+                                        {{grp.groupName}}
+                                    </b>
+
+                                </div>
+                                <div class="col"></div>
+                                <div class="col">Amount lent by you :</div>
+                                <div class="col">{{grp.lentAmount}}</div>
+
+                                <div class="col">Amount borrowed by you :</div>
+                                <div class="col">{{grp.borrowAmount}}</div>
+                            </div>
+                            <hr>
                         </div>
-                        <div class="col">{{grp.groupName}}</div>
-                        <div class="col">{{grp.groupName}}</div>
-                        <div class="col">{{grp.groupName}}</div>
-                        <div class="col">{{grp.groupName}}</div>
-                        <div class="col">{{grp.groupName}}</div>
                     </div>
-                    <hr>
                 </div>
             </div>
+
+
 
         </div>
         <div class="col-2"></div>

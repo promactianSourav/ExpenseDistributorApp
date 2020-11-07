@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ExpenseDistributor.DomainModel.Models;
 
 namespace ExpenseDistributor.Core.ApplicationClasses
 {
-    public class GroupAC
+    public class LentBorrowAC
     {
+        public long GroupId { get; set; }
         public string GroupName { get; set; }
-        public long GroupTypeId { get; set; }
+        public decimal LentAmount { get; set; }
+        public decimal BorrowAmount { get; set; }
     }
 }
