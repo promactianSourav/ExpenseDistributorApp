@@ -14,9 +14,9 @@ namespace ExpenseDistributor.DomainModel.Models
         [ForeignKey("GroupId")]
         public virtual Group Group { get; set; }
 
-        public long? GroupsUserId { get; set; }
-        [ForeignKey("GroupsUserId")]
-        public virtual User User { get; set; }
+        public long? GroupsFriendId { get; set; }
+        [ForeignKey("GroupsFriendId")]
+        public virtual Friend Friend { get; set; }
 
        
     }

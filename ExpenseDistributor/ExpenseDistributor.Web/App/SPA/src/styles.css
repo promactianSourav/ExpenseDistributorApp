@@ -4,9 +4,11 @@
 
 /* html,
 body {
-    height: 100vh;
-}
+    height: 100%;
+} */
 
+
+/* 
 .Site-content {
     flex: 1;
 }
@@ -16,3 +18,8 @@ body {
     border-style: outset;
     border-width: 4px;
 } */
+
+hr {
+    height: 2px;
+    background-color: black;
+}

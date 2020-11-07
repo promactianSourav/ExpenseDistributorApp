@@ -11,5 +11,6 @@ namespace ExpenseDistributor.Repository.Groups
         Group CreateGroup(long userId,Group groupNew);
         Group UpdateGroup(long userId,long groupId, Group groupChange);
         void DeleteGroup(long userId,long groupId);
+        IEnumerable<GroupedUser> GroupedUsers(GroupedUser groupedUser);
     }
 }

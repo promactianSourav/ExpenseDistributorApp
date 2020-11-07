@@ -1,5 +1,6 @@
 import { UserService, ExpenseService, UserAC, SettlementService } from './Services/ApiClientGenerated.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,9 +11,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ExpenseDistributorSPA';
   userList:any[] = [];
-  constructor( private userService:UserService, private expenseService:ExpenseService, private settlementService:SettlementService){
-    this.userService.get(13).subscribe(response =>{
+  name:string = null;
+  userId:number = Number(localStorage.getItem('Id'));
+  constructor( private userService:UserService, private expenseService:ExpenseService, private settlementService:SettlementService,private router:Router){
+    this.userService.get(Number(localStorage.getItem('Id'))).subscribe(response =>{
       console.log(response);
+      this.name = response.name;
+      console.log(this.name);
+      
+      console.log(localStorage.getItem('Id'));
+      
       }
     );
     this.userService.getlist().subscribe(response =>{
@@ -26,7 +34,12 @@ export class AppComponent {
 
   get signin() {
     // this.username = localStorage.getItem('username');
-    return localStorage.getItem('token') != null ? true : false;
+    return localStorage.getItem('Id') != null ? true : false;
+  }
+  logout() {
+    
+    localStorage.clear();
+    this.router.navigate(['user/login']);
   }
  
 }

@@ -25,19 +25,28 @@ namespace ExpenseDistributor.Repository.Users
         }
 
 
+        public long GetUserFriendId(long userId)
+        {
+            var friend = dataContext.Friends.FirstOrDefault(u => u.CreatorUserId == userId && u.FriendUserId == userId);
+            if(friend == null)
+            {
+                return -1;
+            }
+            return friend.FriendId;
+        }
 
 
-        public bool Login(string email,string password)
+        public long Login(string email,string password)
         {
             var result = dataContext.Users.FirstOrDefault(u => u.Email == email && u.Password==password);
         
             if (result!=null)
             {
-                return true;
+                return result.UserId;
             }
             else
             {
-                return false;
+                return -1;
             }
             //throw new NotImplementedException();
         }
@@ -100,6 +109,5 @@ namespace ExpenseDistributor.Repository.Users
             //throw new NotImplementedException();
         }
 
-        
     }
 }

@@ -31,7 +31,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listGroupDto);
         }
 
-        [HttpPost("{userId}")]
+        [HttpPost("{userId}/addgroup")]
         //[Authorize]
         public ActionResult<GroupAC> Create([FromRoute] long userId, [FromBody] GroupAC groupAC)
         {
@@ -44,6 +44,21 @@ namespace ExpenseDistributor.Core.Controllers
             //};
 
             return Ok(groupDto);
+        }
+
+        [HttpPost("{userId}/addfriendingrp")]
+        //[Authorize]
+        public ActionResult<List<GroupedUserAC>> AddFriendInGroup([FromBody] GroupedUserAC groupedUserAC)
+        {
+            var group = mapper.Map<GroupedUserAC, GroupedUser>(groupedUserAC);
+            var group2 = groupRepository.GroupedUsers(group).ToList();
+            var groupedUserListDto = mapper.Map<List<GroupedUser>, List<GroupedUserAC>>(group2);
+            //GroupViewModel _groupViewModel = new GroupViewModel()
+            //{
+            //    Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
+            //};
+
+            return Ok(groupedUserListDto);
         }
 
         [HttpPut("{userId}/{groupId}")]

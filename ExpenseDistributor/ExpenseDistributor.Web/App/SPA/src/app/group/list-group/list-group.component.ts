@@ -1,3 +1,4 @@
+import { GroupService, GroupAC, ExpenseService, ExpenseAC } from './../../Services/ApiClientGenerated.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListGroupComponent implements OnInit {
 
-  constructor() { }
+  groupList:GroupAC[] = [];
+  expenseList:ExpenseAC[] = [];
+  userId:number = Number(localStorage.getItem('Id'));
+  constructor( private groupService:GroupService,private expenseService:ExpenseService) {
+    this.groupService.getList(this.userId).subscribe( response =>{
+        this.groupList = response;
+        console.log(response);
+    });
+
+
+    // this.expenseService.getList()
+
+   }
 
   ngOnInit(): void {
   }

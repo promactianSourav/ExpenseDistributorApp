@@ -499,7 +499,7 @@ export class GroupService {
     }
 
     create(userId: number, groupAC: GroupAC): Observable<GroupAC> {
-        let url_ = this.baseUrl + "/api/Group/{userId}";
+        let url_ = this.baseUrl + "/api/Group/{userId}/addgroup";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
         url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
@@ -551,6 +551,65 @@ export class GroupService {
             }));
         }
         return _observableOf<GroupAC>(<any>null);
+    }
+
+    addFriendInGroup(groupedUserAC: GroupedUserAC, userId: string): Observable<GroupedUserAC[]> {
+        let url_ = this.baseUrl + "/api/Group/{userId}/addfriendingrp";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(groupedUserAC);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddFriendInGroup(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddFriendInGroup(<any>response_);
+                } catch (e) {
+                    return <Observable<GroupedUserAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GroupedUserAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddFriendInGroup(response: HttpResponseBase): Observable<GroupedUserAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GroupedUserAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GroupedUserAC[]>(<any>null);
     }
 
     update(userId: number, groupId: number, groupAC: GroupAC): Observable<GroupAC> {
@@ -1009,7 +1068,7 @@ export class UserService {
         return _observableOf<UserAC[]>(<any>null);
     }
 
-    postLogin(loginAC: LoginAC): Observable<FileResponse | null> {
+    postLogin(loginAC: LoginAC): Observable<MessageAC> {
         let url_ = this.baseUrl + "/api/User/login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1021,7 +1080,7 @@ export class UserService {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             })
         };
 
@@ -1032,31 +1091,33 @@ export class UserService {
                 try {
                     return this.processPostLogin(<any>response_);
                 } catch (e) {
-                    return <Observable<FileResponse | null>><any>_observableThrow(e);
+                    return <Observable<MessageAC>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FileResponse | null>><any>_observableThrow(response_);
+                return <Observable<MessageAC>><any>_observableThrow(response_);
         }));
     }
 
-    protected processPostLogin(response: HttpResponseBase): Observable<FileResponse | null> {
+    protected processPostLogin(response: HttpResponseBase): Observable<MessageAC> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MessageAC.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FileResponse | null>(<any>null);
+        return _observableOf<MessageAC>(<any>null);
     }
 
     postRegister(userAC: UserAC): Observable<UserReturnAC> {
@@ -1383,6 +1444,7 @@ export interface ITotalExpensesPerRelationshipAC {
 }
 
 export class GroupAC implements IGroupAC {
+    groupId!: number;
     groupName?: string | undefined;
     groupTypeId!: number;
 
@@ -1397,6 +1459,7 @@ export class GroupAC implements IGroupAC {
 
     init(_data?: any) {
         if (_data) {
+            this.groupId = _data["groupId"];
             this.groupName = _data["groupName"];
             this.groupTypeId = _data["groupTypeId"];
         }
@@ -1411,6 +1474,7 @@ export class GroupAC implements IGroupAC {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["groupId"] = this.groupId;
         data["groupName"] = this.groupName;
         data["groupTypeId"] = this.groupTypeId;
         return data; 
@@ -1418,11 +1482,54 @@ export class GroupAC implements IGroupAC {
 }
 
 export interface IGroupAC {
+    groupId: number;
     groupName?: string | undefined;
     groupTypeId: number;
 }
 
+export class GroupedUserAC implements IGroupedUserAC {
+    groupId!: number;
+    groupsFriendId!: number;
+
+    constructor(data?: IGroupedUserAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.groupId = _data["groupId"];
+            this.groupsFriendId = _data["groupsFriendId"];
+        }
+    }
+
+    static fromJS(data: any): GroupedUserAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new GroupedUserAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["groupId"] = this.groupId;
+        data["groupsFriendId"] = this.groupsFriendId;
+        return data; 
+    }
+}
+
+export interface IGroupedUserAC {
+    groupId: number;
+    groupsFriendId: number;
+}
+
 export class MessageAC implements IMessageAC {
+    userId!: number;
+    friendUserId!: number;
     message?: string | undefined;
 
     constructor(data?: IMessageAC) {
@@ -1436,6 +1543,8 @@ export class MessageAC implements IMessageAC {
 
     init(_data?: any) {
         if (_data) {
+            this.userId = _data["userId"];
+            this.friendUserId = _data["friendUserId"];
             this.message = _data["message"];
         }
     }
@@ -1449,12 +1558,16 @@ export class MessageAC implements IMessageAC {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["friendUserId"] = this.friendUserId;
         data["message"] = this.message;
         return data; 
     }
 }
 
 export interface IMessageAC {
+    userId: number;
+    friendUserId: number;
     message?: string | undefined;
 }
 
@@ -1696,13 +1809,6 @@ export interface IUserReturnAC {
     name?: string | undefined;
     email?: string | undefined;
     phoneNumber?: string | undefined;
-}
-
-export interface FileResponse {
-    data: Blob;
-    status: number;
-    fileName?: string;
-    headers?: { [name: string]: any };
 }
 
 export class ApiException extends Error {

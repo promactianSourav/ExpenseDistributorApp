@@ -1,1 +1,72 @@
-<p>list-group works!</p>
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col" style="font-size: 48px;">
+            <b>Groups</b>
+        </div>
+    </div>
+    <!-- Group List -->
+    <div class="row">
+        <div class="col-8">
+            <div class="row mb-3 mr-5 justify-content-start" style="font-size: 32px;">
+                Group Transactions
+            </div>
+
+            <div class="row" *ngFor='let grp of groupList; let i = index'>
+                <div class="col">
+                    <!-- Each group -->
+                    <div class="row row-cols-2 border border-darken-4 rounded">
+                        <div class="col">
+                            {{grp.groupName}}
+                        </div>
+                        <div class="col">{{grp.groupName}}</div>
+                        <div class="col">{{grp.groupName}}</div>
+                        <div class="col">{{grp.groupName}}</div>
+                        <div class="col">{{grp.groupName}}</div>
+                        <div class="col">{{grp.groupName}}</div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-2"></div>
+        <div class="col-2">
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" style="width: 250px;">Create New Group</button>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" disabled hidden></button>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" disabled hidden></button>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" disabled hidden></button>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" disabled hidden></button>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" disabled hidden></button>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <button class="btn btn-primary" style="width: 250px;">Non-Group Transactions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,3 +13,9 @@
     background-color: rgb(62, 58, 80);
     border-radius: 5px;
 }
+
+#footerFirst {
+    position: absolute;
+    margin-top: 100%;
+    justify-content: center;
+}

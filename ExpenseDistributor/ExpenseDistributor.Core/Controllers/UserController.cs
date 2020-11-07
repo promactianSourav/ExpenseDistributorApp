@@ -66,20 +66,26 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("login")]
         //[Authorize]
-        public ActionResult PostLogin([FromBody] LoginAC loginAC)
+        public ActionResult<MessageAC> PostLogin([FromBody] LoginAC loginAC)
         {
             var result = userRepository.Login(loginAC.Email,loginAC.Password);
+            var friendId = userRepository.GetUserFriendId(result);
+           
             MessageAC m = new MessageAC();
             
-            if (result)
+            if (result != -1)
             {
                 m.Message = "Logged in Successfully.";
+                m.UserId = result;
+                m.FriendUserId = friendId;
                 return Ok(m);
                 //return Ok(new { Message = "Logged in Successfully." });
             }
             else
             {
                 m.Message = "Unauthorized user! Either password or username is wrong.";
+                m.UserId = -10;
+                m.FriendUserId = -10;
                 return Ok(m);
                 //return Ok(new { Message= "Unauthorized user! Either password or username is wrong." }) ;
             }

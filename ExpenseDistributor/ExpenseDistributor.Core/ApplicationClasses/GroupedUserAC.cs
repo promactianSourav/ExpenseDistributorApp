@@ -9,6 +9,6 @@ namespace ExpenseDistributor.Core.ApplicationClasses
     {
         public long GroupId { get; set; }
 
-        public long GroupsUserId { get; set; }
+        public long GroupsFriendId { get; set; }
     }
 }

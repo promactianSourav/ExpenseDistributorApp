@@ -40,6 +40,16 @@ namespace ExpenseDistributor.Repository.Groups
             //throw new NotImplementedException();
         }
 
+        public IEnumerable<GroupedUser> GroupedUsers(GroupedUser groupedUser)
+        {
+            dataContext.GroupedUsers.Add(groupedUser);
+            dataContext.SaveChanges();
+
+            var list = dataContext.GroupedUsers.Where(g => g.GroupId == groupedUser.GroupId).ToList();
+
+            return list;
+        }
+
         public Group UpdateGroup(long userId, long groupId, Group groupChange)
         {
             var group = dataContext.Groups.Find(groupId);
