@@ -8,6 +8,7 @@ namespace ExpenseDistributor.Repository.Friends
     public interface IFriendRepository
     {
         IEnumerable<Friend> GetAllFriends(long userId);
+        Friend GetFriend(long friendId);
         Friend CreateFriend(long userId,Friend friendNew);
         Friend UpdateFriend(long userId, long friendId, Friend friendChange);
         void DeleteFriend(long userId, long friendId);

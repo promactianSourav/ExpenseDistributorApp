@@ -37,7 +37,7 @@ namespace ExpenseDistributor.Repository.Friends
         public IEnumerable<Friend> GetAllFriends(long userId)
         {
             var friendList = dataContext.Friends.Where(u => u.CreatorUserId==userId).ToList();
-            Console.WriteLine(friendList.Count+"Repo");
+            //Console.WriteLine(friendList.Count+"Repo");
             return friendList;
             //throw new NotImplementedException();
         }
@@ -59,6 +59,12 @@ namespace ExpenseDistributor.Repository.Friends
             var expenseNonGroup = dataContext.TotalExpensesPerRelationships.Where(t => t.PayerFriendId == friendId).ToList();
             return expenseNonGroup;
             //throw new NotImplementedException();
+        }
+
+        public Friend GetFriend(long friendId)
+        {
+            var friend = dataContext.Friends.FirstOrDefault(f => f.FriendId == friendId);
+            return friend;
         }
     }
 }

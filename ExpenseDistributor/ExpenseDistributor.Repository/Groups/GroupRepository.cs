@@ -40,6 +40,12 @@ namespace ExpenseDistributor.Repository.Groups
             //throw new NotImplementedException();
         }
 
+        public Group GetGroup(long groupId)
+        {
+            var group = dataContext.Groups.FirstOrDefault(g => g.GroupId == groupId);
+            return group;
+        }
+
         public IEnumerable<GroupedUser> GroupedUsers(GroupedUser groupedUser)
         {
             dataContext.GroupedUsers.Add(groupedUser);

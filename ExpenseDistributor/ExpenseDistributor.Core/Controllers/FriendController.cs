@@ -5,7 +5,10 @@ using System.Text;
 using AutoMapper;
 using ExpenseDistributor.Core.ApplicationClasses;
 using ExpenseDistributor.DomainModel.Models;
+using ExpenseDistributor.Repository.Expenses;
 using ExpenseDistributor.Repository.Friends;
+using ExpenseDistributor.Repository.Groups;
+using ExpenseDistributor.Repository.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseDistributor.Core.Controllers
@@ -15,11 +18,17 @@ namespace ExpenseDistributor.Core.Controllers
     {
         private readonly IFriendRepository friendRepository;
         private readonly IMapper mapper;
+        private readonly IExpenseRepository expenseRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IGroupRepository groupRepository;
 
-        public FriendController(IFriendRepository friendRepository,IMapper mapper)
+        public FriendController(IFriendRepository friendRepository,IMapper mapper,IExpenseRepository expenseRepository,IUserRepository userRepository,IGroupRepository groupRepository)
         {
             this.friendRepository = friendRepository;
             this.mapper = mapper;
+            this.expenseRepository = expenseRepository;
+            this.userRepository = userRepository;
+            this.groupRepository = groupRepository;
         }
 
         [HttpGet]
@@ -36,7 +45,119 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listfriendDto);
         }
 
-        
+
+        [HttpGet("dashboardtotals")]
+        //[Authorize]
+        public ActionResult<DashboardTotalAC> GetDashboardTotals([FromRoute] long userId)
+        {
+            var list = friendRepository.GetAllFriends(userId).ToList();
+            var userFriendId = userRepository.GetUserFriendId(userId);
+
+            var listPerRelationship = expenseRepository.GetAllTotalExpensesPerRelationship(userFriendId).ToList();
+            DashboardTotalAC dashboardTotalAC = new DashboardTotalAC();
+            decimal oweAmount = 0;
+            decimal owedAmount = 0;
+            
+            foreach(var t in listPerRelationship)
+            {
+                if(t.PayerFriendId == userFriendId)
+                {
+                    owedAmount = owedAmount + t.Amount;
+                }
+                if (t.DebtFriendId == userFriendId)
+                {
+                    oweAmount = oweAmount + t.Amount;
+                }
+            }
+
+            dashboardTotalAC.OweAmount = oweAmount;
+            dashboardTotalAC.OwedAmount = owedAmount;
+            //Console.WriteLine(listfriendDto.Count);
+            //if(listfriendDto.Count == 0)
+            //{
+            //    return Ok(new { Message = "Your list is empty." });
+            //}
+            return Ok(dashboardTotalAC);
+        }
+
+
+        [HttpGet("dashboard")]
+        //[Authorize]
+        public ActionResult<List<OweOrOwedAC>> GetDashboardDetails([FromRoute] long userId)
+        {
+            var list = friendRepository.GetAllFriends(userId).ToList();
+            var userFriendId = userRepository.GetUserFriendId(userId);
+            List<OweOrOwedAC> listOweOrOwedAC = new List<OweOrOwedAC>();
+            foreach(var f in list)
+            {
+                OweOrOwedAC oweOrOwedAC = new OweOrOwedAC();
+                var checkOweOrOwed = expenseRepository.DecideOweOrOwed(userFriendId, f.FriendId);
+                if(checkOweOrOwed == 1)
+                {
+                    oweOrOwedAC.OweOrOwedId = 1;
+                    oweOrOwedAC.friendName = f.Name;
+                    var listExpense = expenseRepository.GetAllExpensesAsOweOrOwed(userFriendId, f.FriendId).ToList();
+                    var listExpenseAC = mapper.Map<List<Expense>, List<ExpenseAC>>(listExpense);
+                    List<ExpenseExpandAC> expenseExpandACList = new List<ExpenseExpandAC>();
+                    foreach (var e in listExpenseAC)
+                    {
+                        ExpenseExpandAC expenseExpandAC = new ExpenseExpandAC();
+                        expenseExpandAC.ExpenseName = e.ExpenseName;
+                        expenseExpandAC.GroupName = groupRepository.GetGroup(e.GroupId).GroupName;
+                        expenseExpandAC.PayerFriendName = friendRepository.GetFriend(e.PayerFriendId).Name;
+                        expenseExpandAC.DebtFriendName = friendRepository.GetFriend(e.DebtFriendId).Name;
+                        expenseExpandAC.CreatorFriendName = friendRepository.GetFriend(e.CreatorFriendId).Name;
+                        expenseExpandAC.SplitTypeName = expenseRepository.GetSplitType(e.SplitTypeId).SplitTypeName;
+                        expenseExpandAC.Amount = e.Amount;
+                        expenseExpandAC.Date = e.Date;
+                        expenseExpandAC.CurrencyName = expenseRepository.GetCurrency(e.CurrencyId).CurrencyName;
+
+                        expenseExpandACList.Add(expenseExpandAC);
+                    }
+                    
+                    oweOrOwedAC.listExpenses = expenseExpandACList;
+
+                    listOweOrOwedAC.Add(oweOrOwedAC);
+                }
+                
+                if(checkOweOrOwed == -1)
+                {
+                    oweOrOwedAC.OweOrOwedId = -1;
+                    oweOrOwedAC.friendName = f.Name;
+                    var listExpense = expenseRepository.GetAllExpensesAsOweOrOwed(userFriendId, f.FriendId).ToList();
+                    var listExpenseAC = mapper.Map<List<Expense>, List<ExpenseAC>>(listExpense);
+                    List<ExpenseExpandAC> expenseExpandACList = new List<ExpenseExpandAC>();
+                    foreach (var e in listExpenseAC)
+                    {
+                        ExpenseExpandAC expenseExpandAC = new ExpenseExpandAC();
+                        expenseExpandAC.ExpenseName = e.ExpenseName;
+                        expenseExpandAC.GroupName = groupRepository.GetGroup(e.GroupId).GroupName;
+                        expenseExpandAC.PayerFriendName = friendRepository.GetFriend(e.PayerFriendId).Name;
+                        expenseExpandAC.DebtFriendName = friendRepository.GetFriend(e.DebtFriendId).Name;
+                        expenseExpandAC.CreatorFriendName = friendRepository.GetFriend(e.CreatorFriendId).Name;
+                        expenseExpandAC.SplitTypeName = expenseRepository.GetSplitType(e.SplitTypeId).SplitTypeName;
+                        expenseExpandAC.Amount = e.Amount;
+                        expenseExpandAC.Date = e.Date;
+                        expenseExpandAC.CurrencyName = expenseRepository.GetCurrency(e.CurrencyId).CurrencyName;
+
+                        expenseExpandACList.Add(expenseExpandAC);
+                    }
+
+                    oweOrOwedAC.listExpenses = expenseExpandACList;
+
+                    listOweOrOwedAC.Add(oweOrOwedAC);
+                }
+            }
+            //var listfriendDto = mapper.Map<List<Friend>, List<FriendAC>>(list);
+            //Console.WriteLine(listfriendDto.Count);
+            //if(listfriendDto.Count == 0)
+            //{
+            //    return Ok(new { Message = "Your list is empty." });
+            //}
+            return Ok(listOweOrOwedAC);
+        }
+
+
 
         [HttpPost]
         //[Authorize]
