@@ -1676,6 +1676,7 @@ export interface IGroupedUserAC {
 export class MessageAC implements IMessageAC {
     userId!: number;
     friendUserId!: number;
+    name?: string | undefined;
     message?: string | undefined;
 
     constructor(data?: IMessageAC) {
@@ -1691,6 +1692,7 @@ export class MessageAC implements IMessageAC {
         if (_data) {
             this.userId = _data["userId"];
             this.friendUserId = _data["friendUserId"];
+            this.name = _data["name"];
             this.message = _data["message"];
         }
     }
@@ -1706,6 +1708,7 @@ export class MessageAC implements IMessageAC {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["friendUserId"] = this.friendUserId;
+        data["name"] = this.name;
         data["message"] = this.message;
         return data; 
     }
@@ -1714,6 +1717,7 @@ export class MessageAC implements IMessageAC {
 export interface IMessageAC {
     userId: number;
     friendUserId: number;
+    name?: string | undefined;
     message?: string | undefined;
 }
 

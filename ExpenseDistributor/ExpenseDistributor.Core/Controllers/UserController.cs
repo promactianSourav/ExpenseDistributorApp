@@ -70,6 +70,7 @@ namespace ExpenseDistributor.Core.Controllers
         {
             var result = userRepository.Login(loginAC.Email,loginAC.Password);
             var friendId = userRepository.GetUserFriendId(result);
+            var user = userRepository.GetUser(result);
            
             MessageAC m = new MessageAC();
             
@@ -78,17 +79,19 @@ namespace ExpenseDistributor.Core.Controllers
                 m.Message = "Logged in Successfully.";
                 m.UserId = result;
                 m.FriendUserId = friendId;
+                m.Name = user.Name;
                 return Ok(m);
                 //return Ok(new { Message = "Logged in Successfully." });
             }
-            else
-            {
-                m.Message = "Unauthorized user! Either password or username is wrong.";
-                m.UserId = -10;
-                m.FriendUserId = -10;
-                return Ok(m);
-                //return Ok(new { Message= "Unauthorized user! Either password or username is wrong." }) ;
-            }
+            //else
+            //{
+            //    m.Message = "Unauthorized user! Either password or username is wrong.";
+            //    m.UserId = -10;
+            //    m.FriendUserId = -10;
+            //    return Ok(m);
+            //    //return Ok(new { Message= "Unauthorized user! Either password or username is wrong." }) ;
+            //}
+            return Unauthorized();
 
         }
 

@@ -1,5 +1,5 @@
 import { UserService, ExpenseService, UserAC, SettlementService } from './Services/ApiClientGenerated.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -8,32 +8,29 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ExpenseDistributorSPA';
   userList:any[] = [];
-  name:string = null;
+  name:string = "";
   userId:number = Number(localStorage.getItem('Id'));
   constructor( private userService:UserService, private expenseService:ExpenseService, private settlementService:SettlementService,private router:Router){
-    this.userService.get(Number(localStorage.getItem('Id'))).subscribe(response =>{
-      console.log(response);
-      this.name = response.name;
-      console.log(this.name);
-      
-      console.log(localStorage.getItem('Id'));
-      
-      }
-    );
-    this.userService.getlist().subscribe(response =>{
-      console.log(response);
-      }
-    );
-    this.settlementService.getListForUser(7).subscribe(response => console.log(response)
-    );
+    
+  }
+  ngOnInit(): void {
+    
+    this.name = localStorage.getItem('name');
+    // this.userService.getlist().subscribe(response =>{
+    //   console.log(response);
+    //   }
+    // );
+    // this.settlementService.getListForUser(7).subscribe(response => console.log(response)
+    // );
   }
 
 
   get signin() {
-    // this.username = localStorage.getItem('username');
+    this.name = localStorage.getItem('name');
+    this.userId = Number(localStorage.getItem('Id'));
     return localStorage.getItem('Id') != null ? true : false;
   }
   logout() {

@@ -8,6 +8,7 @@ namespace ExpenseDistributor.Core.ApplicationClasses
     {
         public long UserId { get; set; }
         public long FriendUserId { get; set; }
+        public string Name { get; set; }
         public string Message { get; set; }
     }
 }

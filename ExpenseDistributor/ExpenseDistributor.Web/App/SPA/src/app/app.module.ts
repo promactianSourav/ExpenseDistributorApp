@@ -1,3 +1,4 @@
+import { SharedDataService } from './Services/shared-data.service';
 import { UserService, ExpenseService, SettlementService, GroupService, FriendService } from './Services/ApiClientGenerated.service';
 import { ExpenseModule } from './expense/expense.module';
 import { ExpenseRoutingModule } from './expense/expense-routing.module';
@@ -43,7 +44,7 @@ import { FormsModule } from '@angular/forms';
     ExpenseModule,
     AppRoutingModule
   ],
-  providers: [UserService,ExpenseService,SettlementService,GroupService,FriendService],
+  providers: [UserService,ExpenseService,SettlementService,GroupService,FriendService,SharedDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
