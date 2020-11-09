@@ -18,6 +18,7 @@ namespace ExpenseDistributor.Web.MappingProfiles
             CreateMap<Currency, CurrencyAC>().ReverseMap();
             CreateMap<Expense, ExpenseAC>().ReverseMap();
             CreateMap<Friend, FriendAC>().ReverseMap();
+            CreateMap<Friend, FriendCreateAC>().ReverseMap();
             CreateMap<Group, GroupAC>().ReverseMap();
             CreateMap<Group, GroupListAC>().ReverseMap();
             CreateMap<GroupedUser, GroupedUserAC>().ReverseMap();

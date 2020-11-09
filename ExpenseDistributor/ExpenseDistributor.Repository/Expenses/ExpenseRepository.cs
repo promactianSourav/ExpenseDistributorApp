@@ -114,6 +114,12 @@ namespace ExpenseDistributor.Repository.Expenses
             return expenseList;
         }
 
+        public IEnumerable<Expense> GetAllExpensesAsOweOrOwedPerGroup(long userFriendId, long friendId, long groupId)
+        {
+            var expenseList = dataContext.Expenses.Where(e => ((e.PayerFriendId == userFriendId && e.DebtFriendId == friendId) || (e.PayerFriendId == friendId && e.DebtFriendId == userFriendId)) && (e.PayerFriendId != e.DebtFriendId) && (e.GroupId == groupId)).ToList();
+            return expenseList;
+        }
+
         public IEnumerable<Expense> GetAllExpensesAsPayer(long payerId)
         {
             var expenseList = dataContext.Expenses.Where(e => (e.PayerFriendId == payerId) && (e.PayerFriendId != e.DebtFriendId)).ToList();

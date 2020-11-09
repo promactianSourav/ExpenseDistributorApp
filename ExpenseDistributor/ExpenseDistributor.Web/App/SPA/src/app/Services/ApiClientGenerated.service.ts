@@ -260,14 +260,14 @@ export class FriendService {
         return _observableOf<FriendAC[]>(<any>null);
     }
 
-    create(userId: number, friendAC: FriendAC): Observable<FriendAC> {
+    create(userId: number, friendCreateAC: FriendCreateAC): Observable<FriendCreateAC> {
         let url_ = this.baseUrl + "/api/user/{userId}/Friend";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
         url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(friendAC);
+        const content_ = JSON.stringify(friendCreateAC);
 
         let options_ : any = {
             body: content_,
@@ -286,14 +286,14 @@ export class FriendService {
                 try {
                     return this.processCreate(<any>response_);
                 } catch (e) {
-                    return <Observable<FriendAC>><any>_observableThrow(e);
+                    return <Observable<FriendCreateAC>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FriendAC>><any>_observableThrow(response_);
+                return <Observable<FriendCreateAC>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<FriendAC> {
+    protected processCreate(response: HttpResponseBase): Observable<FriendCreateAC> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -304,7 +304,7 @@ export class FriendService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FriendAC.fromJS(resultData200);
+            result200 = FriendCreateAC.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -312,7 +312,7 @@ export class FriendService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FriendAC>(<any>null);
+        return _observableOf<FriendCreateAC>(<any>null);
     }
 
     getDashboardTotals(userId: number): Observable<DashboardTotalAC> {
@@ -421,7 +421,7 @@ export class FriendService {
         return _observableOf<OweOrOwedAC[]>(<any>null);
     }
 
-    update(userId: number, friendId: number, friendAC: FriendAC): Observable<FriendAC> {
+    update(userId: number, friendId: number, friendCreateAC: FriendCreateAC): Observable<FriendCreateAC> {
         let url_ = this.baseUrl + "/api/user/{userId}/Friend/{friendId}";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -431,7 +431,7 @@ export class FriendService {
         url_ = url_.replace("{friendId}", encodeURIComponent("" + friendId));
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(friendAC);
+        const content_ = JSON.stringify(friendCreateAC);
 
         let options_ : any = {
             body: content_,
@@ -450,14 +450,14 @@ export class FriendService {
                 try {
                     return this.processUpdate(<any>response_);
                 } catch (e) {
-                    return <Observable<FriendAC>><any>_observableThrow(e);
+                    return <Observable<FriendCreateAC>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FriendAC>><any>_observableThrow(response_);
+                return <Observable<FriendCreateAC>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUpdate(response: HttpResponseBase): Observable<FriendAC> {
+    protected processUpdate(response: HttpResponseBase): Observable<FriendCreateAC> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -468,7 +468,7 @@ export class FriendService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FriendAC.fromJS(resultData200);
+            result200 = FriendCreateAC.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -476,7 +476,7 @@ export class FriendService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FriendAC>(<any>null);
+        return _observableOf<FriendCreateAC>(<any>null);
     }
 
     getListNonGroup(friendId: number, userId: string): Observable<TotalExpensesPerRelationshipAC[]> {
@@ -602,6 +602,60 @@ export class GroupService {
             }));
         }
         return _observableOf<GroupListAC[]>(<any>null);
+    }
+
+    getGroup(userId: number, groupId: number): Observable<GroupAC> {
+        let url_ = this.baseUrl + "/api/Group/{userId}/{groupId}/getgroup";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetGroup(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetGroup(<any>response_);
+                } catch (e) {
+                    return <Observable<GroupAC>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GroupAC>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetGroup(response: HttpResponseBase): Observable<GroupAC> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GroupAC.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GroupAC>(<any>null);
     }
 
     getGroupTypeList(userId: number): Observable<GroupTypeAC[]> {
@@ -948,7 +1002,65 @@ export class GroupService {
         return _observableOf<GroupedUserDetailsAC[]>(<any>null);
     }
 
-    update(userId: number, groupId: number, groupAC: GroupAC): Observable<GroupAC> {
+    getEditGroupFriendDetails(userId: number, groupId: number): Observable<GroupedUserDetailsAC[]> {
+        let url_ = this.baseUrl + "/api/Group/{userId}/{groupId}/geteditgroupfrienddetails";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetEditGroupFriendDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetEditGroupFriendDetails(<any>response_);
+                } catch (e) {
+                    return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetEditGroupFriendDetails(response: HttpResponseBase): Observable<GroupedUserDetailsAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GroupedUserDetailsAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GroupedUserDetailsAC[]>(<any>null);
+    }
+
+    update(userId: number, groupId: number, groupAC: GroupAC): Observable<GroupListAC> {
         let url_ = this.baseUrl + "/api/Group/{userId}/{groupId}";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -977,14 +1089,14 @@ export class GroupService {
                 try {
                     return this.processUpdate(<any>response_);
                 } catch (e) {
-                    return <Observable<GroupAC>><any>_observableThrow(e);
+                    return <Observable<GroupListAC>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<GroupAC>><any>_observableThrow(response_);
+                return <Observable<GroupListAC>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUpdate(response: HttpResponseBase): Observable<GroupAC> {
+    protected processUpdate(response: HttpResponseBase): Observable<GroupListAC> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -995,7 +1107,7 @@ export class GroupService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GroupAC.fromJS(resultData200);
+            result200 = GroupListAC.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1003,7 +1115,7 @@ export class GroupService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GroupAC>(<any>null);
+        return _observableOf<GroupListAC>(<any>null);
     }
 }
 
@@ -1899,6 +2011,58 @@ export interface IExpenseExpandAC {
     currencyName?: string | undefined;
 }
 
+export class FriendCreateAC implements IFriendCreateAC {
+    name?: string | undefined;
+    email?: string | undefined;
+    phoneNumber?: string | undefined;
+    creatorUserId!: number;
+    date?: string | undefined;
+
+    constructor(data?: IFriendCreateAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.email = _data["email"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.creatorUserId = _data["creatorUserId"];
+            this.date = _data["date"];
+        }
+    }
+
+    static fromJS(data: any): FriendCreateAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new FriendCreateAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["email"] = this.email;
+        data["phoneNumber"] = this.phoneNumber;
+        data["creatorUserId"] = this.creatorUserId;
+        data["date"] = this.date;
+        return data; 
+    }
+}
+
+export interface IFriendCreateAC {
+    name?: string | undefined;
+    email?: string | undefined;
+    phoneNumber?: string | undefined;
+    creatorUserId: number;
+    date?: string | undefined;
+}
+
 export class TotalExpensesPerRelationshipAC implements ITotalExpensesPerRelationshipAC {
     payerFriendId!: number;
     debtFriendId!: number;
@@ -1983,6 +2147,46 @@ export class GroupListAC implements IGroupListAC {
 
 export interface IGroupListAC {
     groupId: number;
+    groupName?: string | undefined;
+    groupTypeId: number;
+}
+
+export class GroupAC implements IGroupAC {
+    groupName?: string | undefined;
+    groupTypeId!: number;
+
+    constructor(data?: IGroupAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.groupName = _data["groupName"];
+            this.groupTypeId = _data["groupTypeId"];
+        }
+    }
+
+    static fromJS(data: any): GroupAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new GroupAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["groupName"] = this.groupName;
+        data["groupTypeId"] = this.groupTypeId;
+        return data; 
+    }
+}
+
+export interface IGroupAC {
     groupName?: string | undefined;
     groupTypeId: number;
 }
@@ -2075,51 +2279,12 @@ export interface ILentBorrowAC {
     borrowAmount: number;
 }
 
-export class GroupAC implements IGroupAC {
-    groupName?: string | undefined;
-    groupTypeId!: number;
-
-    constructor(data?: IGroupAC) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.groupName = _data["groupName"];
-            this.groupTypeId = _data["groupTypeId"];
-        }
-    }
-
-    static fromJS(data: any): GroupAC {
-        data = typeof data === 'object' ? data : {};
-        let result = new GroupAC();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["groupName"] = this.groupName;
-        data["groupTypeId"] = this.groupTypeId;
-        return data; 
-    }
-}
-
-export interface IGroupAC {
-    groupName?: string | undefined;
-    groupTypeId: number;
-}
-
 export class GroupedUserDetailsAC implements IGroupedUserDetailsAC {
     groupId!: number;
     groupsFriendId!: number;
     groupsFriendName?: string | undefined;
     groupsFriendEmail?: string | undefined;
+    amount!: number;
 
     constructor(data?: IGroupedUserDetailsAC) {
         if (data) {
@@ -2136,6 +2301,7 @@ export class GroupedUserDetailsAC implements IGroupedUserDetailsAC {
             this.groupsFriendId = _data["groupsFriendId"];
             this.groupsFriendName = _data["groupsFriendName"];
             this.groupsFriendEmail = _data["groupsFriendEmail"];
+            this.amount = _data["amount"];
         }
     }
 
@@ -2152,6 +2318,7 @@ export class GroupedUserDetailsAC implements IGroupedUserDetailsAC {
         data["groupsFriendId"] = this.groupsFriendId;
         data["groupsFriendName"] = this.groupsFriendName;
         data["groupsFriendEmail"] = this.groupsFriendEmail;
+        data["amount"] = this.amount;
         return data; 
     }
 }
@@ -2161,6 +2328,7 @@ export interface IGroupedUserDetailsAC {
     groupsFriendId: number;
     groupsFriendName?: string | undefined;
     groupsFriendEmail?: string | undefined;
+    amount: number;
 }
 
 export class GroupedUserAC implements IGroupedUserAC {

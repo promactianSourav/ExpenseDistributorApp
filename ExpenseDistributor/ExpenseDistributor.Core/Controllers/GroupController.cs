@@ -8,6 +8,7 @@ using ExpenseDistributor.DomainModel.Models;
 using ExpenseDistributor.Repository.Expenses;
 using ExpenseDistributor.Repository.Friends;
 using ExpenseDistributor.Repository.Groups;
+using ExpenseDistributor.Repository.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseDistributor.Core.Controllers
@@ -19,13 +20,15 @@ namespace ExpenseDistributor.Core.Controllers
         private readonly IMapper mapper;
         private readonly IExpenseRepository expenseRepository;
         private readonly IFriendRepository friendRepository;
+        private readonly IUserRepository userRepository;
 
-        public GroupController(IGroupRepository groupRepository,IMapper mapper,IExpenseRepository expenseRepository,IFriendRepository friendRepository)
+        public GroupController(IGroupRepository groupRepository,IMapper mapper,IExpenseRepository expenseRepository,IFriendRepository friendRepository,IUserRepository userRepository)
         {
             this.groupRepository = groupRepository;
             this.mapper = mapper;
             this.expenseRepository = expenseRepository;
             this.friendRepository = friendRepository;
+            this.userRepository = userRepository;
         }
 
         [HttpGet("{userId}")]
@@ -35,6 +38,15 @@ namespace ExpenseDistributor.Core.Controllers
             var list = groupRepository.GetAllGroups(userId).ToList();
             var listGroupDto = mapper.Map<List<Group>, List<GroupListAC>>(list);
             return Ok(listGroupDto);
+        }
+
+        [HttpGet("{userId}/{groupId}/getgroup")]
+        //[Authorize]
+        public ActionResult<GroupAC> GetGroup([FromRoute] long userId,[FromRoute] long groupId)
+        {
+            var group = groupRepository.GetGroup(groupId);
+            var GroupDto = mapper.Map<Group, GroupAC>(group);
+            return Ok(GroupDto);
         }
 
         [HttpGet("{userId}/grouptypelist")]
@@ -173,6 +185,7 @@ namespace ExpenseDistributor.Core.Controllers
                 gr.GroupsFriendId = g.GroupsFriendId;
                 gr.GroupsFriendName = friend.Name;
                 gr.GroupsFriendEmail = friend.Email;
+                gr.Amount = 0;
 
                 groupedUserListDetailsDto.Add(gr);
             }
@@ -184,13 +197,74 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(groupedUserListDetailsDto);
         }
 
+        [HttpGet("{userId}/{groupId}/geteditgroupfrienddetails")]
+        //[Authorize]
+        public ActionResult<List<GroupedUserDetailsAC>> GetEditGroupFriendDetails([FromRoute] long userId, [FromRoute] long groupId)
+        {
+
+            var group2 = groupRepository.GetGroupedUsersForGroup(groupId).ToList();
+            var groupedUserListDto = mapper.Map<List<GroupedUser>, List<GroupedUserAC>>(group2);
+            var userFriendId = userRepository.GetUserFriendId(userId);
+            List<GroupedUserDetailsAC> groupedUserListDetailsDto = new List<GroupedUserDetailsAC>();
+            GroupedUserDetailsAC grPrime = new GroupedUserDetailsAC();
+            foreach (var g in groupedUserListDto)
+            {
+                var friend = friendRepository.GetFriend(g.GroupsFriendId);
+                if (g.GroupsFriendId == userFriendId)
+                {
+                    grPrime.GroupId = g.GroupId;
+                    grPrime.GroupsFriendId = g.GroupsFriendId;
+                    grPrime.GroupsFriendName = friend.Name;
+                    grPrime.GroupsFriendEmail = friend.Email;
+                    continue;
+                }
+                GroupedUserDetailsAC gr = new GroupedUserDetailsAC();
+                
+                gr.GroupId = g.GroupId;
+                gr.GroupsFriendId = g.GroupsFriendId;
+                gr.GroupsFriendName = friend.Name;
+                gr.GroupsFriendEmail = friend.Email;
+                var listExpense = expenseRepository.GetAllExpensesAsOweOrOwedPerGroup(userFriendId, g.GroupsFriendId,groupId).ToList();
+                decimal total = 0;
+                foreach(var e in listExpense)
+                {
+                    if(e.PayerFriendId == userFriendId && e.DebtFriendId!=userFriendId)
+                    {
+                        total = total + e.Amount;
+                    }
+                    if(e.PayerFriendId == g.GroupsFriendId)
+                    {
+                        total = total - e.Amount;
+                    }
+                }
+                gr.Amount = total;
+
+                groupedUserListDetailsDto.Add(gr);
+            }
+            decimal grPrimeAmount = 0;
+            foreach(var g in groupedUserListDetailsDto)
+            {
+                grPrimeAmount = grPrimeAmount + g.Amount;
+            }
+
+            grPrime.Amount = grPrimeAmount;
+            groupedUserListDetailsDto.Add(grPrime);
+            //GroupViewModel _groupViewModel = new GroupViewModel()
+            //{
+            //    Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
+            //};
+
+            return Ok(groupedUserListDetailsDto);
+        }
+
+
         [HttpPut("{userId}/{groupId}")]
         //[Authorize]
-        public ActionResult<GroupAC> Update([FromRoute] long userId, [FromRoute] long groupId,[FromBody] GroupAC groupAC)
+        public ActionResult<GroupListAC> Update([FromRoute] long userId, [FromRoute] long groupId,[FromBody] GroupAC groupAC)
         {
             var group = mapper.Map<GroupAC, Group>(groupAC);
             var group2 = groupRepository.UpdateGroup(userId, groupId, group);
-            var groupDto = mapper.Map<Group, GroupAC>(group2);
+            var groupDto = mapper.Map<Group, GroupListAC>(group2);
             //GroupViewModel _groupViewModel = new GroupViewModel()
             //{
             //    Group = groupRepository.UpdateGroup(userId, groupId,groupViewModel.Group)

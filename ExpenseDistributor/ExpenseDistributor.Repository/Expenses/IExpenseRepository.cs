@@ -12,6 +12,7 @@ namespace ExpenseDistributor.Repository.Expenses
         IEnumerable<Expense> GetAllExpensesAsDebtor(long debtorId);
         IEnumerable<Expense> GetAllExpensesAsPayerOrDebtor(long friendId);
         IEnumerable<Expense> GetAllExpensesAsOweOrOwed(long userFriendId,long friendId);
+        IEnumerable<Expense> GetAllExpensesAsOweOrOwedPerGroup(long userFriendId,long friendId,long groupId);
         IEnumerable<TotalExpensesPerRelationship> GetAllTotalExpensesPerRelationship(long userFriendId);
         long DecideOweOrOwed(long userFriendId,long friendId);
         Expense CreateExpense(long groupId,Expense expenseNew);

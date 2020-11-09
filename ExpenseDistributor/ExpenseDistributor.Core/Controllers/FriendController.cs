@@ -161,12 +161,12 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost]
         //[Authorize]
-        public ActionResult<FriendAC> Create([FromRoute] long userId,[FromBody] FriendAC friendAC)
+        public ActionResult<FriendCreateAC> Create([FromRoute] long userId,[FromBody] FriendCreateAC friendCreateAC)
         {
 
-            var friend = mapper.Map<FriendAC, Friend>(friendAC);
+            var friend = mapper.Map<FriendCreateAC, Friend>(friendCreateAC);
             var friend2 = friendRepository.CreateFriend(userId, friend);
-            var friendDto = mapper.Map<Friend, FriendAC>(friend2);
+            var friendDto = mapper.Map<Friend, FriendCreateAC>(friend2);
             //UserViewModel friendViewModel = new UserViewModel()
             //{
             //    User = friendRepository.CreateFriend(userId,userViewModel.User)
@@ -177,11 +177,11 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPut("{friendId}")]
         //[Authorize]
-        public ActionResult<FriendAC> Update([FromRoute] long userId, [FromRoute] long friendId, [FromBody] FriendAC friendAC)
+        public ActionResult<FriendCreateAC> Update([FromRoute] long userId, [FromRoute] long friendId, [FromBody] FriendCreateAC friendCreateAC)
         {
-            var friend = mapper.Map<FriendAC, Friend>(friendAC);
+            var friend = mapper.Map<FriendCreateAC, Friend>(friendCreateAC);
             var friend2 = friendRepository.UpdateFriend(userId, friendId, friend);
-            var friendDto = mapper.Map<Friend, FriendAC>(friend2);
+            var friendDto = mapper.Map<Friend, FriendCreateAC>(friend2);
             //UserViewModel _friendViewModel = new UserViewModel()
             //{
             //    User = friendRepository.UpdateFriend(userId, friendId,userViewModel.User)

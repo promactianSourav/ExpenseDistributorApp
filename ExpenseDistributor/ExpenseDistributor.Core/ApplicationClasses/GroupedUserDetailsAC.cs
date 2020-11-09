@@ -12,5 +12,7 @@ namespace ExpenseDistributor.Core.ApplicationClasses
         public long GroupsFriendId { get; set; }
         public string GroupsFriendName { get; set; }
         public string GroupsFriendEmail { get; set; }
+
+        public decimal Amount { get; set; }
     }
 }
