@@ -6,6 +6,7 @@ using AutoMapper;
 using ExpenseDistributor.Core.ApplicationClasses;
 using ExpenseDistributor.DomainModel.Models;
 using ExpenseDistributor.Repository.Expenses;
+using ExpenseDistributor.Repository.Friends;
 using ExpenseDistributor.Repository.Groups;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +18,14 @@ namespace ExpenseDistributor.Core.Controllers
         private readonly IGroupRepository groupRepository;
         private readonly IMapper mapper;
         private readonly IExpenseRepository expenseRepository;
+        private readonly IFriendRepository friendRepository;
 
-        public GroupController(IGroupRepository groupRepository,IMapper mapper,IExpenseRepository expenseRepository)
+        public GroupController(IGroupRepository groupRepository,IMapper mapper,IExpenseRepository expenseRepository,IFriendRepository friendRepository)
         {
             this.groupRepository = groupRepository;
             this.mapper = mapper;
             this.expenseRepository = expenseRepository;
+            this.friendRepository = friendRepository;
         }
 
         [HttpGet("{userId}")]
@@ -34,6 +37,14 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listGroupDto);
         }
 
+        [HttpGet("{userId}/grouptypelist")]
+        //[Authorize]
+        public ActionResult<List<GroupTypeAC>> GetGroupTypeList([FromRoute] long userId)
+        {
+            var list = groupRepository.GetAllGroupType().ToList();
+            var listGroupTypeDto = mapper.Map<List<GroupType>, List<GroupTypeAC>>(list);
+            return Ok(listGroupTypeDto);
+        }
 
         [HttpGet("{userId}/records/{friendId}")]
         //[Authorize]
@@ -73,11 +84,11 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("{userId}/addgroup")]
         //[Authorize]
-        public ActionResult<GroupAC> Create([FromRoute] long userId, [FromBody] GroupAC groupAC)
+        public ActionResult<GroupListAC> Create([FromRoute] long userId, [FromBody] GroupAC groupAC)
         {
             var group = mapper.Map<GroupAC, Group>(groupAC);
             var group2 = groupRepository.CreateGroup(userId, group);
-            var groupDto = mapper.Map<Group, GroupAC>(group2);
+            var groupDto = mapper.Map<Group, GroupListAC>(group2);
             //GroupViewModel _groupViewModel = new GroupViewModel()
             //{
             //    Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
@@ -88,17 +99,89 @@ namespace ExpenseDistributor.Core.Controllers
 
         [HttpPost("{userId}/addfriendingrp")]
         //[Authorize]
-        public ActionResult<List<GroupedUserAC>> AddFriendInGroup([FromBody] GroupedUserAC groupedUserAC)
+        public ActionResult<List<GroupedUserDetailsAC>> AddFriendInGroup([FromRoute] long userId,[FromBody] GroupedUserAC groupedUserAC)
         {
             var group = mapper.Map<GroupedUserAC, GroupedUser>(groupedUserAC);
-            var group2 = groupRepository.GroupedUsers(group).ToList();
+            var group2 = groupRepository.AddGroupedUsers(group).ToList();
             var groupedUserListDto = mapper.Map<List<GroupedUser>, List<GroupedUserAC>>(group2);
+
+            List<GroupedUserDetailsAC> groupedUserListDetailsDto = new List<GroupedUserDetailsAC>();
+
+            foreach (var g in groupedUserListDto)
+            {
+                GroupedUserDetailsAC gr = new GroupedUserDetailsAC();
+                var friend = friendRepository.GetFriend(g.GroupsFriendId);
+                gr.GroupId = g.GroupId;
+                gr.GroupsFriendId = g.GroupsFriendId;
+                gr.GroupsFriendName = friend.Name;
+                gr.GroupsFriendEmail = friend.Email;
+
+                groupedUserListDetailsDto.Add(gr);
+            }
             //GroupViewModel _groupViewModel = new GroupViewModel()
             //{
             //    Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
             //};
 
-            return Ok(groupedUserListDto);
+            return Ok(groupedUserListDetailsDto);
+        }
+
+        [HttpPost("{userId}/deletefriendingrp")]
+        //[Authorize]
+        public ActionResult<List<GroupedUserDetailsAC>> DeleteFriendInGroup([FromRoute] long userId, [FromBody] GroupedUserAC groupedUserAC)
+        {
+            var group = mapper.Map<GroupedUserAC, GroupedUser>(groupedUserAC);
+            var group2 = groupRepository.DeleteGroupedUsers(group).ToList();
+            var groupedUserListDto = mapper.Map<List<GroupedUser>, List<GroupedUserAC>>(group2);
+
+            List<GroupedUserDetailsAC> groupedUserListDetailsDto = new List<GroupedUserDetailsAC>();
+
+            foreach (var g in groupedUserListDto)
+            {
+                GroupedUserDetailsAC gr = new GroupedUserDetailsAC();
+                var friend = friendRepository.GetFriend(g.GroupsFriendId);
+                gr.GroupId = g.GroupId;
+                gr.GroupsFriendId = g.GroupsFriendId;
+                gr.GroupsFriendName = friend.Name;
+                gr.GroupsFriendEmail = friend.Email;
+
+                groupedUserListDetailsDto.Add(gr);
+            }
+            //GroupViewModel _groupViewModel = new GroupViewModel()
+            //{
+            //    Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
+            //};
+
+            return Ok(groupedUserListDetailsDto);
+        }
+
+        [HttpGet("{userId}/{groupId}/getfriendingrp")]
+        //[Authorize]
+        public ActionResult<List<GroupedUserDetailsAC>> GetFriendInGroup([FromRoute] long userId, [FromRoute] long groupId)
+        {
+          
+            var group2 = groupRepository.GetGroupedUsersForGroup(groupId).ToList();
+            var groupedUserListDto = mapper.Map<List<GroupedUser>, List<GroupedUserAC>>(group2);
+
+            List<GroupedUserDetailsAC> groupedUserListDetailsDto = new List<GroupedUserDetailsAC>();
+
+            foreach(var g in groupedUserListDto)
+            {
+                GroupedUserDetailsAC gr = new GroupedUserDetailsAC();
+                var friend = friendRepository.GetFriend(g.GroupsFriendId);
+                gr.GroupId = g.GroupId;
+                gr.GroupsFriendId = g.GroupsFriendId;
+                gr.GroupsFriendName = friend.Name;
+                gr.GroupsFriendEmail = friend.Email;
+
+                groupedUserListDetailsDto.Add(gr);
+            }
+            //GroupViewModel _groupViewModel = new GroupViewModel()
+            //{
+            //    Group = groupRepository.CreateGroup(userId,groupViewModel.Group)
+            //};
+
+            return Ok(groupedUserListDetailsDto);
         }
 
         [HttpPut("{userId}/{groupId}")]

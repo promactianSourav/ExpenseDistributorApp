@@ -59,6 +59,7 @@ namespace ExpenseDistributor.Web
             //var a = Assembly.Load(typeof(ExpenseDistributor.Core));
             //var a = Assembly.GetAssembly(typeof(UserController));
             services.AddSwaggerDocument();
+            
             services.AddMvc();
            
                 //.AddApplicationPart(a);

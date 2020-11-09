@@ -604,6 +604,61 @@ export class GroupService {
         return _observableOf<GroupListAC[]>(<any>null);
     }
 
+    getGroupTypeList(userId: number): Observable<GroupTypeAC[]> {
+        let url_ = this.baseUrl + "/api/Group/{userId}/grouptypelist";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetGroupTypeList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetGroupTypeList(<any>response_);
+                } catch (e) {
+                    return <Observable<GroupTypeAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GroupTypeAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetGroupTypeList(response: HttpResponseBase): Observable<GroupTypeAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GroupTypeAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GroupTypeAC[]>(<any>null);
+    }
+
     getExpensesRecordForGroups(friendId: number, userId: number): Observable<LentBorrowAC[]> {
         let url_ = this.baseUrl + "/api/Group/{userId}/records/{friendId}";
         if (friendId === undefined || friendId === null)
@@ -662,7 +717,7 @@ export class GroupService {
         return _observableOf<LentBorrowAC[]>(<any>null);
     }
 
-    create(userId: number, groupAC: GroupAC): Observable<GroupAC> {
+    create(userId: number, groupAC: GroupAC): Observable<GroupListAC> {
         let url_ = this.baseUrl + "/api/Group/{userId}/addgroup";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -688,14 +743,14 @@ export class GroupService {
                 try {
                     return this.processCreate(<any>response_);
                 } catch (e) {
-                    return <Observable<GroupAC>><any>_observableThrow(e);
+                    return <Observable<GroupListAC>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<GroupAC>><any>_observableThrow(response_);
+                return <Observable<GroupListAC>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<GroupAC> {
+    protected processCreate(response: HttpResponseBase): Observable<GroupListAC> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -706,7 +761,7 @@ export class GroupService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GroupAC.fromJS(resultData200);
+            result200 = GroupListAC.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -714,10 +769,10 @@ export class GroupService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GroupAC>(<any>null);
+        return _observableOf<GroupListAC>(<any>null);
     }
 
-    addFriendInGroup(groupedUserAC: GroupedUserAC, userId: string): Observable<GroupedUserAC[]> {
+    addFriendInGroup(userId: number, groupedUserAC: GroupedUserAC): Observable<GroupedUserDetailsAC[]> {
         let url_ = this.baseUrl + "/api/Group/{userId}/addfriendingrp";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -743,14 +798,14 @@ export class GroupService {
                 try {
                     return this.processAddFriendInGroup(<any>response_);
                 } catch (e) {
-                    return <Observable<GroupedUserAC[]>><any>_observableThrow(e);
+                    return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<GroupedUserAC[]>><any>_observableThrow(response_);
+                return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processAddFriendInGroup(response: HttpResponseBase): Observable<GroupedUserAC[]> {
+    protected processAddFriendInGroup(response: HttpResponseBase): Observable<GroupedUserDetailsAC[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -764,7 +819,7 @@ export class GroupService {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(GroupedUserAC.fromJS(item));
+                    result200!.push(GroupedUserDetailsAC.fromJS(item));
             }
             return _observableOf(result200);
             }));
@@ -773,7 +828,124 @@ export class GroupService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GroupedUserAC[]>(<any>null);
+        return _observableOf<GroupedUserDetailsAC[]>(<any>null);
+    }
+
+    deleteFriendInGroup(userId: number, groupedUserAC: GroupedUserAC): Observable<GroupedUserDetailsAC[]> {
+        let url_ = this.baseUrl + "/api/Group/{userId}/deletefriendingrp";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(groupedUserAC);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteFriendInGroup(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteFriendInGroup(<any>response_);
+                } catch (e) {
+                    return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteFriendInGroup(response: HttpResponseBase): Observable<GroupedUserDetailsAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GroupedUserDetailsAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GroupedUserDetailsAC[]>(<any>null);
+    }
+
+    getFriendInGroup(userId: number, groupId: number): Observable<GroupedUserDetailsAC[]> {
+        let url_ = this.baseUrl + "/api/Group/{userId}/{groupId}/getfriendingrp";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFriendInGroup(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFriendInGroup(<any>response_);
+                } catch (e) {
+                    return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GroupedUserDetailsAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFriendInGroup(response: HttpResponseBase): Observable<GroupedUserDetailsAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GroupedUserDetailsAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GroupedUserDetailsAC[]>(<any>null);
     }
 
     update(userId: number, groupId: number, groupAC: GroupAC): Observable<GroupAC> {
@@ -1512,6 +1684,7 @@ export interface IExpenseAC {
 }
 
 export class FriendAC implements IFriendAC {
+    friendId!: number;
     name?: string | undefined;
     email?: string | undefined;
     phoneNumber?: string | undefined;
@@ -1529,6 +1702,7 @@ export class FriendAC implements IFriendAC {
 
     init(_data?: any) {
         if (_data) {
+            this.friendId = _data["friendId"];
             this.name = _data["name"];
             this.email = _data["email"];
             this.phoneNumber = _data["phoneNumber"];
@@ -1546,6 +1720,7 @@ export class FriendAC implements IFriendAC {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["friendId"] = this.friendId;
         data["name"] = this.name;
         data["email"] = this.email;
         data["phoneNumber"] = this.phoneNumber;
@@ -1556,6 +1731,7 @@ export class FriendAC implements IFriendAC {
 }
 
 export interface IFriendAC {
+    friendId: number;
     name?: string | undefined;
     email?: string | undefined;
     phoneNumber?: string | undefined;
@@ -1811,6 +1987,46 @@ export interface IGroupListAC {
     groupTypeId: number;
 }
 
+export class GroupTypeAC implements IGroupTypeAC {
+    groupTypeId!: number;
+    groupTypeName?: string | undefined;
+
+    constructor(data?: IGroupTypeAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.groupTypeId = _data["groupTypeId"];
+            this.groupTypeName = _data["groupTypeName"];
+        }
+    }
+
+    static fromJS(data: any): GroupTypeAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new GroupTypeAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["groupTypeId"] = this.groupTypeId;
+        data["groupTypeName"] = this.groupTypeName;
+        return data; 
+    }
+}
+
+export interface IGroupTypeAC {
+    groupTypeId: number;
+    groupTypeName?: string | undefined;
+}
+
 export class LentBorrowAC implements ILentBorrowAC {
     groupId!: number;
     groupName?: string | undefined;
@@ -1897,6 +2113,54 @@ export class GroupAC implements IGroupAC {
 export interface IGroupAC {
     groupName?: string | undefined;
     groupTypeId: number;
+}
+
+export class GroupedUserDetailsAC implements IGroupedUserDetailsAC {
+    groupId!: number;
+    groupsFriendId!: number;
+    groupsFriendName?: string | undefined;
+    groupsFriendEmail?: string | undefined;
+
+    constructor(data?: IGroupedUserDetailsAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.groupId = _data["groupId"];
+            this.groupsFriendId = _data["groupsFriendId"];
+            this.groupsFriendName = _data["groupsFriendName"];
+            this.groupsFriendEmail = _data["groupsFriendEmail"];
+        }
+    }
+
+    static fromJS(data: any): GroupedUserDetailsAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new GroupedUserDetailsAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["groupId"] = this.groupId;
+        data["groupsFriendId"] = this.groupsFriendId;
+        data["groupsFriendName"] = this.groupsFriendName;
+        data["groupsFriendEmail"] = this.groupsFriendEmail;
+        return data; 
+    }
+}
+
+export interface IGroupedUserDetailsAC {
+    groupId: number;
+    groupsFriendId: number;
+    groupsFriendName?: string | undefined;
+    groupsFriendEmail?: string | undefined;
 }
 
 export class GroupedUserAC implements IGroupedUserAC {

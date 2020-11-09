@@ -40,14 +40,27 @@ namespace ExpenseDistributor.Repository.Groups
             //throw new NotImplementedException();
         }
 
+        public IEnumerable<GroupType> GetAllGroupType()
+        {
+            var groupTypeList = dataContext.GroupTypes.ToList();
+            return groupTypeList;
+        }
+
         public Group GetGroup(long groupId)
         {
             var group = dataContext.Groups.FirstOrDefault(g => g.GroupId == groupId);
             return group;
         }
 
-        public IEnumerable<GroupedUser> GroupedUsers(GroupedUser groupedUser)
+        public IEnumerable<GroupedUser> AddGroupedUsers(GroupedUser groupedUser)
         {
+            var ifExistGroupedUser = dataContext.GroupedUsers.FirstOrDefault(g => g.GroupId == groupedUser.GroupId && g.GroupsFriendId == groupedUser.GroupsFriendId);
+            if (ifExistGroupedUser != null)
+            {
+                var listExistGroupedUser = dataContext.GroupedUsers.Where(g => g.GroupId == groupedUser.GroupId).ToList();
+
+                return listExistGroupedUser;
+            }
             dataContext.GroupedUsers.Add(groupedUser);
             dataContext.SaveChanges();
 
@@ -67,6 +80,24 @@ namespace ExpenseDistributor.Repository.Groups
             dataContext.SaveChanges();
             return group;
             //throw new NotImplementedException();
+        }
+
+        public IEnumerable<GroupedUser> DeleteGroupedUsers(GroupedUser groupedUser)
+        {
+            var groupIdofDeletedGroupedUser = groupedUser.GroupId;
+            var groupedUserReal = dataContext.GroupedUsers.FirstOrDefault(g => g.GroupId == groupedUser.GroupId && g.GroupsFriendId == groupedUser.GroupsFriendId);
+            dataContext.GroupedUsers.Remove(groupedUserReal);
+            dataContext.SaveChanges();
+
+            var list = dataContext.GroupedUsers.Where(g => g.GroupId == groupIdofDeletedGroupedUser).ToList();
+
+            return list;
+        }
+
+        public IEnumerable<GroupedUser> GetGroupedUsersForGroup(long groupId)
+        {
+            var list = dataContext.GroupedUsers.Where(g => g.GroupId == groupId).ToList();
+            return list;
         }
     }
 }
