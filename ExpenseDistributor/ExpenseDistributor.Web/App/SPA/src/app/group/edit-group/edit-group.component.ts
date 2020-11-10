@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FriendService, GroupService, FriendAC, GroupTypeAC, GroupedUserDetailsAC, GroupAC, GroupListAC, GroupedUserAC } from 'src/app/Services/ApiClientGenerated.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { FriendService, GroupService, FriendAC, GroupTypeAC, GroupedUserDetailsA
 })
 export class EditGroupComponent implements OnInit {
 
-  constructor(private friendService:FriendService,private groupService:GroupService,private route:ActivatedRoute) { }
+  constructor(private friendService:FriendService,private groupService:GroupService,private route:ActivatedRoute,private router:Router) { }
 
   friendList:FriendAC[] = [];
   groupTypeList:GroupTypeAC[] = [];
@@ -53,7 +53,7 @@ export class EditGroupComponent implements OnInit {
   get create(){
     return this.checkCreate;
   }
-  CreateGroup(formData:NgForm){
+  EditGroup(formData:NgForm){
 
     this.userId = Number(localStorage.getItem('Id'));
     this.group.groupName = this.groupName;
@@ -73,6 +73,8 @@ export class EditGroupComponent implements OnInit {
       this.groupRegistered = response;
     });
    
+    this.ngOnInit();
+    this.router.navigate(['user/groups/']);
    
   }
 

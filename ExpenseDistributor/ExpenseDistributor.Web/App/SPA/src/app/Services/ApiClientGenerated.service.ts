@@ -135,6 +135,174 @@ export class ExpenseService {
         return _observableOf<ExpenseAC>(<any>null);
     }
 
+    getListSplitTypes(groupId: number): Observable<SplitType[]> {
+        let url_ = this.baseUrl + "/api/group/{groupId}/Expense/listsplitypes";
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetListSplitTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetListSplitTypes(<any>response_);
+                } catch (e) {
+                    return <Observable<SplitType[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SplitType[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetListSplitTypes(response: HttpResponseBase): Observable<SplitType[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SplitType.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SplitType[]>(<any>null);
+    }
+
+    getListCurrencies(groupId: number): Observable<Currency[]> {
+        let url_ = this.baseUrl + "/api/group/{groupId}/Expense/listcurrencies";
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetListCurrencies(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetListCurrencies(<any>response_);
+                } catch (e) {
+                    return <Observable<Currency[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Currency[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetListCurrencies(response: HttpResponseBase): Observable<Currency[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Currency.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Currency[]>(<any>null);
+    }
+
+    getExpenseCheckList(groupId: number, friendId: number): Observable<ExpenseCheckAC[]> {
+        let url_ = this.baseUrl + "/api/group/{groupId}/Expense/{friendId}/getexpensechecklist";
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        if (friendId === undefined || friendId === null)
+            throw new Error("The parameter 'friendId' must be defined.");
+        url_ = url_.replace("{friendId}", encodeURIComponent("" + friendId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExpenseCheckList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExpenseCheckList(<any>response_);
+                } catch (e) {
+                    return <Observable<ExpenseCheckAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ExpenseCheckAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetExpenseCheckList(response: HttpResponseBase): Observable<ExpenseCheckAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ExpenseCheckAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ExpenseCheckAC[]>(<any>null);
+    }
+
     update(groupId: number, expenseId: number, expenseAC: ExpenseAC): Observable<ExpenseAC> {
         let url_ = this.baseUrl + "/api/group/{groupId}/Expense/{expenseId}";
         if (groupId === undefined || groupId === null)
@@ -313,6 +481,60 @@ export class FriendService {
             }));
         }
         return _observableOf<FriendCreateAC>(<any>null);
+    }
+
+    getFriend(userId: number, friendId: number): Observable<FriendAC> {
+        let url_ = this.baseUrl + "/api/user/{userId}/Friend/{friendId}/getfriend";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        if (friendId === undefined || friendId === null)
+            throw new Error("The parameter 'friendId' must be defined.");
+        url_ = url_.replace("{friendId}", encodeURIComponent("" + friendId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFriend(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFriend(<any>response_);
+                } catch (e) {
+                    return <Observable<FriendAC>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FriendAC>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFriend(response: HttpResponseBase): Observable<FriendAC> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FriendAC.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FriendAC>(<any>null);
     }
 
     getDashboardTotals(userId: number): Observable<DashboardTotalAC> {
@@ -1179,7 +1401,7 @@ export class SettlementService {
     }
 
     getListForUser(friendId: number): Observable<SettlementAC[]> {
-        let url_ = this.baseUrl + "/api/group/Settlement/{friendId}";
+        let url_ = this.baseUrl + "/api/group/Settlement/{friendId}/nonexpensesettlement";
         if (friendId === undefined || friendId === null)
             throw new Error("The parameter 'friendId' must be defined.");
         url_ = url_.replace("{friendId}", encodeURIComponent("" + friendId));
@@ -1234,7 +1456,7 @@ export class SettlementService {
     }
 
     createForUser(friendId: number, settlementAC: SettlementAC): Observable<SettlementAC> {
-        let url_ = this.baseUrl + "/api/group/Settlement/{friendId}";
+        let url_ = this.baseUrl + "/api/group/Settlement/{friendId}/nonexpensesettlement";
         if (friendId === undefined || friendId === null)
             throw new Error("The parameter 'friendId' must be defined.");
         url_ = url_.replace("{friendId}", encodeURIComponent("" + friendId));
@@ -1289,7 +1511,7 @@ export class SettlementService {
     }
 
     getListForExpense(groupId: number, expenseId: number): Observable<SettlementPerExpenseAC[]> {
-        let url_ = this.baseUrl + "/api/group/Settlement/{groupId}/{expenseId}";
+        let url_ = this.baseUrl + "/api/group/Settlement/{groupId}/{expenseId}/settlementsforexpense";
         if (groupId === undefined || groupId === null)
             throw new Error("The parameter 'groupId' must be defined.");
         url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
@@ -1346,8 +1568,63 @@ export class SettlementService {
         return _observableOf<SettlementPerExpenseAC[]>(<any>null);
     }
 
+    getSettlementsListForExpenseList(groupId: number): Observable<SettlementPerExpenseExpandAC[]> {
+        let url_ = this.baseUrl + "/api/group/Settlement/{groupId}/getsettlementlistforexpenselist";
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSettlementsListForExpenseList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSettlementsListForExpenseList(<any>response_);
+                } catch (e) {
+                    return <Observable<SettlementPerExpenseExpandAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SettlementPerExpenseExpandAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSettlementsListForExpenseList(response: HttpResponseBase): Observable<SettlementPerExpenseExpandAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SettlementPerExpenseExpandAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SettlementPerExpenseExpandAC[]>(<any>null);
+    }
+
     createForExpense(groupId: number, expenseId: number, settlementPerExpenseAC: SettlementPerExpenseAC): Observable<SettlementPerExpenseAC> {
-        let url_ = this.baseUrl + "/api/group/Settlement/{groupId}/{expenseId}";
+        let url_ = this.baseUrl + "/api/group/Settlement/{groupId}/{expenseId}/settlementforexpense";
         if (groupId === undefined || groupId === null)
             throw new Error("The parameter 'groupId' must be defined.");
         url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
@@ -1793,6 +2070,150 @@ export interface IExpenseAC {
     amount: number;
     date?: string | undefined;
     currencyId: number;
+}
+
+export class SplitType implements ISplitType {
+    splitTypeId!: number;
+    splitTypeName!: string;
+    value!: number;
+
+    constructor(data?: ISplitType) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.splitTypeId = _data["splitTypeId"];
+            this.splitTypeName = _data["splitTypeName"];
+            this.value = _data["value"];
+        }
+    }
+
+    static fromJS(data: any): SplitType {
+        data = typeof data === 'object' ? data : {};
+        let result = new SplitType();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["splitTypeId"] = this.splitTypeId;
+        data["splitTypeName"] = this.splitTypeName;
+        data["value"] = this.value;
+        return data; 
+    }
+}
+
+export interface ISplitType {
+    splitTypeId: number;
+    splitTypeName: string;
+    value: number;
+}
+
+export class Currency implements ICurrency {
+    currencyId!: number;
+    currencyName!: string;
+    currencyValue!: number;
+
+    constructor(data?: ICurrency) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currencyId = _data["currencyId"];
+            this.currencyName = _data["currencyName"];
+            this.currencyValue = _data["currencyValue"];
+        }
+    }
+
+    static fromJS(data: any): Currency {
+        data = typeof data === 'object' ? data : {};
+        let result = new Currency();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currencyId"] = this.currencyId;
+        data["currencyName"] = this.currencyName;
+        data["currencyValue"] = this.currencyValue;
+        return data; 
+    }
+}
+
+export interface ICurrency {
+    currencyId: number;
+    currencyName: string;
+    currencyValue: number;
+}
+
+export class ExpenseCheckAC implements IExpenseCheckAC {
+    expenseName?: string | undefined;
+    lentOrBorrowCheck!: number;
+    payerFriendName?: string | undefined;
+    debtFriendName?: string | undefined;
+    amount!: number;
+    date?: string | undefined;
+
+    constructor(data?: IExpenseCheckAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.expenseName = _data["expenseName"];
+            this.lentOrBorrowCheck = _data["lentOrBorrowCheck"];
+            this.payerFriendName = _data["payerFriendName"];
+            this.debtFriendName = _data["debtFriendName"];
+            this.amount = _data["amount"];
+            this.date = _data["date"];
+        }
+    }
+
+    static fromJS(data: any): ExpenseCheckAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExpenseCheckAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expenseName"] = this.expenseName;
+        data["lentOrBorrowCheck"] = this.lentOrBorrowCheck;
+        data["payerFriendName"] = this.payerFriendName;
+        data["debtFriendName"] = this.debtFriendName;
+        data["amount"] = this.amount;
+        data["date"] = this.date;
+        return data; 
+    }
+}
+
+export interface IExpenseCheckAC {
+    expenseName?: string | undefined;
+    lentOrBorrowCheck: number;
+    payerFriendName?: string | undefined;
+    debtFriendName?: string | undefined;
+    amount: number;
+    date?: string | undefined;
 }
 
 export class FriendAC implements IFriendAC {
@@ -2525,6 +2946,58 @@ export interface ISettlementPerExpenseAC {
     amount: number;
     date?: string | undefined;
     currencyId: number;
+}
+
+export class SettlementPerExpenseExpandAC implements ISettlementPerExpenseExpandAC {
+    expenseName?: string | undefined;
+    payerFriendName?: string | undefined;
+    debtFriendName?: string | undefined;
+    amount!: number;
+    date?: string | undefined;
+
+    constructor(data?: ISettlementPerExpenseExpandAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.expenseName = _data["expenseName"];
+            this.payerFriendName = _data["payerFriendName"];
+            this.debtFriendName = _data["debtFriendName"];
+            this.amount = _data["amount"];
+            this.date = _data["date"];
+        }
+    }
+
+    static fromJS(data: any): SettlementPerExpenseExpandAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new SettlementPerExpenseExpandAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expenseName"] = this.expenseName;
+        data["payerFriendName"] = this.payerFriendName;
+        data["debtFriendName"] = this.debtFriendName;
+        data["amount"] = this.amount;
+        data["date"] = this.date;
+        return data; 
+    }
+}
+
+export interface ISettlementPerExpenseExpandAC {
+    expenseName?: string | undefined;
+    payerFriendName?: string | undefined;
+    debtFriendName?: string | undefined;
+    amount: number;
+    date?: string | undefined;
 }
 
 export class UserAC implements IUserAC {

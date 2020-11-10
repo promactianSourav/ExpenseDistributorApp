@@ -17,7 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './sharedcomponent/home/home.component';
 import { PagenotfoundComponent } from './sharedcomponent/pagenotfound/pagenotfound.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -44,7 +44,7 @@ import { FormsModule } from '@angular/forms';
     ExpenseModule,
     AppRoutingModule
   ],
-  providers: [UserService,ExpenseService,SettlementService,GroupService,FriendService,SharedDataService],
+  providers: [UserService,ExpenseService,SettlementService,GroupService,FriendService,SharedDataService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -150,6 +150,18 @@ namespace ExpenseDistributor.Repository.Expenses
             return expense;
         }
 
+        public IEnumerable<Currency> GetListCurrency()
+        {
+            var list = dataContext.Currencies.ToList();
+            return list;
+        }
+
+        public IEnumerable<SplitType> GetListSplitType()
+        {
+            var list = dataContext.SplitTypes.ToList();
+            return list;
+        }
+
         public SplitType GetSplitType(long splitTypeId)
         {
             var splitType = dataContext.SplitTypes.FirstOrDefault(s => s.SplitTypeId == splitTypeId);

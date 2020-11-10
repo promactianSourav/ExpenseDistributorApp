@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <div class="row  m-0 p-0 justify-content-center">
         <div class="col-md-10">
-            <div class="form-horizontal" id="register">
+            <form class="form-horizontal" id="register" (ngSubmit)="Register(formData)" #formData="ngForm">
 
                 <div class="form-group mb-3 row">
 
@@ -18,7 +18,7 @@
 
 
                     <div class="col-9">
-                        <input type="text" class="form-control" placeholder="Name" id="Name" maxlength="20" required>
+                        <input type="text" class="form-control" placeholder="Name" id="Name" [(ngModel)]="name" name="name" maxlength="20" required>
 
                     </div>
 
@@ -29,7 +29,7 @@
                         <label for="Email" class="col-sm-2 col-form-label"><b>Email</b></label>
                     </div>
                     <div class="col-9">
-                        <input type="email" class="form-control" placeholder="Email" id="Email" maxlength="20" required>
+                        <input type="email" class="form-control" placeholder="Email" id="Email" [(ngModel)]="email" name="email" maxlength="20" required>
                     </div>
 
 
@@ -42,7 +42,7 @@
                         <label for="Password" class="col-sm-2 col-form-label"><b>Password</b></label>
                     </div>
                     <div class="col-9">
-                        <input type="password" class="form-control" placeholder="Password" id="Password" maxlength="20" required>
+                        <input type="password" class="form-control" placeholder="Password" id="Password" [(ngModel)]="password" name="password" maxlength="20" required>
                     </div>
 
 
@@ -56,7 +56,7 @@
                         <label for="PhoneNumber" class="col-sm-2 col-form-label"><b>Number</b></label>
                     </div>
                     <div class="col-9">
-                        <input type="text" class="form-control" placeholder="Phone Number" id="PhoneNumber" maxlength="20" required>
+                        <input type="text" class="form-control" placeholder="Phone Number" id="PhoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" maxlength="20" required>
                     </div>
 
 
@@ -69,7 +69,7 @@
                     <button type="submit" class="btn btn-secondary btn-block font-weight-bolder">Register</button>
 
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

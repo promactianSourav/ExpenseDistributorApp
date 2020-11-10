@@ -1,1 +1,316 @@
-<p>add-expense works!</p>
+<div class="text-center">
+    <h1>New Expense {{groupName}}</h1>
+</div>
+<hr />
+
+<div class="container-fluid mt-5">
+    <div class="row  m-0 p-0 justify-content-center">
+        <div class="col-md-10">
+            <form class="form-horizontal" (ngSubmit)="CreateGroup(formData)" #formData="ngForm">
+
+                <div class="form-group mb-3 row">
+                    <div class="col-3">
+                        <label class="col-sm-2 col-form-label"><b>Expense</b></label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" placeholder="Expense Name" id="ExpenseName" [(ngModel)]="expenseName" name="expenseName" maxlength="20" required>
+
+                    </div>
+
+                </div>
+                <div class="form-group mb-3 row">
+                    <div class="col-3">
+                        <label class="col-sm-2 col-form-label mr-3"><b>Total</b></label>
+                    </div>
+                    <div class="col-9">
+                        <input type="number" class="form-control" placeholder="Total amount" id="Total" [(ngModel)]="Total" name="Total" maxlength="20" required>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-3 row">
+
+                    <div class="col-3">
+                        <label class="col-sm-2 col-form-label mr-3"><b>Payer</b></label>
+                    </div>
+                    <div class="col-9">
+                        <select name="payer" id="payer" class="form-control form-control-sm" [(ngModel)]="payerFriendId" name="payerFriendId">
+                           <option *ngFor='let f of friendList' [value]="f.friendId">
+                                    
+                                        {{f.name}},{{f.email}}
+                                </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 row">
+
+                    <div class="col-3">
+                        <label class="col-sm-2 col-form-label mr-3"><b>Currency</b></label>
+                    </div>
+                    <div class="col-9">
+                        <select name="currency" id="currency" class="form-control form-control-sm" [(ngModel)]="currencyId" name="currencyId">
+                           <option *ngFor='let c of currenyList' [value]="c.currencyId">
+                                    
+                                        {{c.currencyName}}
+                                </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group mb-3 row">
+
+                    <div class="col-3">
+                        <label class="col-sm-2 col-form-label mr-3"><b>SplitType</b></label>
+                    </div>
+                    <div class="col-9">
+                        <select id="splitType" class="form-control form-control-sm" [(ngModel)]="splitTypeId" name="splitTypeId">
+                           <option *ngFor='let s of splitTypeList' [value]="s.splitTypeId">
+                                    
+                                        {{s.splitTypeName}}
+                                </option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group mt-5">
+
+                    <button type="submit" class="btn btn-secondary btn-block font-weight-bolder">Create Expense</button>
+
+                </div>
+            </form>
+
+
+            <!-- For splitType of Split by Amount -->
+
+            <div *ngIf="splitTypeId == 1" class="row row-cols-2" style="height: 700px; background-color:gainsboro;">
+
+                <div class="col-6">
+                    <hr>
+                    <h3 class="mb-5 text-center">Friends Available</h3>
+
+                    <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let f of friendList; let i = index'>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{f.name}}</td>
+                                <td>
+                                    {{f.email}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-success btn-sm" (click)="IncludeInGroup(f.friendId)">Add</button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-6">
+                    <hr>
+                    <h3 class="mb-5 text-center">Friends included in this Expense</h3>
+
+                    <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Total({{Total}})</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor='let g of friendSelectedList; let j = index'>
+                                <th scope="row">{{j+1}}</th>
+                                <td>{{g.name}}</td>
+                                <td>
+                                    <input type="number" class="form-control" #amt name="amount{{j+1}}">
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)">Delete</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)">Enter</button>
+                                </td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <!-- For SplitType of Split Equally -->
+            <div *ngIf="splitTypeId == 2" class="row row-cols-2" style="height: 700px; background-color:gainsboro;">
+
+                <div class="col-6">
+                    <hr>
+                    <h3 class="mb-5 text-center">Friends Available</h3>
+
+                    <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let f of friendList; let i = index'>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{f.name}}</td>
+                                <td>
+                                    {{f.email}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-success btn-sm" (click)="IncludeInGroup(f.friendId)">Add</button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-6">
+                    <hr>
+                    <h3 class="mb-5 text-center">Friends included in this Expense</h3>
+
+                    <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Total({{Total}})</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor='let g of friendSelectedList; let j = index'>
+                                <th scope="row">{{j+1}}</th>
+                                <td>{{g.name}}</td>
+                                <td>
+                                    <input type="number" class="form-control" value="{{(Total/friendSelectedList.length) | number : '1.1-1'}}" #amt name="amount{{j+1}}" disabled>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)">Delete</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)">Enter</button>
+                                </td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+            <!-- For SplitType of Split by % -->
+            <div *ngIf="splitTypeId == 3" class="row row-cols-2" style="height: 700px; background-color:gainsboro;">
+
+                <div class="col-6">
+                    <hr>
+                    <h3 class="mb-5 text-center">Friends Available</h3>
+
+                    <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let f of friendList; let i = index'>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{f.name}}</td>
+                                <td>
+                                    {{f.email}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-success btn-sm" (click)="IncludeInGroup(f.friendId)">Add</button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-6">
+                    <hr>
+                    <h3 class="mb-5 text-center">Friends included in this Expense</h3>
+
+                    <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Total({{Total}})</th>
+                                <th scope="col">%</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor='let g of friendSelectedList; let j = index'>
+                                <th scope="row">{{j+1}}</th>
+                                <td>{{g.name}}</td>
+                                <td>
+                                    <input type="number" class="form-control" (input)="onChangeInput($event.target.value)" #cent name=cent2{{j+1}}>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" value="{{(cent.value*Total/100) | number : '1.1-1'}}" #amt name="amount{{j+1}}" disabled>
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)">Delete</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)">Enter</button>
+                                </td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -20,6 +20,8 @@ namespace ExpenseDistributor.Repository.Expenses
         void DeleteExpense(long groupId, long expenseId);
         Expense GetExpense(long expenseId);
         SplitType GetSplitType(long splitTypeId);
+        IEnumerable<SplitType> GetListSplitType();
         Currency GetCurrency(long currencyId);
+        IEnumerable<Currency> GetListCurrency();
     }
 }

@@ -45,6 +45,20 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listfriendDto);
         }
 
+        [HttpGet("{friendId}/getfriend")]
+        //[Authorize]
+        public ActionResult<FriendAC> GetFriend([FromRoute] long userId,[FromRoute] long friendId)
+        {
+            var friend = friendRepository.GetFriend(friendId);
+            var friendAC = mapper.Map<Friend, FriendAC>(friend);
+            //Console.WriteLine(listfriendDto.Count);
+            //if(listfriendDto.Count == 0)
+            //{
+            //    return Ok(new { Message = "Your list is empty." });
+            //}
+            return Ok(friendAC);
+        }
+
 
         [HttpGet("dashboardtotals")]
         //[Authorize]

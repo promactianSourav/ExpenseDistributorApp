@@ -5,6 +5,8 @@ using System.Text;
 using AutoMapper;
 using ExpenseDistributor.Core.ApplicationClasses;
 using ExpenseDistributor.DomainModel.Models;
+using ExpenseDistributor.Repository.Expenses;
+using ExpenseDistributor.Repository.Friends;
 using ExpenseDistributor.Repository.Settlements;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +17,15 @@ namespace ExpenseDistributor.Core.Controllers
     {
         private readonly ISettlementRepository settlementRepository;
         private readonly IMapper mapper;
+        private readonly IExpenseRepository expenseRepository;
+        private readonly IFriendRepository friendRepository;
 
-        public SettlementController(ISettlementRepository settlementRepository,IMapper mapper)
+        public SettlementController(ISettlementRepository settlementRepository,IMapper mapper,IExpenseRepository expenseRepository,IFriendRepository friendRepository)
         {
             this.settlementRepository = settlementRepository;
             this.mapper = mapper;
+            this.expenseRepository = expenseRepository;
+            this.friendRepository = friendRepository;
         }
 
         [HttpGet("check")]
@@ -40,7 +46,7 @@ namespace ExpenseDistributor.Core.Controllers
 
         }
 
-        [HttpGet("{friendId}")]
+        [HttpGet("{friendId}/nonexpensesettlement")]
         //[Authorize]
         public ActionResult<List<SettlementAC>> GetListForUser([FromRoute] long friendId)
         {
@@ -49,7 +55,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listsettlementDto);
         }
 
-        [HttpPost("{friendId}")]
+        [HttpPost("{friendId}/nonexpensesettlement")]
         //[Authorize]
         public ActionResult<SettlementAC> CreateForUser([FromRoute] long friendId,[FromBody] SettlementAC settlementAC)
         {
@@ -65,7 +71,7 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(settlementDto);
         }
 
-        [HttpGet("{groupId}/{expenseId}")]
+        [HttpGet("{groupId}/{expenseId}/settlementsforexpense")]
         //[Authorize]
         public ActionResult<List<SettlementPerExpenseAC>> GetListForExpense([FromRoute] long groupId, [FromRoute] long expenseId)
         {
@@ -74,7 +80,34 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listSettlementForExpense);
         }
 
-        [HttpPost("{groupId}/{expenseId}")]
+        [HttpGet("{groupId}/getsettlementlistforexpenselist")]
+        //[Authorize]
+        public ActionResult<List<SettlementPerExpenseExpandAC>> GetSettlementsListForExpenseList([FromRoute] long groupId)
+        {
+            var listExpenseforgroup = expenseRepository.GetAllExpenses(groupId).ToList();
+            List<SettlementPerExpenseExpandAC> listSettlementPerExpenseExpandAC = new List<SettlementPerExpenseExpandAC>();
+            foreach(var e in listExpenseforgroup)
+            {
+                var list = settlementRepository.GetAllSettlementsForExpense(groupId, e.ExpenseId).ToList();
+                var listSettlementForExpense = mapper.Map<List<SettlementPerExpense>, List<SettlementPerExpenseAC>>(list);
+
+                foreach (var s in listSettlementForExpense)
+                {
+                    SettlementPerExpenseExpandAC stl = new SettlementPerExpenseExpandAC();
+                    stl.ExpenseName = expenseRepository.GetExpense(s.ExpenseId).ExpenseName;
+                    stl.PayerFriendName = friendRepository.GetFriend(s.PayerFriendId).Name;
+                    stl.DebtFriendName = friendRepository.GetFriend(s.DebtFriendId).Name;
+                    stl.Amount = s.Amount;
+                    stl.Date = s.Date;
+
+                    listSettlementPerExpenseExpandAC.Add(stl);
+
+                }
+            }
+            return Ok(listSettlementPerExpenseExpandAC);
+        }
+
+        [HttpPost("{groupId}/{expenseId}/settlementforexpense")]
         //[Authorize]
         public ActionResult<SettlementPerExpenseAC> CreateForExpense([FromRoute] long groupId, [FromRoute] long expenseId, [FromBody] SettlementPerExpenseAC settlementPerExpenseAC)
         {
