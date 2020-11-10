@@ -135,6 +135,60 @@ export class ExpenseService {
         return _observableOf<ExpenseAC>(<any>null);
     }
 
+    getExpense(groupId: number, expenseId: number): Observable<ExpenseAC> {
+        let url_ = this.baseUrl + "/api/group/{groupId}/Expense/{expenseId}/getexpense";
+        if (groupId === undefined || groupId === null)
+            throw new Error("The parameter 'groupId' must be defined.");
+        url_ = url_.replace("{groupId}", encodeURIComponent("" + groupId));
+        if (expenseId === undefined || expenseId === null)
+            throw new Error("The parameter 'expenseId' must be defined.");
+        url_ = url_.replace("{expenseId}", encodeURIComponent("" + expenseId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExpense(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExpense(<any>response_);
+                } catch (e) {
+                    return <Observable<ExpenseAC>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ExpenseAC>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetExpense(response: HttpResponseBase): Observable<ExpenseAC> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ExpenseAC.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ExpenseAC>(<any>null);
+    }
+
     getListSplitTypes(groupId: number): Observable<SplitType[]> {
         let url_ = this.baseUrl + "/api/group/{groupId}/Expense/listsplitypes";
         if (groupId === undefined || groupId === null)
@@ -2161,6 +2215,7 @@ export interface ICurrency {
 }
 
 export class ExpenseCheckAC implements IExpenseCheckAC {
+    expenseId!: number;
     expenseName?: string | undefined;
     lentOrBorrowCheck!: number;
     payerFriendName?: string | undefined;
@@ -2179,6 +2234,7 @@ export class ExpenseCheckAC implements IExpenseCheckAC {
 
     init(_data?: any) {
         if (_data) {
+            this.expenseId = _data["expenseId"];
             this.expenseName = _data["expenseName"];
             this.lentOrBorrowCheck = _data["lentOrBorrowCheck"];
             this.payerFriendName = _data["payerFriendName"];
@@ -2197,6 +2253,7 @@ export class ExpenseCheckAC implements IExpenseCheckAC {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["expenseId"] = this.expenseId;
         data["expenseName"] = this.expenseName;
         data["lentOrBorrowCheck"] = this.lentOrBorrowCheck;
         data["payerFriendName"] = this.payerFriendName;
@@ -2208,6 +2265,7 @@ export class ExpenseCheckAC implements IExpenseCheckAC {
 }
 
 export interface IExpenseCheckAC {
+    expenseId: number;
     expenseName?: string | undefined;
     lentOrBorrowCheck: number;
     payerFriendName?: string | undefined;

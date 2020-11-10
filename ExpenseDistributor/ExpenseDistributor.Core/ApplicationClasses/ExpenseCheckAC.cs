@@ -6,6 +6,7 @@ namespace ExpenseDistributor.Core.ApplicationClasses
 {
     public class ExpenseCheckAC
     {
+        public long ExpenseId { get; set; }
         public string ExpenseName { get; set; }
         public long LentOrBorrowCheck { get; set; }
         public string PayerFriendName { get; set; }

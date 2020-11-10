@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {path:'user/groups/:groupId/expenses',component:ListExpenseComponent},
   {path:'user/groups/:groupId/addexpense',component:AddExpenseComponent},
-  {path:'user/groups/:groupId/expenses/expenseId',component:EditExpenseComponent}
+  {path:'user/groups/:groupId/expenses/:expenseId',component:EditExpenseComponent}
 ];
 
 @NgModule({

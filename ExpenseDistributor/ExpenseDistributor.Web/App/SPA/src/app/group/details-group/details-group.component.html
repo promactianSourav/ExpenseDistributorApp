@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let e of expenseList; let i = index'>
+                    <tr *ngFor='let e of expenseList; let i = index' (click)="GoToThatExpense(e.expenseId)">
                         <th scope="row">{{i+1}}</th>
                         <td>{{e.expenseName}},{{e.date}}</td>
                         <td>{{e.payerFriendName}} paid to {{e.debtFriendName}}</td>

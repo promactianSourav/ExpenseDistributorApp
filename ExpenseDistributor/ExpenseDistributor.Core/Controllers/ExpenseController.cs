@@ -38,6 +38,16 @@ namespace ExpenseDistributor.Core.Controllers
             return Ok(listExpensesDto);
         }
 
+        [HttpGet("{expenseId}/getexpense")]
+        //[Authorize]
+        public ActionResult<ExpenseAC> GetExpense([FromRoute] long groupId,[FromRoute] long expenseId)
+        {
+            var expense = expenseRepository.GetExpense(expenseId);
+            var expenseDto = mapper.Map<Expense, ExpenseAC>(expense);
+
+            return Ok(expenseDto);
+        }
+
         [HttpGet("listsplitypes")]
         //[Authorize]
         public ActionResult<List<SplitType>> GetListSplitTypes([FromRoute] long groupId)
@@ -65,6 +75,7 @@ namespace ExpenseDistributor.Core.Controllers
             foreach(var e in listExpensesDto)
             {
                 ExpenseCheckAC exchAC = new ExpenseCheckAC();
+                exchAC.ExpenseId = e.ExpenseId;
                 exchAC.ExpenseName = expenseRepository.GetExpense(e.ExpenseId).ExpenseName;
                 exchAC.PayerFriendName = friendRepository.GetFriend(e.PayerFriendId).Name;
                 exchAC.DebtFriendName = friendRepository.GetFriend(e.DebtFriendId).Name;

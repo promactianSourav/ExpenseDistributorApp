@@ -34,6 +34,10 @@ export class DetailsGroupComponent implements OnInit {
     });
   }
 
+  GoToThatExpense(expenseId:number){
+    let url:string = 'user/groups/'+this.groupId+'/expenses/'+expenseId;
+    this.router.navigate([url]);
+  }
   // GoToEditGroup(){
   //   this.router.navigate(['user/groups/:groupId/edit']);
   // }

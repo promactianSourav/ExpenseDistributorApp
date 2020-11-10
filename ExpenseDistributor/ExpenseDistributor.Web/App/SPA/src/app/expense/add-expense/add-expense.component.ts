@@ -1,5 +1,5 @@
 import { ExpenseService, ExpenseAC, SplitType, Currency } from './../../Services/ApiClientGenerated.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FriendService, GroupService, FriendAC, GroupTypeAC, GroupedUserDetailsAC, GroupAC, GroupListAC, GroupedUserAC } from 'src/app/Services/ApiClientGenerated.service';
 import { ActivatedRoute } from '@angular/router';
@@ -37,7 +37,8 @@ export class AddExpenseComponent implements OnInit {
   date:string = null;
   date2:Date = new Date();
   currencyId:number = null;
-
+  length = this.friendSelectedList.length;
+  buttons = Array(length).fill(false);
   cent2:number = null;
 
 
@@ -47,7 +48,13 @@ export class AddExpenseComponent implements OnInit {
 
   checkCreate:boolean = true;
 
+  buttonValue(){
+    this.buttons = Array(length).fill(false);
+
+  }
   ngOnInit(): void {
+
+    length = this.friendSelectedList.length;
 
     this.date = this.datePipe.transform(this.date2,'dd/MM/yyyy');
     this.userId = Number(localStorage.getItem('Id'));
@@ -78,21 +85,22 @@ export class AddExpenseComponent implements OnInit {
     // console.log(val);
     
   }
+  //we have not used this CreateGroup function in this component
   CreateGroup(formData:NgForm){
 
-    this.userId = Number(localStorage.getItem('Id'));
-    this.group.groupName = this.groupName;
-    this.group.groupTypeId = this.groupTypeId;
+    // this.userId = Number(localStorage.getItem('Id'));
+    // this.group.groupName = this.groupName;
+    // this.group.groupTypeId = this.groupTypeId;
   
     
-    this.groupService.create(this.userId,this.group).subscribe(response =>{
-      this.groupRegistered = response;
-      console.log(response);
+    // this.groupService.create(this.userId,this.group).subscribe(response =>{
+    //   this.groupRegistered = response;
+    //   console.log(response);
       
-      if(response!=null){
-        this.checkCreate = false;
-      }
-    });
+    //   if(response!=null){
+    //     this.checkCreate = false;
+    //   }
+    // });
    
    
   }
@@ -107,6 +115,7 @@ export class AddExpenseComponent implements OnInit {
       this.friendSelectedList = this.friendSelectedList.filter((test,index,array) => 
       index === array.findIndex((findTest) => findTest.name === test.name));
     });
+    length = this.friendSelectedList.length;
 
     this.ngOnInit();
    
@@ -124,6 +133,8 @@ export class AddExpenseComponent implements OnInit {
     });
 
     this.friendSelectedList = this.friendSelectedList.filter( item => item != this.deleteFriend);
+    length = this.friendSelectedList.length;
+
     this.ngOnInit();
     
   }
@@ -138,7 +149,12 @@ export class AddExpenseComponent implements OnInit {
     this.expense.date = this.date;
     this.expense.amount = amt;
 
-    console.log(this.expense);
+    // console.log(this.expense);
+
+    this.expenseService.create(this.groupId,this.expense).subscribe(response => {
+        // console.log(response);
+        
+    });
     
   }
 

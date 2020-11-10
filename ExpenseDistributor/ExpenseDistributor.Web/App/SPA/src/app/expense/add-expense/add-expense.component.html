@@ -66,8 +66,8 @@
                         <label class="col-sm-2 col-form-label mr-3"><b>SplitType</b></label>
                     </div>
                     <div class="col-9">
-                        <select id="splitType" class="form-control form-control-sm" [(ngModel)]="splitTypeId" name="splitTypeId">
-                           <option *ngFor='let s of splitTypeList' [value]="s.splitTypeId">
+                        <select id="splitType" class="form-control form-control-sm" [(ngModel)]="splitTypeId" name="splitTypeId" (click)="buttonValue()">
+                           <option *ngFor='let s of splitTypeList' [value]="s.splitTypeId" >
                                     
                                         {{s.splitTypeName}}
                                 </option>
@@ -79,11 +79,11 @@
 
 
 
-                <div class="form-group mt-5">
+                <!-- <div class="form-group mt-5">
 
                     <button type="submit" class="btn btn-secondary btn-block font-weight-bolder">Create Expense</button>
 
-                </div>
+                </div> -->
             </form>
 
 
@@ -144,10 +144,10 @@
                                     <input type="number" class="form-control" #amt name="amount{{j+1}}">
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)">Delete</button>
+                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)" [disabled]="buttons[j]" (click)="buttons[j]=true">Delete</button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)">Enter</button>
+                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)" [disabled]="buttons[j]" (click)="buttons[j]=true">Enter</button>
                                 </td>
                             </tr>
 
@@ -217,10 +217,10 @@
                                     <input type="number" class="form-control" value="{{(Total/friendSelectedList.length) | number : '1.1-1'}}" #amt name="amount{{j+1}}" disabled>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)">Delete</button>
+                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)" [disabled]="buttons[j]" (click)="buttons[j]=true">Delete</button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)">Enter</button>
+                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)" [disabled]="buttons[j]" (click)="buttons[j]=true">Enter</button>
                                 </td>
                             </tr>
 
@@ -294,10 +294,10 @@
                                 </td>
 
                                 <td>
-                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)">Delete</button>
+                                    <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.friendId)" [disabled]="buttons[j]" (click)="buttons[j]=true">Delete</button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)">Enter</button>
+                                    <button class="btn btn-info btn-sm" (click)="SendToTransact(g.friendId,amt.value)" [disabled]="buttons[j]" (click)="buttons[j]=true">Enter</button>
                                 </td>
                             </tr>
 
