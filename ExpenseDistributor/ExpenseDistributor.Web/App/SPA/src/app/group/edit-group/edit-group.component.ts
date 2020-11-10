@@ -102,8 +102,8 @@ export class EditGroupComponent implements OnInit {
     this.userId = Number(localStorage.getItem('Id'));
     this.groupedUserDelete.groupId = groupId;
     this.groupedUserDelete.groupsFriendId = groupsFriendId;
-    console.log(this.groupedUserDelete);
-    console.log(this.userId);
+    // console.log(this.groupedUserDelete);
+    // console.log(this.userId);
     
     this.groupService.deleteFriendInGroup(this.userId,this.groupedUserDelete).subscribe(response =>{
       // this.groupedUserListIncluded = response;

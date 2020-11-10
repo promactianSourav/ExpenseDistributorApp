@@ -11,6 +11,7 @@ namespace ExpenseDistributor.Repository.Settlements
         Settlement CreateSettlementForUser(long userId,Settlement settlementNew);
 
         IEnumerable<SettlementPerExpense> GetAllSettlementsForExpense(long groupId, long expenseId);
+        IEnumerable<SettlementPerExpense> GetAllSettlementsForExpenseWithExpensId(long expenseId);
         SettlementPerExpense CreateSettlementForExpense(long groupId, long expenseId, SettlementPerExpense settlementPerExpenseNew);
     }
 }

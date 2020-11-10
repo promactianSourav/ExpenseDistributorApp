@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     this.friendId = Number(localStorage.getItem('friendId'));
     this.friendService.getDashboardDetails(this.userId).subscribe(response =>{
       this.dashboardDetailsList = response;
-      console.log(this.dashboardDetailsList);
+      // console.log(this.dashboardDetailsList);
       
       response.forEach(element => {
         if(element.oweOrOwedId == 1){
@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
     this.friendService.getDashboardTotals(this.userId).subscribe(response => {
       this.dashboardTotal = response;
-      console.log(this.dashboardTotal);
+      // console.log(this.dashboardTotal);
       
       if(response.oweAmount>response.owedAmount){
         this.dashboardTotalNet = `-${response.oweAmount-response.owedAmount}`;

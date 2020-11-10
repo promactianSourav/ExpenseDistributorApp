@@ -1,1 +1,54 @@
-<p>list-friend works!</p>
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col" style="font-size: 48px;">
+            <b>Friends</b>
+        </div>
+    </div>
+    <!-- Group List -->
+    <div class="row">
+        <div class="col-8">
+            <div class="row mb-3 mr-5 justify-content-start" style="font-size: 32px;">
+                Friend List
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row" *ngFor='let f of friendDetailsList; let i = index'>
+                        <div class="col" [routerLink]="['/user','friends',f.friendId]">
+                            <!-- Each group -->
+                            <div class="row row-cols-2 border border-darken-4 rounded">
+                                <div class="col">
+                                    <b>
+                                        {{f.friendName}}
+                                    </b>
+
+                                </div>
+                                <div class="col"></div>
+                                <div class="col" *ngIf="f.amount > 0">Amount lent by you :</div>
+                                <div class="col" *ngIf="f.amount > 0">{{f.amount}}</div>
+
+                                <div class="col" *ngIf="f.amount < 0">Amount borrowed by you :</div>
+                                <div class="col" *ngIf="f.amount < 0">{{-1*f.amount}}</div>
+
+                                <div class="col" *ngIf="f.amount == 0">Settled up :</div>
+                                <div class="col" *ngIf="f.amount == 0">{{f.amount}}</div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-2"></div>
+        <div class="col-2">
+            <div class="row mb-5">
+                <div class="col">
+                    <button class="btn btn-primary" style="width: 250px;" [routerLink]="['/user','friends','add']">Create New Friend</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

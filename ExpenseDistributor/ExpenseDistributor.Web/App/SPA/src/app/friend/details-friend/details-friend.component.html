@@ -1,1 +1,73 @@
-<p>details-friend works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <h3 class="text-center">{{friendName}}</h3>
+        </div>
+        <div class="col-2 ">
+            <button class="btn btn-success float-right m-2" [routerLink]="['edit']">Edit Friend</button>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+<div class="container">
+    <div class="row row-cols-2" style="height: 700px; background-color:gainsboro;">
+
+        <div class="col-6">
+            <hr>
+            <h3 class="mb-5 text-center">Expenses in this group</h3>
+
+            <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let e of listExpense; let i = index'>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{e.expenseName}},{{e.date}}</td>
+                        <td>{{e.payerFriendName}} paid to {{e.debtFriendName}}</td>
+                        <td>{{e.amount}}</td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-6">
+            <hr>
+            <h3 class="mb-5 text-center">Transactions for expenses</h3>
+
+            <table class="table table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Paid for Expense</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let s of listSettlement; let j = index'>
+                        <th scope="row">{{j+1}}</th>
+                        <td>{{s.expenseName}},{{s.date}}</td>
+                        <td>{{s.payerFriendName}} paid {{s.amount}} to {{s.debtFriendName}}</td>
+                        <!-- <td>{{g.groupsFriendEmail}}</td> -->
+                        <!-- <td>
+                            <button class="btn btn-danger btn-sm" (click)="ExcludeFromGroup(g.groupId,g.groupsFriendId)">Delete</button>
+                        </td> -->
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>

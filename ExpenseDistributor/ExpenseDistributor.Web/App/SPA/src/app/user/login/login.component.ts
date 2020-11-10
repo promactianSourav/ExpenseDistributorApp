@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.loginAC.email = this.email;
     this.loginAC.password = this.password;
     this.userService.postLogin(this.loginAC).subscribe(response =>{
-        console.log(response);
+        // console.log(response);
 
         if(response.userId>0){
 

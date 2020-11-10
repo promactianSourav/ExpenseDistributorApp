@@ -47,6 +47,12 @@ namespace ExpenseDistributor.Repository.Settlements
             //throw new NotImplementedException();
         }
 
+        public IEnumerable<SettlementPerExpense> GetAllSettlementsForExpenseWithExpensId(long expenseId)
+        {
+            var settlementPerExpenseList = dataContext.SettlementPerExpenses.Where(s => s.ExpenseId == expenseId);
+            return settlementPerExpenseList;
+        }
+
         public IEnumerable<Settlement> GetAllSettlementsForUser(long friendId)
         {
             var settlementList = dataContext.Settlements.Where(s => s.PayerFriendId == friendId).ToList();

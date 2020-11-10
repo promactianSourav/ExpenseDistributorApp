@@ -1,3 +1,4 @@
+import { FriendService, FriendBoardDetailsAC } from './../../Services/ApiClientGenerated.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListFriendComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private friendService:FriendService) { }
+  userId:number = Number(localStorage.getItem('Id'));
+  friendDetailsList:FriendBoardDetailsAC[] = [];
   ngOnInit(): void {
+    this.userId = Number(localStorage.getItem('Id'));
+    this.friendService.getFriendBoardDetails(this.userId).subscribe(response =>{
+        this.friendDetailsList = response;
+    });
   }
 
 }

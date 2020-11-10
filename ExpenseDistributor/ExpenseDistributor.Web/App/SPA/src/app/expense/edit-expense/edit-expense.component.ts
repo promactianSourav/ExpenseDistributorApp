@@ -83,7 +83,7 @@ export class EditExpenseComponent implements OnInit {
     this.expense.splitTypeId = this.splitTypeId;
     this.expense.date = this.date;
     this.expense.groupId = this.groupId;
-    console.log(this.expense);
+    // console.log(this.expense);
     
 
     this.expenseService.update(this.groupId,this.expenseId,this.expense).subscribe(response =>{

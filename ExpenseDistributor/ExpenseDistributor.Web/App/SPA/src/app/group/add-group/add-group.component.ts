@@ -51,7 +51,7 @@ export class AddGroupComponent implements OnInit {
     
     this.groupService.create(this.userId,this.group).subscribe(response =>{
       this.groupRegistered = response;
-      console.log(response);
+      // console.log(response);
       
       if(response!=null){
         this.checkCreate = false;
@@ -70,7 +70,7 @@ export class AddGroupComponent implements OnInit {
     
     this.groupService.addFriendInGroup(this.userId,this.groupedUser).subscribe(response =>{
       this.groupedUserListIncluded = response;
-      console.log(this.groupedUserListIncluded);
+      // console.log(this.groupedUserListIncluded);
       
     });
   }
@@ -82,7 +82,7 @@ export class AddGroupComponent implements OnInit {
     this.groupedUserDelete.groupsFriendId = groupsFriendId;
     this.groupService.deleteFriendInGroup(this.userId,this.groupedUserDelete).subscribe(response =>{
       this.groupedUserListIncluded = response;
-      console.log(this.groupedUserListIncluded);
+      // console.log(this.groupedUserListIncluded);
     });
   }
 

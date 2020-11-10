@@ -812,6 +812,61 @@ export class FriendService {
         }
         return _observableOf<TotalExpensesPerRelationshipAC[]>(<any>null);
     }
+
+    getFriendBoardDetails(userId: number): Observable<FriendBoardDetailsAC[]> {
+        let url_ = this.baseUrl + "/api/user/{userId}/Friend/friendboarddetails";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFriendBoardDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFriendBoardDetails(<any>response_);
+                } catch (e) {
+                    return <Observable<FriendBoardDetailsAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FriendBoardDetailsAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFriendBoardDetails(response: HttpResponseBase): Observable<FriendBoardDetailsAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(FriendBoardDetailsAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FriendBoardDetailsAC[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -2586,6 +2641,126 @@ export interface ITotalExpensesPerRelationshipAC {
     amount: number;
 }
 
+export class FriendBoardDetailsAC implements IFriendBoardDetailsAC {
+    friendId!: number;
+    friendName?: string | undefined;
+    amount!: number;
+    listExpenses?: ExpenseExpandAC[] | undefined;
+    listSettlements?: SettlementPerExpenseExpandAC[] | undefined;
+
+    constructor(data?: IFriendBoardDetailsAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.friendId = _data["friendId"];
+            this.friendName = _data["friendName"];
+            this.amount = _data["amount"];
+            if (Array.isArray(_data["listExpenses"])) {
+                this.listExpenses = [] as any;
+                for (let item of _data["listExpenses"])
+                    this.listExpenses!.push(ExpenseExpandAC.fromJS(item));
+            }
+            if (Array.isArray(_data["listSettlements"])) {
+                this.listSettlements = [] as any;
+                for (let item of _data["listSettlements"])
+                    this.listSettlements!.push(SettlementPerExpenseExpandAC.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): FriendBoardDetailsAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new FriendBoardDetailsAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["friendId"] = this.friendId;
+        data["friendName"] = this.friendName;
+        data["amount"] = this.amount;
+        if (Array.isArray(this.listExpenses)) {
+            data["listExpenses"] = [];
+            for (let item of this.listExpenses)
+                data["listExpenses"].push(item.toJSON());
+        }
+        if (Array.isArray(this.listSettlements)) {
+            data["listSettlements"] = [];
+            for (let item of this.listSettlements)
+                data["listSettlements"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IFriendBoardDetailsAC {
+    friendId: number;
+    friendName?: string | undefined;
+    amount: number;
+    listExpenses?: ExpenseExpandAC[] | undefined;
+    listSettlements?: SettlementPerExpenseExpandAC[] | undefined;
+}
+
+export class SettlementPerExpenseExpandAC implements ISettlementPerExpenseExpandAC {
+    expenseName?: string | undefined;
+    payerFriendName?: string | undefined;
+    debtFriendName?: string | undefined;
+    amount!: number;
+    date?: string | undefined;
+
+    constructor(data?: ISettlementPerExpenseExpandAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.expenseName = _data["expenseName"];
+            this.payerFriendName = _data["payerFriendName"];
+            this.debtFriendName = _data["debtFriendName"];
+            this.amount = _data["amount"];
+            this.date = _data["date"];
+        }
+    }
+
+    static fromJS(data: any): SettlementPerExpenseExpandAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new SettlementPerExpenseExpandAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expenseName"] = this.expenseName;
+        data["payerFriendName"] = this.payerFriendName;
+        data["debtFriendName"] = this.debtFriendName;
+        data["amount"] = this.amount;
+        data["date"] = this.date;
+        return data; 
+    }
+}
+
+export interface ISettlementPerExpenseExpandAC {
+    expenseName?: string | undefined;
+    payerFriendName?: string | undefined;
+    debtFriendName?: string | undefined;
+    amount: number;
+    date?: string | undefined;
+}
+
 export class GroupListAC implements IGroupListAC {
     groupId!: number;
     groupName?: string | undefined;
@@ -3004,58 +3179,6 @@ export interface ISettlementPerExpenseAC {
     amount: number;
     date?: string | undefined;
     currencyId: number;
-}
-
-export class SettlementPerExpenseExpandAC implements ISettlementPerExpenseExpandAC {
-    expenseName?: string | undefined;
-    payerFriendName?: string | undefined;
-    debtFriendName?: string | undefined;
-    amount!: number;
-    date?: string | undefined;
-
-    constructor(data?: ISettlementPerExpenseExpandAC) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.expenseName = _data["expenseName"];
-            this.payerFriendName = _data["payerFriendName"];
-            this.debtFriendName = _data["debtFriendName"];
-            this.amount = _data["amount"];
-            this.date = _data["date"];
-        }
-    }
-
-    static fromJS(data: any): SettlementPerExpenseExpandAC {
-        data = typeof data === 'object' ? data : {};
-        let result = new SettlementPerExpenseExpandAC();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["expenseName"] = this.expenseName;
-        data["payerFriendName"] = this.payerFriendName;
-        data["debtFriendName"] = this.debtFriendName;
-        data["amount"] = this.amount;
-        data["date"] = this.date;
-        return data; 
-    }
-}
-
-export interface ISettlementPerExpenseExpandAC {
-    expenseName?: string | undefined;
-    payerFriendName?: string | undefined;
-    debtFriendName?: string | undefined;
-    amount: number;
-    date?: string | undefined;
 }
 
 export class UserAC implements IUserAC {
